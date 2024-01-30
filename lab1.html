@@ -29,13 +29,21 @@
             font-weight: bold;
         }
 
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column; /* Ensure that the sections are stacked vertically */
+        }
+
         section {
+            width: 80%;
             max-width: 800px;
-            margin: 20px auto;
+            margin: 10px auto;
             padding: 30px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        
 
         h1 {
             color: #007BFF;
@@ -80,7 +88,7 @@
         }
 
         .column {
-            width: calc(50% - 5px);
+            width: calc(100% - 5px);
         }
         
         nav {
@@ -102,6 +110,65 @@
             color: black;
         }
 
+        .sidebar {
+            margin: 10px 0;
+            height: fit-content;
+            width: 20%;
+            max-width: 200px;
+            position: relative;
+            padding-top: 20px;
+            margin-right: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .sidebar a {
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .sidebar a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar2 {
+            height: fit-content;
+            width: 20%;
+            max-width: 200px;
+            position: relative;
+            padding-top: 20px;
+            margin-top: 30px;
+            margin-left: 10px;
+            margin-right: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: black;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .sidebar2 a {
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            display: block;
+            color: black;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .sidebar2 a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
     </style>
 </head>
 <body>
@@ -119,22 +186,49 @@
         <a href="#discussion">Discussion</a>
     </nav>
 
-    <section id="prelab">
-        <h2>PRELAB</h2>
-    </section>
 
-    <section id="task">
-        <h2>LAB TASKS</h2>
+    <div style="display: flex;">
+    <!-- Sidebar for Lab -->
+        <div class="sidebar">
+
+                <p><a href="lab1.html">Lab 1</a></p>
+            
+            
+        </div>
     
-       
-    </section>
+        <div class="main-content">
 
-    <section id="discussion">
-        <h2>DISCUSSION</h2>
-        <p>Email: wf223@cornell.edu</p>
-        <p>LinkedIn: [Your LinkedIn Profile]</p>
-        <p>GitHub: [Your GitHub Profile]</p>
-    </section>
+            <section id="prelab">
+                <h2>PRELAB</h2>
+            </section>
+
+            <section id="task">
+                <h2>LAB TASKS</h2>
+            
+            
+            </section>
+
+            <section id="discussion">
+                <h2>DISCUSSION</h2>
+                <p>Email: wf223@cornell.edu</p>
+                <p>LinkedIn: [Your LinkedIn Profile]</p>
+                <p>GitHub: [Your GitHub Profile]</p>
+            </section>
+        </div>
+
+        <!-- Sidebar for page -->
+        <div class="sidebar2">
+
+            <p><a href="#prelab">Prelab</a></p>
+            <p><a href="#task">Lab Tasks</a></p>
+            <p><a href="#discussion">Discussion</a></p>
+        
+        </div>
+
+
+    </div>
+
+  
 
     <footer>
         <div class="column">
