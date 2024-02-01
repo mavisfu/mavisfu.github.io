@@ -110,6 +110,14 @@
             color: black;
         }
 
+        nav.fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
         .sidebar {
             margin: 10px 0;
             height: fit-content;
@@ -121,18 +129,16 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 23px;
             text-align: center;
         }
 
         .sidebar a {
             padding: 8px 16px;
             text-decoration: none;
-            font-size: 18px;
             display: block;
             color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
         }
 
         .sidebar a:hover {
@@ -151,18 +157,40 @@
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             color: black;
-            font-weight: bold;
-            font-size: 20px;
+            line-height: 1.5;
+        }
+
+        .sidebar2.fixed {
+            position: fixed;
+            right: 20px; /* Adjust the distance from the right edge */
+            top: 30px; /* Adjust the distance from the top */
         }
 
         .sidebar2 a {
-            padding: 8px 16px;
             text-decoration: none;
-            font-size: 20px;
+            display: block;
+            color: black;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .sidebar2-heading {
+            padding-left: 16px;
+            text-decoration: none;
             display: block;
             color: black;
             font-weight: bold;
             font-size: 20px;
+            line-height: 1;
+        }
+
+        .sidebar2-subheading {
+            position:relative;
+            font-size: 18px; 
+            font-weight: normal; 
+            padding-left: 25px; 
+            padding-top: 0px;
+            line-height: 0.5;
         }
 
         .sidebar2 a:hover {
@@ -213,6 +241,9 @@
 
             <section id="prelab">
                 <h2>PRELAB</h2>
+                <h3>Setup</h3>
+
+                <h3>Codebase</h3>
             </section>
 
             <section id="task">
@@ -225,13 +256,22 @@
                 <h2>DISCUSSION</h2>
             </section>
         </div>
+        
 
         
         <div class="sidebar2">
 
-            <p><a href="#prelab">Prelab</a></p>
-            <p><a href="#task">Lab Tasks</a></p>
-            <p><a href="#discussion">Discussion</a></p>
+            <p class="sidebar2-heading"><a href="#prelab">Prelab</a></p>
+            <div class="sidebar2-subheading">
+                <p>Setup</p>
+                <p>Codebabse</p>
+            </div>
+            <p class="sidebar2-heading"><a href="#task">Lab Tasks</a></p>
+            <div class="sidebar2-subheading">
+                <p>Task 1</p>
+                <p>Task 2</p>
+            </div>
+            <p class="sidebar2-heading"><a href="#discussion">Discussion</a></p>
         
         </div>
 
@@ -246,6 +286,20 @@
             <p>E-mail: wf223@cornell.edu</p>
         </div>
     </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var nav = document.querySelector('nav');
+            var rect = nav.getBoundingClientRect();
+
+            if (rect.top <= 0) {
+                nav.classList.add('fixed');
+            } else {
+                nav.classList.remove('fixed');
+            }
+        });
+    </script>
+
 
 </body>
 </html>
