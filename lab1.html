@@ -6,7 +6,7 @@
     <title>Wenyi Fu ECE 5160 Fast Robots</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Georgia', serif;
             background-color: #f4f4f4;
             color: #333;
             margin: 0;
@@ -40,6 +40,7 @@
             max-width: 800px;
             margin: 10px auto;
             padding: 30px;
+            padding-top: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -53,13 +54,18 @@
         h2 {
             color: #007BFF;
             font-weight: bold;
-            font-size: 25px;
+            font-size: 35px;
+        }
+
+        .h2-text {
+            font-size: 18px;
+            color: black;
         }
 
         h3 {
             color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 25px;
         }
 
         h3 a {
@@ -73,6 +79,18 @@
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
         }
 
+        h4 {
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 0.1;
+        }
+
+        .h4-text {
+            padding-left: 20px;
+            font-size: 18px;
+        }
+
         .lab {
             margin-bottom: 20px;
         }
@@ -84,7 +102,11 @@
             background-color: #007BFF;
             color: #fff;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+        }
+
+        footer p {
+            margin: 10px 40px; /* Add margin to the paragraphs for vertical separation */
         }
 
         .column {
@@ -123,6 +145,7 @@
             height: fit-content;
             width: 20%;
             max-width: 200px;
+            min-width: 150px;
             position: relative;
             margin-right: 20px;
             background-color: #fff;
@@ -131,6 +154,15 @@
             font-weight: bold;
             font-size: 23px;
             text-align: center;
+        }
+
+        .sidebar img {
+            width: 80%;
+            max-width: 150px; /* Set a maximum width if needed */
+            max-height: 150px;
+            border-radius: 80%;
+            object-fit: cover;
+            position:relative;
         }
 
         .sidebar a {
@@ -152,7 +184,7 @@
             min-width: 150px;
             position: relative;
             margin-top: 30px;
-            margin-left: 10px;
+            margin-left: 20px;
             margin-right: 60px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -210,6 +242,7 @@
 
     <nav>
         <a href="index.html">Home</a>
+        <a href="#intro">Introduction</a>
         <a href="#prelab">Prelab</a>
         <a href="#task">Lab Tasks</a>
         <a href="#discussion">Discussion</a>
@@ -222,7 +255,7 @@
     
         <div class="sidebar">
             <div class="about-content" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
-                <img src="pics/wf223.jpg" alt="Wenyi Fu" style="width: 150px; height: 150px; border-radius: 80%; object-fit: cover;">
+                <img src="pics/wf223.jpg" alt="Wenyi Fu">
             </div>
             <p><a href="lab1.html">Lab 1</a></p>
             <p><a href="lab3.html">Lab 3</a></p>
@@ -239,19 +272,47 @@
     
         <div class="main-content">
 
+            <!-- INTRO -->
+            <section id="intro">
+                <h2>INTRODUCTION</h2>
+                <div class="h2-text">
+                    <p>This lab section is to setup the Artemis.</p>
+                </div>
+            
+            </section>
+
+            <!-- PRELAB -->
             <section id="prelab">
                 <h2>PRELAB</h2>
                 <h3>Setup</h3>
+                <h4>Equipment:</h4>
+                    <div class="h4-text">
+                        <li>1 x SparkFun RedBoard Artemis Nano</li>
+                        <li>1 x USB C-to-C or A-to-C cable</li>
+                    </div>
 
                 <h3>Codebase</h3>
             </section>
 
+            <!-- LAB TASK -->
             <section id="task">
                 <h2>LAB TASKS</h2>
+                <h3>A: ECHO Command</h3>
+
+                <h3>B: GET_TIME_MILLIS Command</h3>
+
+                <h3>C: Notification Handler</h3>
+
+                <h3>D: Time Data with Notification Handler</h3>
+
+                <h3>E: SEND_TIME_DATA Command</h3>
+
+                <h3>F: GET_TEMP_READINGS Command</h3>
             
             
             </section>
 
+            <!-- DISCUSSION -->
             <section id="discussion">
                 <h2>DISCUSSION</h2>
             </section>
@@ -281,10 +342,9 @@
   
 
     <footer>
-        <div style="display: flex; flex-direction: row;">
-            <p>&copy; 2024 Wenyi Fu ECE 5160: Fast Robots</p>
-            <p>E-mail: wf223@cornell.edu</p>
-        </div>
+        <p>&copy; 2024 Wenyi Fu ECE 5160: Fast Robots</p>
+        <p>E-mail: wf223@cornell.edu</p>
+        
     </footer>
 
     <script>
@@ -297,6 +357,9 @@
             } else {
                 nav.classList.remove('fixed');
             }
+            if (window.scrollY <= 200) {
+            nav.classList.remove('fixed');
+        }
         });
     </script>
 
