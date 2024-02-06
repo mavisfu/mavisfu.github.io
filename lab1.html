@@ -36,8 +36,9 @@
         }
 
         section {
-            width: 80%;
+            width: 90%;
             max-width: 800px;
+            min-width: 500px;
             margin: 10px auto;
             padding: 30px;
             padding-top: 20px;
@@ -65,6 +66,8 @@
         .h2-text {
             font-size: 18px;
             color: black;
+            line-height: 1.5;
+            text-align: justify;
         }
 
         h3 {
@@ -92,8 +95,9 @@
         }
 
         .h4-text {
-            padding-left: 20px;
             font-size: 18px;
+            line-height: 1.5;
+            text-align: justify;
         }
 
         h5 {
@@ -101,6 +105,13 @@
             font-size: 18px;
             font-weight: bold;
             overflow-wrap: break-word;
+            margin-bottom: 10px;
+        }
+
+        .h5-text {
+            font-size: 18px;
+            line-height: 1.5;
+            text-align: justify;
         }
 
         .lab {
@@ -241,6 +252,39 @@
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
         }
 
+        .code-intext {
+            font-family: 'Lucida Console', monospace;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .code-block {
+            font-family:'Courier New', Courier, monospace;
+            font-size: 18px;
+            padding-left: 0px;
+        }
+
+        code {
+            font-family:'Courier New', Courier, monospace;
+            font-size: 18px;
+        }
+
+        .img-container {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .img-container .img-intext {
+            width: 100%;
+            height: auto;
+            display: inline-block;
+        }
+
+        .gist .blob-wrapper.data.type-text pre {
+            font-size: 18px !important; /* Ensure that this style takes precedence */
+        }
     </style>
 </head>
 <body>
@@ -298,24 +342,37 @@
                 <h2>PRELAB</h2>
                 <h3>Setup</h3>
                 <h4>Equipment:</h4>
-                    <div class="h4-text">
+                    <ul class="h4-text">
                         <li>1 x SparkFun RedBoard Artemis Nano</li>
                         <li>1 x USB C-to-C or A-to-C cable</li>
-                    </div>
+                    </ul>
                 
-                <h4>Instruction:</h4>
-                <a href="https://learn.sparkfun.com/tutorials/artemis-development-with-arduino?_ga=2.30055167.1151850962.1594648676-1889762036.1574524297&_gac=1.19903818.1593457111.Cj0KCQjwoub3BRC6ARIsABGhnyahkG7hU2v-0bSiAeprvZ7c9v0XEKYdVHIIi_-J-m5YLdDBMc2P_goaAtA4EALw_wcB">
-                    <p>Sparkfun guide</p>
-                </a>
+                <h4>Board Setup:</h4>
+                <div class="h4-text">
+                    <p>After the the installation of <a href="https://www.arduino.cc/en/software">Arduino IDE</a>, the Artemis board can be setup through the <a href="https://learn.sparkfun.com/tutorials/artemis-development-with-arduino?_ga=2.30055167.1151850962.1594648676-1889762036.1574524297&_gac=1.19903818.1593457111.Cj0KCQjwoub3BRC6ARIsABGhnyahkG7hU2v-0bSiAeprvZ7c9v0XEKYdVHIIi_-J-m5YLdDBMc2P_goaAtA4EALw_wcB"> Sparkfun guide</a>. Furthmore, there are several example codes that can be used to get familiar with the functions.</p>
+                </div>
 
-                <div style="padding-left: 20px; margin-bottom: 25px;">
+                <div style="padding-left: 20px; margin-bottom: 25px;" class="h5-text">
                     <h5>a. Example1: Blink It Up</h5>
-
+                    <p>In the basics section, there is a <span class="code-intext">'Blinky'</span> example, with which the demonstration is shown below.
                     <h5>b. Example2: Serial Read</h5>
 
                     <h5>c. Example3: Temperature Sensor</h5>
 
-                    <h5>d. Example: PDM</h5>
+                    <h5>d. Example4: PDM</h5>
+                    <p>In this example, the voice can be capture by the PDM with certain frequency displayed in the serial monitor. for the additional task, the following code can be added: </p>
+                    <script src="https://gist.github.com/mavisfu/8cba4275ed6f81288a27685765f9dceb.js"></script>
+                </div>
+
+                <h4>Bluetooth Setup:</h4>
+                <div class="h4-text">
+                    <p>After the installation of <b>ArduinoBLE</b> library, the Bluetooth UUID can be generated.</p>
+                    <script src="https://gist.github.com/mavisfu/9b1c253783cea37fc66755b2a608b460.js"></script>
+                    <P> After generating the UUID, we can also get the Artemis MAC address by opening the serial monitor on Arduino IDE.</P>
+                    <div class="img-container">
+                        <img class="img-intext" src="pics/MAC_addr.png" alt="mac_addr">
+                    </div>
+                    <p>Therefore, the <span class="code-intext">BLE_UUID_TEST_SERVICE</span> in <span class="code-intext">ble_arduino.ino</span> and <span class="code-intext">ble_service</span> in <span class="code-intext">connections.yaml</span> can be changed with the UUID generated.</p>
 
                 </div>
 
@@ -325,17 +382,42 @@
             <!-- LAB TASK -->
             <section id="task">
                 <h2>LAB TASKS</h2>
-                <h3>A: ECHO Command</h3>
+                <h3>A. ECHO Command</h3>
+                <script src="https://gist.github.com/mavisfu/00082ecf4dac03a34c056e4d0e37ce1e.js"></script>
+                <div class="img-container">
+                    <img class="img-intext" src="pics/echo.png" alt="echo">
+                </div>
+                <h3>B. GET_TIME_MILLIS Command</h3>
+                <script src="https://gist.github.com/mavisfu/22e6a133c8fb04400df971aa61866538.js"></script>
+                <div class="img-container">
+                    <img class="img-intext" src="pics/time.png" alt="time">
+                </div>
 
-                <h3>B: GET_TIME_MILLIS Command</h3>
+                <h3>C. Notification Handler</h3>
+                <script src="https://gist.github.com/mavisfu/dda95829238584004d4ebba1eb5e710f.js"></script>
 
-                <h3>C: Notification Handler</h3>
+                <h3>D. Time Data with Notification Handler</h3>
+                <script src="https://gist.github.com/mavisfu/bfa1bcd8475041f9950affd686780e5f.js"></script>
+                <div class="img-container">
+                    <img class="img-intext" src="pics/time_5s.png" alt="time_5s">
+                </div>
+                
 
-                <h3>D: Time Data with Notification Handler</h3>
+                <h3>E. SEND_TIME_DATA Command</h3>
+                <script src="https://gist.github.com/mavisfu/b8f514bc08720797312f2cba06949d8d.js"></script>
+                <div class="img-container">
+                    <img class="img-intext" src="pics/send_time_data.png" alt="time_stamp">
+                </div>
 
-                <h3>E: SEND_TIME_DATA Command</h3>
+                <h3>F. GET_TEMP_READINGS Command</h3>
+                <script src="https://gist.github.com/mavisfu/2554b1f78df3ba41d0c8bf4f91829078.js"></script>
+                <div class="img-container">
+                    <img class="img-intext" src="pics/temp.png" alt="temp">
+                </div>
 
-                <h3>F: GET_TEMP_READINGS Command</h3>
+                <h3>G. Data Rate</h3>
+
+                <h3>H. Reliability</h3>
             
             
             </section>
