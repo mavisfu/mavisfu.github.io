@@ -51,6 +51,32 @@
             color: #3f99f9;
         }
         
+        section p {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 0px;
+            margin-bottom: 10px;
+        }
+
+        section ul {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 0px;
+            margin-bottom: 30px;
+        }
+
+        section ul li {
+            margin-top: 0px;
+        }
+
+        section h3,h4 {
+            margin-top: 30px; /* Adjusted margin-top value */
+            margin-bottom: 10px; /* Adjusted margin-bottom value */
+        }
 
         h1 {
             color: #007BFF;
@@ -91,12 +117,10 @@
             color: black;
             font-size: 20px;
             font-weight: bold;
-            line-height: 0.1;
         }
 
         .h4-text {
             font-size: 18px;
-            line-height: 1.5;
             text-align: justify;
         }
 
@@ -110,7 +134,6 @@
 
         .h5-text {
             font-size: 18px;
-            line-height: 1.5;
             text-align: justify;
         }
 
@@ -269,22 +292,29 @@
             font-size: 18px;
         }
 
-        .img-container {
+        section .img-container {
             width: 100%;
-            max-width: 700px;
-            margin: 0 auto;
+            margin-top: 5px;
+            display: block;
             text-align: center;
         }
 
-        .img-container .img-intext {
+        section .img-container .img-intext {
             width: 100%;
             height: auto;
             display: inline-block;
+            text-align: center;
+            max-width: 700px;
         }
 
         .gist .blob-wrapper.data.type-text pre {
             font-size: 18px !important; /* Ensure that this style takes precedence */
         }
+
+        .video-container {
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -310,7 +340,7 @@
     <div style="display: flex;">
     
         <div class="sidebar">
-            <div class="about-content" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+            <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
                 <img src="pics/wf223.jpg" alt="Wenyi Fu">
             </div>
             <p><a href="lab1.html">Lab 1</a></p>
@@ -331,10 +361,7 @@
             <!-- INTRO -->
             <section id="intro">
                 <h2>INTRODUCTION</h2>
-                <div class="h2-text">
-                    <p>This lab section is to setup the Artemis.</p>
-                </div>
-            
+                <p>This lab section is to setup the Artemis board and make the Bluetooth configuration. Firstly, the familiarity of Arduino IDE and demonstration of the example codes helps us learn the basic functions. Moreover, Bluetooth Low Energy (BLE) connection will be setup in lab 2 and it is beneficial to further control of the microcontrollor.</p>
             </section>
 
             <!-- PRELAB -->
@@ -342,61 +369,74 @@
                 <h2>PRELAB</h2>
                 <h3>Setup</h3>
                 <h4>Equipment:</h4>
-                    <ul class="h4-text">
+                    <ul>
                         <li>1 x SparkFun RedBoard Artemis Nano</li>
                         <li>1 x USB C-to-C or A-to-C cable</li>
                     </ul>
                 
                 <h4>Board Setup:</h4>
-                <div class="h4-text">
-                    <p>After the the installation of <a href="https://www.arduino.cc/en/software">Arduino IDE</a>, the Artemis board can be setup through the <a href="https://learn.sparkfun.com/tutorials/artemis-development-with-arduino?_ga=2.30055167.1151850962.1594648676-1889762036.1574524297&_gac=1.19903818.1593457111.Cj0KCQjwoub3BRC6ARIsABGhnyahkG7hU2v-0bSiAeprvZ7c9v0XEKYdVHIIi_-J-m5YLdDBMc2P_goaAtA4EALw_wcB"> Sparkfun guide</a>. Furthmore, there are several example codes that can be used to get familiar with the functions.</p>
-                </div>
+                <p>After the the installation of <a href="https://www.arduino.cc/en/software">Arduino IDE</a>, the Artemis board can be setup through the <a href="https://learn.sparkfun.com/tutorials/artemis-development-with-arduino?_ga=2.30055167.1151850962.1594648676-1889762036.1574524297&_gac=1.19903818.1593457111.Cj0KCQjwoub3BRC6ARIsABGhnyahkG7hU2v-0bSiAeprvZ7c9v0XEKYdVHIIi_-J-m5YLdDBMc2P_goaAtA4EALw_wcB"> Sparkfun guide</a>. Furthmore, there are several example codes that can be used to get familiar with the functions.</p>
 
-                <div style="padding-left: 20px; margin-bottom: 25px;" class="h5-text">
+                <div style="padding-left: 20px; margin-bottom: 25px;">
                     <h5>a. Example1: Blink It Up</h5>
-                    <p>In the basics section, there is a <span class="code-intext">'Blinky'</span> example, with which the demonstration is shown below.
+                    <p>In the basics section, there is a <span class="code-intext">'Blinky'</span> example, with which the demonstration is shown below.</p>
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/PYcrGrOURr8" frameborder="0" allowfullscreen></iframe>
+                    </div>
                     <h5>b. Example2: Serial Read</h5>
+                    <p>In the serial read algorithm, any characters can be typed into the serial window and the MCU will return exactly the same string. For instance, the word <span class="code-intext">'hello!'</span>was input in this case, so the serial port got the same word.</p>
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/P6-CRoutdAU" frameborder="0" allowfullscreen></iframe>
+                    </div>
 
                     <h5>c. Example3: Temperature Sensor</h5>
+                    <p>The third example is the temperature readings, where the code <span class="code-intext">'analogRead'</span> can be uploaded into the Artemis. </p>
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/awzf5s3-zik" frameborder="0" allowfullscreen></iframe>
+                    </div>
 
                     <h5>d. Example4: PDM</h5>
-                    <p>In this example, the voice can be capture by the PDM with certain frequency displayed in the serial monitor. for the additional task, the following code can be added: </p>
+                    <p>In this example, the voice can be capture by the PDM with certain frequency displayed in the serial monitor. For the additional task, the following code can be added: </p>
                     <script src="https://gist.github.com/mavisfu/8cba4275ed6f81288a27685765f9dceb.js"></script>
                 </div>
 
                 <h4>Bluetooth Setup:</h4>
-                <div class="h4-text">
-                    <p>After the installation of <b>ArduinoBLE</b> library, the Bluetooth UUID can be generated.</p>
-                    <script src="https://gist.github.com/mavisfu/9b1c253783cea37fc66755b2a608b460.js"></script>
-                    <P> After generating the UUID, we can also get the Artemis MAC address by opening the serial monitor on Arduino IDE.</P>
-                    <div class="img-container">
-                        <img class="img-intext" src="pics/MAC_addr.png" alt="mac_addr">
-                    </div>
-                    <p>Therefore, the <span class="code-intext">BLE_UUID_TEST_SERVICE</span> in <span class="code-intext">ble_arduino.ino</span> and <span class="code-intext">ble_service</span> in <span class="code-intext">connections.yaml</span> can be changed with the UUID generated.</p>
-
+                <p>After the installation of <b>ArduinoBLE</b> library, the Bluetooth UUID can be generated.</p>
+                <script src="https://gist.github.com/mavisfu/9b1c253783cea37fc66755b2a608b460.js"></script>
+                <p> Furthermore, the Artemis MAC address is shown in the serial monitor port on Arduino IDE.</p>
+                <div class="img-container">
+                    <img class="img-intext" src="pics/MAC_addr.png" alt="MAC">
                 </div>
+                <p>Therefore, the <span class="code-intext">BLE_UUID_TEST_SERVICE</span> in <span class="code-intext">ble_arduino.ino</span> and <span class="code-intext">ble_service</span> in <span class="code-intext">connections.yaml</span> can be changed with the UUID generated.</p>
 
                 <h3>Codebase</h3>
+                <p>The codebase downloaded contains Python and Arduino files, which set up the base of BLE connection. Especially, in <span class="code-intext">demo.ipynb</span> Jupyter notebook,it includes the instruction of how to connect Artemis with the laptops through BLE and the fundamentals of notification handler.</p>
             </section>
 
             <!-- LAB TASK -->
             <section id="task">
                 <h2>LAB TASKS</h2>
                 <h3>A. ECHO Command</h3>
+                <p>Task 1 is to make the robot send the same message which comes from the laptop. Therefore, the initial step is establishing the <span class="code-intext">ECHO</span> case in the MCU.</p>
                 <script src="https://gist.github.com/mavisfu/00082ecf4dac03a34c056e4d0e37ce1e.js"></script>
+                <p>And then, the following code block can be run through Jupyter notebook, showing the reply message <span class="code-intext">'Robot says -> HiHello'</span>.</p>
                 <div class="img-container">
                     <img class="img-intext" src="pics/echo.png" alt="echo">
                 </div>
                 <h3>B. GET_TIME_MILLIS Command</h3>
+                <p>To get the time message, the function <span class="code-intext">millis()</span> can be applied to extract the current time. Consequently, the <span class="code-intext">GET_TIME_MILLIS</span> case on the Artemis side is shown below.</p>
                 <script src="https://gist.github.com/mavisfu/22e6a133c8fb04400df971aa61866538.js"></script>
+                <p>With the case established properly, the time can be recorded as <span class="code-intext">'T: 8322'</span>
                 <div class="img-container">
                     <img class="img-intext" src="pics/time.png" alt="time">
                 </div>
 
                 <h3>C. Notification Handler</h3>
+                <p>The third task is to create a notification handler by implementing <span class="code-intext">ble.start_notify()</span>, which can continuously receive time data. </p>
                 <script src="https://gist.github.com/mavisfu/dda95829238584004d4ebba1eb5e710f.js"></script>
 
                 <h3>D. Time Data with Notification Handler</h3>
+                <p>With the notification handler established, the laptop can record the data in a array by <span class="code-intext"></span></p>
                 <script src="https://gist.github.com/mavisfu/bfa1bcd8475041f9950affd686780e5f.js"></script>
                 <div class="img-container">
                     <img class="img-intext" src="pics/time_5s.png" alt="time_5s">
@@ -416,8 +456,17 @@
                 </div>
 
                 <h3>G. Data Rate</h3>
+                <script src="https://gist.github.com/mavisfu/e13cff01436bf7cea9e54c318fd4d5a3.js"></script>
+                <p>The command <span class="code-intext">ble.send_command(CMD.SEND_DATA, byte_num)</span> can be implemented to get different length of reply, where <span class="code-intext">byte_num</span> can be determined as <span class="code-intext">5</span> or <span class="code-intext">120</span>.</p>
+                <script src="https://gist.github.com/mavisfu/22dc7cd002e7e6316f21627c34234c95.js"></script>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/data_rate.png" alt="data_rate">
+                </div>
 
                 <h3>H. Reliability</h3>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Ruf0RP_DZU0" frameborder="0" allowfullscreen></iframe>
+                </div>
             
             
             </section>
