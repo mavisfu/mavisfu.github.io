@@ -275,6 +275,19 @@
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
         }
 
+        .sidebar2 div p a{
+            text-decoration: none;
+            display: block;
+            color: black;
+            line-height: 0.5;
+            font-weight: normal;
+        }
+
+        .sidebar2 div p a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+
         .code-intext {
             font-family: 'Lucida Console', monospace;
             font-size: 16px;
@@ -367,14 +380,14 @@
             <!-- PRELAB -->
             <section id="prelab">
                 <h2>PRELAB</h2>
-                <h3>Setup</h3>
-                <h4>Equipment:</h4>
+                <h3 id="setup">Setup</h3>
+                <h4 id="equipment">Equipment:</h4>
                     <ul>
                         <li>1 x SparkFun RedBoard Artemis Nano</li>
                         <li>1 x USB C-to-C or A-to-C cable</li>
                     </ul>
                 
-                <h4>Board Setup:</h4>
+                <h4 id="board">Board Setup:</h4>
                 <p>After the the installation of <a href="https://www.arduino.cc/en/software">Arduino IDE</a>, the Artemis board can be setup through the <a href="https://learn.sparkfun.com/tutorials/artemis-development-with-arduino?_ga=2.30055167.1151850962.1594648676-1889762036.1574524297&_gac=1.19903818.1593457111.Cj0KCQjwoub3BRC6ARIsABGhnyahkG7hU2v-0bSiAeprvZ7c9v0XEKYdVHIIi_-J-m5YLdDBMc2P_goaAtA4EALw_wcB"> Sparkfun guide</a>. Furthmore, there are several example codes that can be used to get familiar with the functions.</p>
 
                 <div style="padding-left: 20px; margin-bottom: 25px;">
@@ -398,72 +411,93 @@
                     <h5>d. Example4: PDM</h5>
                     <p>In this example, the voice can be capture by the PDM with certain frequency displayed in the serial monitor. For the additional task, the following code can be added: </p>
                     <script src="https://gist.github.com/mavisfu/8cba4275ed6f81288a27685765f9dceb.js"></script>
+                    <p style="margin-top: 40px;">With the modified code, the result is shown in the video. When the musical A note is playing, the LED will be turned on.</p>
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/SMTBJhgFm1I" frameborder="0" allowfullscreen></iframe>
+                    </div>
                 </div>
 
                 <h4>Bluetooth Setup:</h4>
                 <p>After the installation of <b>ArduinoBLE</b> library, the Bluetooth UUID can be generated.</p>
                 <script src="https://gist.github.com/mavisfu/9b1c253783cea37fc66755b2a608b460.js"></script>
-                <p> Furthermore, the Artemis MAC address is shown in the serial monitor port on Arduino IDE.</p>
+                <p style="margin-top: 40px;"> Furthermore, the Artemis MAC address is shown in the serial monitor port on Arduino IDE.</p>
                 <div class="img-container">
                     <img class="img-intext" src="pics/MAC_addr.png" alt="MAC">
                 </div>
                 <p>Therefore, the <span class="code-intext">BLE_UUID_TEST_SERVICE</span> in <span class="code-intext">ble_arduino.ino</span> and <span class="code-intext">ble_service</span> in <span class="code-intext">connections.yaml</span> can be changed with the UUID generated.</p>
 
-                <h3>Codebase</h3>
+                <h3 id="codebase">Codebase</h3>
                 <p>The codebase downloaded contains Python and Arduino files, which set up the base of BLE connection. Especially, in <span class="code-intext">demo.ipynb</span> Jupyter notebook,it includes the instruction of how to connect Artemis with the laptops through BLE and the fundamentals of notification handler.</p>
             </section>
 
             <!-- LAB TASK -->
             <section id="task">
                 <h2>LAB TASKS</h2>
-                <h3>A. ECHO Command</h3>
+                <h3 id="echo">A. ECHO Command</h3>
                 <p>Task 1 is to make the robot send the same message which comes from the laptop. Therefore, the initial step is establishing the <span class="code-intext">ECHO</span> case in the MCU.</p>
                 <script src="https://gist.github.com/mavisfu/00082ecf4dac03a34c056e4d0e37ce1e.js"></script>
-                <p>And then, the following code block can be run through Jupyter notebook, showing the reply message <span class="code-intext">'Robot says -> HiHello'</span>.</p>
+                <p style="margin-top: 40px;">And then, the following code block can be run through Jupyter notebook, showing the reply message <span class="code-intext">'Robot says -> HiHello'</span>.</p>
                 <div class="img-container">
                     <img class="img-intext" src="pics/echo.png" alt="echo">
                 </div>
-                <h3>B. GET_TIME_MILLIS Command</h3>
+                <h3 id="time">B. GET_TIME_MILLIS Command</h3>
                 <p>To get the time message, the function <span class="code-intext">millis()</span> can be applied to extract the current time. Consequently, the <span class="code-intext">GET_TIME_MILLIS</span> case on the Artemis side is shown below.</p>
                 <script src="https://gist.github.com/mavisfu/22e6a133c8fb04400df971aa61866538.js"></script>
-                <p>With the case established properly, the time can be recorded as <span class="code-intext">'T: 8322'</span>
+                <p style="margin-top: 40px;">With the case established properly, the time can be recorded as <span class="code-intext">'T: 8322'</span>
                 <div class="img-container">
                     <img class="img-intext" src="pics/time.png" alt="time">
                 </div>
 
-                <h3>C. Notification Handler</h3>
+                <h3 id="handler">C. Notification Handler</h3>
                 <p>The third task is to create a notification handler by implementing <span class="code-intext">ble.start_notify()</span>, which can continuously receive time data. </p>
                 <script src="https://gist.github.com/mavisfu/dda95829238584004d4ebba1eb5e710f.js"></script>
 
-                <h3>D. Time Data with Notification Handler</h3>
-                <p>With the notification handler established, the laptop can record the data in a array by <span class="code-intext"></span></p>
+                <h3 id="timehandler">D. Time Data with Notification Handler</h3>
+                <p>To make the function clearer, it is required to add another case in Arduino. <span class="code-intext">GET_TIME_MILLIS_5S</span> stands for sending time data seperately to the laptop.</p>
                 <script src="https://gist.github.com/mavisfu/bfa1bcd8475041f9950affd686780e5f.js"></script>
+                <p style="margin-top: 40px;">With the notification handler established, the laptop can record the data in an array by <span class="code-intext">time_stamp.append()</span>.</p>
                 <div class="img-container">
                     <img class="img-intext" src="pics/time_5s.png" alt="time_5s">
                 </div>
                 
 
-                <h3>E. SEND_TIME_DATA Command</h3>
+                <h3 id="timedata">E. SEND_TIME_DATA Command</h3>
+                <p>In this task, an array was created to store the time stamps, and after a certain amount of time, the data array would be sent to the laptop.</p>
                 <script src="https://gist.github.com/mavisfu/b8f514bc08720797312f2cba06949d8d.js"></script>
+
+                <p style="margin-top: 40px;">The results were shown in below, where all the time stamps were printed out in the Jupyter notebook.</p>
                 <div class="img-container">
                     <img class="img-intext" src="pics/send_time_data.png" alt="time_stamp">
                 </div>
 
-                <h3>F. GET_TEMP_READINGS Command</h3>
+                <h3 id="temp">F. GET_TEMP_READINGS Command</h3>
+                <p>An second array was established to get the temperature data and send back to the laptop, where the temperature data was corresponding to the time that it was recorded.</p>
                 <script src="https://gist.github.com/mavisfu/2554b1f78df3ba41d0c8bf4f91829078.js"></script>
+
+                <p style="margin-top: 40px;">The following is the data printed out. It can be concluded that sending data seperately might cause mprecise time stamps, while recording first would maintain the accuracy of the time data.</p>
                 <div class="img-container">
                     <img class="img-intext" src="pics/temp.png" alt="temp">
                 </div>
 
-                <h3>G. Data Rate</h3>
+                <p style="margin-top: 30px;">It is shown that the shortest interval between two sending time data is almost with a millisecond. Additionally, as calculated, the Artemis can store 98,304 <span class="code-intext">int</span> or <span class="code-intext">float</span> elements, or 393,216 <span class="code-intext">char</span> elements</p>
+                
+
+                <h3 id="datarate">G. Data Rate</h3>
+                <p>In the additional task, the data rate should be calculated to demonstrate the speed of the BLE connection channel concerning the number of replying bytes. <span class="code-intext">SEND_DATA</span> case was created to implement different byte number according to the command sent from the laptop.</p>
                 <script src="https://gist.github.com/mavisfu/e13cff01436bf7cea9e54c318fd4d5a3.js"></script>
-                <p>The command <span class="code-intext">ble.send_command(CMD.SEND_DATA, byte_num)</span> can be implemented to get different length of reply, where <span class="code-intext">byte_num</span> can be determined as <span class="code-intext">5</span> or <span class="code-intext">120</span>.</p>
+                <p style="margin-top: 40px;">The command <span class="code-intext">ble.send_command(CMD.SEND_DATA, byte_num)</span> can be implemented to get different length of reply, where <span class="code-intext">byte_num</span> can be determined as <span class="code-intext">5</span> or <span class="code-intext">120</span>.</p>
                 <script src="https://gist.github.com/mavisfu/22dc7cd002e7e6316f21627c34234c95.js"></script>
+
+                <p style="margin-top: 40px;">To illustrate the tendency more clearly, the<span class="code-intext"> plot()</span> function was implemented to visualize the <span class="code-intext">data_rate</span> array. Therefore, it can be observed that larger replies can help to reduce the overhead generally.</p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 500px;" src="pics/data_rate.png" alt="data_rate">
                 </div>
 
-                <h3>H. Reliability</h3>
+                <h3 id="reliability">H. Reliability</h3>
+                <p>The reliability can be determined by printing out the number of message sent from the Artemis and to the laptop, so the Python code was generated as below: </p>
+                <script src="https://gist.github.com/mavisfu/b24d0c732ab1c6d2c175f4e3de4a6273.js"></script>
+
+                <p style="margin-top: 40px;">It can be observed from the video that the system maintains high reliability as the number of message was exactly the same.</p>
                 <div class="video-container">
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/Ruf0RP_DZU0" frameborder="0" allowfullscreen></iframe>
                 </div>
@@ -474,22 +508,31 @@
             <!-- DISCUSSION -->
             <section id="discussion">
                 <h2>DISCUSSION</h2>
+                <p>In this lab section, I have learn how to set up the Artemis board to implement the Bluetooth Low Energy connection. Furthermore, the Jupyter Notebook is introduced to manage all the written code, which is of great beneficial. However, apart from all the knowledge I have learnt, there were many challenges encountered. For instance, I basically modified the <span class="code-intext">write_data()</span> function to realize the time data sending, which would complexify the algorithm. Later, it was learnt that the easiest way to establish the function was to add more commands in the <span class="code-intext">case</span> module to complete those tasks. In addition, the notification handler can enhance the robustness of the data transmission, which I did not get command of and failed to implement in the Python code. In conclusion, this lab provided the fundamentalsof BLE and got us prepared for further implementation of the robots. </p> 
             </section>
         </div>
         
 
         
         <div class="sidebar2">
-
+            <p class="sidebar2-heading"><a href="#intro">Introduction</a></p>
             <p class="sidebar2-heading"><a href="#prelab">Prelab</a></p>
             <div class="sidebar2-subheading">
-                <p>Setup</p>
-                <p>Codebabse</p>
+                <p><a href="#setup">Setup</a></p>
+                    <p style="padding-left: 20px;"><a href="#equipment">Equipment</a></p>
+                    <p style="padding-left: 20px;"><a href="#board">Board Setup</a></p>
+                <p><a href="#codebase">Codebabse</a></p>
             </div>
             <p class="sidebar2-heading"><a href="#task">Lab Tasks</a></p>
             <div class="sidebar2-subheading">
-                <p>Task 1</p>
-                <p>Task 2</p>
+                <p><a href="#echo">A. ECHO</a></p>
+                <p><a href="#time">B. MILLIS</a></p>
+                <p><a href="#handler">C. Handler</a></p>
+                <p><a href="#timehandler">D. Time Data</a></p>
+                <p><a href="#timedata">E. Data Array</a></p>
+                <p><a href="#datarate">G. Data Rate</a></p>
+                <p><a href="#temp">F. Temperature</a></p>
+                <p><a href="#reliability">H. Reliability</a></p>
             </div>
             <p class="sidebar2-heading"><a href="#discussion">Discussion</a></p>
         
