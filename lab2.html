@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wenyi Fu ECE 5160 Fast Robots</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        nav {
+            background-color: #333;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        nav a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        nav.fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* Add styles for the extended bar */
+        nav a:hover .extended-menu {
+            display: block;
+        }
+
+        /* Adjust styles for the extended menu */
+        .extended-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            background-color: #333;
+            padding: 10px;
+        }
+
+
+        .name {
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            font-size: 45px;
+            font-weight: bold;
+        }
+
+        .main-section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column; 
+            width: 60%;
+        }
+
+        .main-body {
+            display: flex;
+            width: 100%;
+        }
+
+        section {
+            max-width: 900px;
+            margin: 10px auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section a {
+            text-decoration:underline;
+            color: #3f99f9;
+        }
+        
+        section p {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 0px;
+            margin-bottom: 10px;
+        }
+
+        section ul {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 0px;
+            margin-bottom: 30px;
+        }
+
+        section ul li {
+            margin-top: 0px;
+        }
+
+        section h3,h4 {
+            margin-top: 30px; /* Adjusted margin-top value */
+            margin-bottom: 10px; /* Adjusted margin-bottom value */
+        }
+
+        h1 {
+            color: #007BFF;
+            font-weight: bold;
+        }
+        
+        h2 {
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 35px;
+        }
+
+        .h2-text {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        h3 {
+            color: black;
+            font-weight: bold;
+            font-size: 25px;
+        }
+
+        h3 a {
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        h3 a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        h4 {
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .h4-text {
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        h5 {
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+            overflow-wrap: break-word;
+            margin-bottom: 10px;
+        }
+
+        .h5-text {
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        .lab {
+            margin-bottom: 20px;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        footer p {
+            margin: 10px 40px; /* Add margin to the paragraphs for vertical separation */
+        }
+
+        .column {
+            width: calc(100% - 5px);
+        }
+        
+        .sidebar {
+            margin: 10px 0;
+            height: fit-content;
+            width: 20%;
+            max-width: 200px;
+            min-width: 150px;
+            position: relative;
+            margin-right: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 23px;
+            text-align: center;
+        }
+
+        .sidebar img {
+            width: 80%;
+            max-width: 150px; /* Set a maximum width if needed */
+            max-height: 150px;
+            border-radius: 80%;
+            object-fit: cover;
+            position:relative;
+        }
+
+        .sidebar a {
+            padding: 8px 16px;
+            text-decoration: none;
+            display: block;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        .sidebar a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar2 {
+            margin: 10px 0;
+            margin-left: 10px;
+            height: fit-content;
+            width: 20%;
+            max-width: 200px;
+            min-width: 150px;
+            position: relative;
+            margin-right: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 23px;
+            text-align: center;
+        }
+
+        .sidebar2.fixed {
+            position: fixed;
+            right: 20px; /* Adjust the distance from the right edge */
+            top: 30px; /* Adjust the distance from the top */
+        }
+
+        .sidebar2 a {
+            text-decoration: none;
+            display: block;
+            color: black;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .sidebar2-heading {
+            padding-left: 16px;
+            text-decoration: none;
+            display: block;
+            color: black;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .sidebar2-subheading {
+            position:relative;
+            font-size: 18px; 
+            font-weight: normal; 
+            padding-left: 25px; 
+            padding-top: 0px;
+            line-height: 0.5;
+        }
+
+        .sidebar2 a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar2 div p a{
+            text-decoration: none;
+            display: block;
+            color: black;
+            line-height: 0.5;
+            font-weight: normal;
+        }
+
+        .sidebar2 div p a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-intext {
+            font-family: 'Lucida Console', monospace;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .code-block {
+            font-family:'Courier New', Courier, monospace;
+            font-size: 18px;
+            padding-left: 0px;
+        }
+
+        code {
+            font-family:'Courier New', Courier, monospace;
+            font-size: 18px;
+        }
+
+        section .img-container {
+            width: 100%;
+            margin-top: 5px;
+            display: block;
+            text-align: center;
+        }
+
+        section .img-container .img-intext {
+            width: 100%;
+            height: auto;
+            display: inline-block;
+            text-align: center;
+            max-width: 700px;
+        }
+
+        .gist .blob-wrapper.data.type-text pre {
+            font-size: 18px !important; /* Ensure that this style takes precedence */
+        }
+
+        .video-container {
+            text-align: center;
+            padding-left: 0px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="name">
+            <p>ECE 5160: FAST ROBOTS</p>
+        </div>
+        <p style="font-size: 20px;">Wenyi Fu • ECE • wf223@cornell.edu</p>
+
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="#intro">Introduction</a>
+        <a href="#imu">IMU Setup</a>
+        <a href="#acc">Accelerometer</a>
+        <a href="#gyro">Gyroscope</a>
+        <a href="#sample">Sample Data</a>
+        <a href="#record">Record a Stunt</a>
+        <a href="#discussion">Discussion</a>
+    </nav>
+
+   
+    <div class="main-body">
+        <div class="sidebar">
+            <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+                <img src="pics/wf223.jpg" alt="Wenyi Fu">
+            </div>
+            <p><a href="lab1.html">Lab 1</a></p>
+            <p><a href="lab2.html">Lab 2</a></p>
+            <p><a href="lab3.html">Lab 3</a></p>
+            <p><a href="lab4.html">Lab 4</a></p>
+            <p><a href="lab5.html">Lab 5</a></p>
+            <p><a href="lab6.html">Lab 6</a></p>
+            <p><a href="lab7.html">Lab 7</a></p>
+            <p><a href="lab8.html">Lab 8</a></p>
+            <p><a href="lab9.html">Lab 9</a></p>
+            <p><a href="lab10.html">Lab 10</a></p>
+            <p><a href="lab11.html">Lab 11</a></p>
+            <p><a href="lab12.html">Lab 12</a></p>
+        </div>
+        
+        
+        <div class="main-section">
+
+            <!-- INTRO -->
+            <section id="intro">
+                <h2>INTRODUCTION</h2>
+                <p>This lab section is to setup the Artemis board and make the Bluetooth configuration. Firstly, the familiarity of Arduino IDE and demonstration of the example codes helps us learn the basic functions. Moreover, Bluetooth Low Energy (BLE) connection will be setup in lab 2 and it is beneficial to further control of the microcontrollor.</p>
+            </section>
+
+            <!-- imu -->
+            <section id="imu">
+                <h2>SET UP THE IMU</h2>
+                <p>This lab section is to setup the Artemis board and make the Bluetooth configuration. Firstly, the familiarity of Arduino IDE and demonstration of the example codes helps us learn the basic functions. Moreover, Bluetooth Low Energy (BLE) connection will be setup in lab 2 and it is beneficial to further control of the microcontrollor.</p>
+
+                <h3>Connection</h3>
+                
+                
+            </section>
+
+            <!-- LAB TASK -->
+            <section id="acc">
+                <h2>ACCELEROMETER</h2>
+                
+                <p>Task 1 is to make the robot send the same message which comes from the laptop. Therefore, the initial step is establishing the <span class="code-intext">ECHO</span> case in the MCU.</p>
+                
+            
+            
+            </section>
+
+            <!-- DISCUSSION -->
+            <section id="gyro">
+                <h2>GYROSCOPE</h2>
+                <p>In this lab section, I have learn how to set up the Artemis board to implement the Bluetooth Low Energy connection. Furthermore, the Jupyter Notebook is introduced to manage all the written code, which is of great beneficial. However, apart from all the knowledge I have learnt, there were many challenges encountered. For instance, I basically modified the <span class="code-intext">write_data()</span> function to realize the time data sending, which would complexify the algorithm. Later, it was learnt that the easiest way to establish the function was to add more commands in the <span class="code-intext">case</span> module to complete those tasks. In addition, the notification handler can enhance the robustness of the data transmission, which I did not get command of and failed to implement in the Python code. In conclusion, this lab provided the fundamentalsof BLE and got us prepared for further implementation of the robots. </p> 
+            </section>
+
+            <section id="sample">
+                <h2>SAMPLE DATA</h2>
+                
+                <p>Task 1 is to make the robot send the same message which comes from the laptop. Therefore, the initial step is establishing the <span class="code-intext">ECHO</span> case in the MCU.</p>
+                
+            
+            
+            </section>
+
+            <section id="record">
+                <h2>RECORD A STUNT</h2>
+                
+                <p>Task 1 is to make the robot send the same message which comes from the laptop. Therefore, the initial step is establishing the <span class="code-intext">ECHO</span> case in the MCU.</p>
+                
+            
+            
+            </section>
+
+            <section id="discussion">
+                <h2>DISCUSSION</h2>
+                
+                <p>Task 1 is to make the robot send the same message which comes from the laptop. Therefore, the initial step is establishing the <span class="code-intext">ECHO</span> case in the MCU.</p>
+                
+            
+            
+            </section>
+
+        </div>
+
+    </div>
+
+        
+
+
+   
+
+  
+
+    <footer>
+        <p>&copy; 2024 Wenyi Fu ECE 5160: Fast Robots</p>
+        <p>E-mail: wf223@cornell.edu</p>
+        
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var nav = document.querySelector('nav');
+            var rect = nav.getBoundingClientRect();
+
+            if (rect.top <= 0) {
+                nav.classList.add('fixed');
+            } else {
+                nav.classList.remove('fixed');
+            }
+            if (window.scrollY <= 200) {
+            nav.classList.remove('fixed');
+        }
+        });
+        
+    </script>
+
+    
+
+
+</body>
+</html>
