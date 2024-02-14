@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wenyi Fu ECE 5160 Fast Robots</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
             font-family: 'Georgia', serif;
@@ -19,12 +21,14 @@
             color: #fff;
             text-align: center;
             padding: 20px;
+            min-width: 890px;
         }
 
         nav {
             background-color: #333;
             overflow: hidden;
             text-align: center;
+            min-width: 930px;
         }
 
         nav a {
@@ -78,6 +82,8 @@
             display: flex;
             flex-direction: column; 
             width: 60%;
+            min-width: 700px;
+            
         }
 
         .main-body {
@@ -86,6 +92,7 @@
         }
 
         section {
+            min-width: 720px;
             max-width: 900px;
             margin: 10px auto;
             padding: 30px;
@@ -194,6 +201,7 @@
             padding: 10px;
             background-color: #007BFF;
             color: #fff;
+            min-width: 910px;
         }
 
         footer p {
@@ -339,8 +347,14 @@
             max-width: 700px;
         }
 
+        .gist {
+            width: calc(100% - 60px); /* Set the width to match the sections minus any margins or padding */
+            margin: 0 auto; /* Center the box horizontally */
+            box-sizing: border-box; /* Include padding and border in the width calculation */
+        }
+
         .gist .blob-wrapper.data.type-text pre {
-            font-size: 18px !important; /* Ensure that this style takes precedence */
+            white-space: wrap; /* Wrap text inside pre element */
         }
 
         .video-container {
@@ -397,15 +411,33 @@
             <!-- INTRO -->
             <section id="intro">
                 <h2>INTRODUCTION</h2>
-                <p>This lab section is to setup the Artemis board and make the Bluetooth configuration. Firstly, the familiarity of Arduino IDE and demonstration of the example codes helps us learn the basic functions. Moreover, Bluetooth Low Energy (BLE) connection will be setup in lab 2 and it is beneficial to further control of the microcontrollor.</p>
+                <p>This lab section is to setup the IMU, getting the accelerometer and gyroscope data. Furthermore, the low pass filter and complimentary filter can be applied to ensure the accuracy and stability of the system.</p>
             </section>
 
-            <!-- imu -->
+            <!-- IMU SETUP -->
             <section id="imu">
-                <h2>SET UP THE IMU</h2>
-                <p>This lab section is to setup the Artemis board and make the Bluetooth configuration. Firstly, the familiarity of Arduino IDE and demonstration of the example codes helps us learn the basic functions. Moreover, Bluetooth Low Energy (BLE) connection will be setup in lab 2 and it is beneficial to further control of the microcontrollor.</p>
+                <h2>SETUP THE IMU</h2>
+                <p>In this section, it is required to setup the IMU. With the knowledge of accelerometer and gyroscopem, we can modify the code to realize the accuracy and low noise in the calculation of pitch, roll and yaw.</p>
 
                 <h3>Connection</h3>
+                <p>Firstly, it should be connected to the Artemis with wire like shown below.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 300px;" src="pics/lab2/connection.jpg" alt="connection">
+                </div>
+                <h3>IMU Example Code</h3>
+                <p>We can run the <span class="code-intext">Example1_Basics</span> in the IMU library, where the results are shown in the video. It can be observed from the serial monitor that the values of accelerometer and gyroscope will vary if the position of IMU is changed. </p>
+               
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/aZC2C06iDII" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <h3>AD0_VAL definition discussion</h3>
+                <p>The <span class="code-intext">AD0_VAL</span> definition in the code represents the logic level of the address pin <span class="code-intext">AD0</span> on the IMU breakout board. According to the connection of this pin (either grounded or pulled high), we need to set <span class="code-intext">AD0_VAL</span> carefully. If <span class="code-intext">AD0</span> is connected to ground, it is required to set <span class="code-intext">AD0_VAL</span> to <span class="code-intext">0</span>. If <span class="code-intext">AD0</span> is connected to VCC (pulled high), we should set <span class="code-intext">AD0_VAL</span> to <span class="code-intext">1</span>.</p>
+
+                <h3>Start-up Blink</h3>
+                <p>To visually indicate the start-up of the device and the code, the blink function of the internal LED can be added to let people notified.</p>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/RGht_5dWDzM" frameborder="0" allowfullscreen></iframe>
+                </div>
                 
                 
             </section>
@@ -414,7 +446,54 @@
             <section id="acc">
                 <h2>ACCELEROMETER</h2>
                 
-                <p>Task 1 is to make the robot send the same message which comes from the laptop. Therefore, the initial step is establishing the <span class="code-intext">ECHO</span> case in the MCU.</p>
+                <p>As it is taught in the lecture, the equations to convert accelerometer to pitch and roll is:</p>
+                <!-- acc eqs-->
+                <p style="text-align: center;font-style: italic;">θ = \( \text{atan2}(ax, az) \)</p>
+                <p style="text-align: center;font-style: italic;">𝜙 = \( \text{atan2}(ay, az) \)</p>
+               <p>Therefore, the code can be constructed as below:
+
+                <script src="https://gist.github.com/mavisfu/629bdf7bf2d28b39370ce55792188258.js"></script>
+
+                <h3>Image of output at {-90, 0, 90} degrees</h3>
+                <p>With the rotation of the IMU, we can get those three different degrees for both accelerometer and gyroscope.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 300px;" src="pics/lab2/acc1.jpg" alt="acc1">
+                    <img class="img-intext" style="max-width: 300px;" src="pics/lab2/acc2.jpg" alt="acc2">
+                    <img class="img-intext" style="max-width: 300px;" src="pics/lab2/acc3.jpg" alt="acc3">
+                    <img class="img-intext" style="max-width: 300px;" src="pics/lab2/acc4.jpg" alt="acc4">
+                    <img class="img-intext" style="max-width: 300px;" src="pics/lab2/acc5.jpg" alt="acc5">
+                </div>
+                
+                <h3>Accelerometer accuracy discussion</h3>
+                <p>When measuring the accuracy with a two-point calibration, it can be concluded that the system is quite accurate. As within the change of 180 degree, the actual change is ranging from 88.6 to -94.69, where the error rate is (183.29-180)/180 = <b>0.018</b></p>
+                <h3>Noise in the frequency spectrum analysis</h3>
+                <p>Since the accelerometer module is noisy, it is required to conduct the experiment to find out the cut-off frequency of the low-pass filter that is needed to be implemented into the system. Thus, we can following the <a href="https://www.alphabold.com/fourier-transform-in-python-vibration-analysis/">guide here</a> to apply <b>Fourier Transform in Python</b>. However, the first thing we should do is to use the command to send pitch and roll data from the Artemis, so the following code is added as a new robot handler in the Arduino file.</p>
+                <script src="https://gist.github.com/mavisfu/943dd21d706333ea988eb91040e606ef.js"></script>
+                <p style="margin-top: 50px;">With the data sending from the Artemis, the Python program below is able to receive all those three data arrays and to plot them in time domain.</p>
+                <script src="https://gist.github.com/mavisfu/e89153051f6a00bdbbdbdb543f43ff3b.js"></script>
+                <p style="margin-top: 50px;">The signal plot in time domain is shown in the figure below.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab2/acc_time.png" alt="acc_time">
+                </div>
+                <h3>Fourier Transform</h3>
+                <p>After the IMU data sending and storing process, the Python program should be created to analyze the frequency spectrum.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab2/acc_freq.png" alt="acc_freq">
+                </div>
+                <script src="https://gist.github.com/mavisfu/51631299a1f685a01c36940ba291e072.js"></script>
+                <p>Then, the low pass filter is applied.</p>
+
+                <script src="https://gist.github.com/mavisfu/4e0c763b4721d031a2363645e0b965da.js"></script>
+
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab2/acc_time_lpf.png" alt="acc_time_lpf">
+                </div>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab2/acc_freq_lpf.png" alt="acc_freq_lpf">
+                </div>
+
+                <p>Discuss the results</p>
+
                 
             
             
@@ -423,13 +502,34 @@
             <!-- DISCUSSION -->
             <section id="gyro">
                 <h2>GYROSCOPE</h2>
-                <p>In this lab section, I have learn how to set up the Artemis board to implement the Bluetooth Low Energy connection. Furthermore, the Jupyter Notebook is introduced to manage all the written code, which is of great beneficial. However, apart from all the knowledge I have learnt, there were many challenges encountered. For instance, I basically modified the <span class="code-intext">write_data()</span> function to realize the time data sending, which would complexify the algorithm. Later, it was learnt that the easiest way to establish the function was to add more commands in the <span class="code-intext">case</span> module to complete those tasks. In addition, the notification handler can enhance the robustness of the data transmission, which I did not get command of and failed to implement in the Python code. In conclusion, this lab provided the fundamentalsof BLE and got us prepared for further implementation of the robots. </p> 
+                <h3>Include documentation for pitch, roll, and yaw with images of the results of different IMU positions</h3>
+                <script src="https://gist.github.com/mavisfu/d30871c60fde82f32be80b81f22fcb93.js"></script>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_YlQld2pd0Q" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <h3>Demonstrate the accuracy and range of the complementary filter, and discuss any design choices</h3>
+                <script src="https://gist.github.com/mavisfu/3d8991bde4f0d2303d94106428e662e6.js"></script>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_YlQld2pd0Q" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+
             </section>
 
             <section id="sample">
                 <h2>SAMPLE DATA</h2>
                 
-                <p>Task 1 is to make the robot send the same message which comes from the laptop. Therefore, the initial step is establishing the <span class="code-intext">ECHO</span> case in the MCU.</p>
+                <h3>Speed of sampling discussion</h3>
+            
+                <script src="https://gist.github.com/mavisfu/b0b84be1c66e96f873e3cda769b5e544.js"></script>
+                <script src="https://gist.github.com/mavisfu/8f5984813fe5a65175410729221dec33.js"></script>
+                <h3>time-stamped IMU data in arrays</h3>
+                <script src="https://gist.github.com/mavisfu/c3a4f482bddfbb93057ed41b82ae1d69.js"></script>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 00px;" src="pics/lab2/speed.png" alt="speed">
+                </div>
+                <h3>Demonstrate 5s of IMU data</h3>
+                <p>Spend 5min playing around with the car (in the hallway or outside). Try to get a feel for how slow/fast it can drive forwards/backwards/turn, accelerations, etc. Record a video to show what you have tried, and discuss what you observe. This will help you establish a baseline for what you expect to see if everything works when you are running the car autonomously.</p>
                 
             
             
@@ -437,8 +537,10 @@
 
             <section id="record">
                 <h2>RECORD A STUNT</h2>
-                
-                <p>Task 1 is to make the robot send the same message which comes from the laptop. Therefore, the initial step is establishing the <span class="code-intext">ECHO</span> case in the MCU.</p>
+                <p>Spend 5min playing around with the car (in the hallway or outside). Try to get a feel for how slow/fast it can drive forwards/backwards/turn, accelerations, etc. Record a video to show what you have tried, and discuss what you observe. This will help you establish a baseline for what you expect to see if everything works when you are running the car autonomously.</p>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/sa4dhujgP7Q" frameborder="0" allowfullscreen></iframe>
+                </div>
                 
             
             
@@ -447,8 +549,9 @@
             <section id="discussion">
                 <h2>DISCUSSION</h2>
                 
-                <p>Task 1 is to make the robot send the same message which comes from the laptop. Therefore, the initial step is establishing the <span class="code-intext">ECHO</span> case in the MCU.</p>
-                
+                <h3>Include a video (or some videos) of you playing with the car and discuss your observations</h3>
+                <p>Without Artemis</p>
+                <p>With Artemis, and plot data sent over Bluetooth</p>
             
             
             </section>
