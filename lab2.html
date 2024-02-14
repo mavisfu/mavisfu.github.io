@@ -21,14 +21,14 @@
             color: #fff;
             text-align: center;
             padding: 20px;
-            min-width: 890px;
+            min-width: 910px;
         }
 
         nav {
             background-color: #333;
             overflow: hidden;
             text-align: center;
-            min-width: 930px;
+            min-width: 950px;
         }
 
         nav a {
@@ -201,7 +201,7 @@
             padding: 10px;
             background-color: #007BFF;
             color: #fff;
-            min-width: 910px;
+            min-width: 930px;
         }
 
         footer p {
@@ -362,6 +362,11 @@
             padding-left: 0px;
         }
 
+        .eq {
+            text-align: center;
+            font-style: italic;
+        }
+
     </style>
 </head>
 <body>
@@ -417,7 +422,7 @@
             <!-- IMU SETUP -->
             <section id="imu">
                 <h2>SETUP THE IMU</h2>
-                <p>In this section, it is required to setup the IMU. With the knowledge of accelerometer and gyroscopem, we can modify the code to realize the accuracy and low noise in the calculation of pitch, roll and yaw.</p>
+                <p>In this section, it is required to setup the IMU. With the knowledge of accelerometer and gyroscope, we can modify the code to realize the accuracy and low noise in the calculation of pitch, roll and yaw.</p>
 
                 <h3>Connection</h3>
                 <p>Firstly, it should be connected to the Artemis with wire like shown below.</p>
@@ -448,8 +453,8 @@
                 
                 <p>As it is taught in the lecture, the equations to convert accelerometer to pitch and roll is:</p>
                 <!-- acc eqs-->
-                <p style="text-align: center;font-style: italic;">θ = \( \text{atan2}(ax, az) \)</p>
-                <p style="text-align: center;font-style: italic;">𝜙 = \( \text{atan2}(ay, az) \)</p>
+                <p class="eq">θ = \( \text{atan2}(ax, az) \)</p>
+                <p class="eq">𝜙 = \( \text{atan2}(ay, az) \)</p>
                <p>Therefore, the code can be constructed as below:
 
                 <script src="https://gist.github.com/mavisfu/629bdf7bf2d28b39370ce55792188258.js"></script>
@@ -476,41 +481,41 @@
                     <img class="img-intext" style="max-width: 500px;" src="pics/lab2/acc_time.png" alt="acc_time">
                 </div>
                 <h3>Fourier Transform</h3>
-                <p>After the IMU data sending and storing process, the Python program should be created to analyze the frequency spectrum.</p>
+                <p>After the IMU data sending and storing process, the Python program should be created to analyze the frequency spectrum, where we can use the time stamps array to calculate <span class="code-intext">T</span>.</p>
+                <script src="https://gist.github.com/mavisfu/51631299a1f685a01c36940ba291e072.js"></script>
+                <p style="margin-top: 50px;">Therefore, the FFT spectrum diagram is acquried and it can be observed that the cut-off frequency should be determined as <b>10Hz</b>.</p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 500px;" src="pics/lab2/acc_freq.png" alt="acc_freq">
                 </div>
-                <script src="https://gist.github.com/mavisfu/51631299a1f685a01c36940ba291e072.js"></script>
-                <p>Then, the low pass filter is applied.</p>
-
+                <p style="margin-top: 50px;">According to the equation:</p>
+                <p class="eq">\( \alpha = \frac{T}{T + RC} \)</p>
+                <p class="eq">\( f_{c} = \frac{1}{2\pi RC} \)</p>
+                <p style="margin-top: 50px;">Hence, the alpha value of the low pass filter can be calculated as <span class="code-intext">alpha = 0.132</span> and the low pass code is as below.</p>
                 <script src="https://gist.github.com/mavisfu/4e0c763b4721d031a2363645e0b965da.js"></script>
-
+                <p style="margin-top: 50px;">The time-domain and frequency-domain diagram are displayed seperately as following. Furthermore, it can be concluded that high-frequency noises have been filtered out to enhance the accuracy of the system, which ensures the robustness of the robot in the future lab.</p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 500px;" src="pics/lab2/acc_time_lpf.png" alt="acc_time_lpf">
                 </div>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 500px;" src="pics/lab2/acc_freq_lpf.png" alt="acc_freq_lpf">
                 </div>
-
-                <p>Discuss the results</p>
-
-                
-            
-            
             </section>
 
             <!-- DISCUSSION -->
             <section id="gyro">
                 <h2>GYROSCOPE</h2>
-                <h3>Include documentation for pitch, roll, and yaw with images of the results of different IMU positions</h3>
+                <h3>Pitch, roll, and yaw results</h3>
+                <p>We can also calculate the pitch, roll and yaw based on the gyroscope.
                 <script src="https://gist.github.com/mavisfu/d30871c60fde82f32be80b81f22fcb93.js"></script>
+                <p style="margin-top: 50px;">The results are shown in the attached video, where we can observe that the data calculated from the gyroscope will drift more, while they have lower noise than from the accelerometer.</p>
                 <div class="video-container">
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/_YlQld2pd0Q" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <h3>Demonstrate the accuracy and range of the complementary filter, and discuss any design choices</h3>
+                <h3>Complementary filter</h3>
+                <p>In the complementary filter, the stability of accelerometer and the fast response of gyroscope can be combined to make the system perform better.</p>
                 <script src="https://gist.github.com/mavisfu/3d8991bde4f0d2303d94106428e662e6.js"></script>
                 <div class="video-container">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_YlQld2pd0Q" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/TGo_QliO9fs" frameborder="0" allowfullscreen></iframe>
                 </div>
 
 
@@ -518,18 +523,25 @@
 
             <section id="sample">
                 <h2>SAMPLE DATA</h2>
-                
-                <h3>Speed of sampling discussion</h3>
-            
-                <script src="https://gist.github.com/mavisfu/b0b84be1c66e96f873e3cda769b5e544.js"></script>
+                <p>As instructed, all the redundant components in the main loop should be removed, including <span class="code-intext">delay()</span>, <span class="code-intext">Serial.print()</span>.</p>
                 <script src="https://gist.github.com/mavisfu/8f5984813fe5a65175410729221dec33.js"></script>
-                <h3>time-stamped IMU data in arrays</h3>
+                <p style="margin-top: 50px;">Moreover, the <span class="code-intext">START_RECORD</span> and <span class="code-intext">STOP_RECORD</span> are added to the current commands. </p>
+                <script src="https://gist.github.com/mavisfu/b0b84be1c66e96f873e3cda769b5e544.js"></script>
+                <h3>Time-stamped IMU data in arrays</h3>
+                <p>Similar to the <span class="code-intext">GET_IMU_DATA</span> command, the Python code is shown below.</p>
                 <script src="https://gist.github.com/mavisfu/c3a4f482bddfbb93057ed41b82ae1d69.js"></script>
+                <h3>Speed of sampling discussion</h3>
+                <p>In this circumstance, the time step <span class="code-intext">T</span> can be printed through the Jupyter Notebook, which indicates the speed of data transmission.</p>
                 <div class="img-container">
-                    <img class="img-intext" style="max-width: 00px;" src="pics/lab2/speed.png" alt="speed">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab2/speed.png" alt="speed">
                 </div>
                 <h3>Demonstrate 5s of IMU data</h3>
-                <p>Spend 5min playing around with the car (in the hallway or outside). Try to get a feel for how slow/fast it can drive forwards/backwards/turn, accelerations, etc. Record a video to show what you have tried, and discuss what you observe. This will help you establish a baseline for what you expect to see if everything works when you are running the car autonomously.</p>
+                <p>It can be seen that all the array size for IMU sending data within the 5 seconds are 747. Also, the time-domain diagram is shown on the right.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 200px;" src="pics/lab2/data_num.png" alt="speed">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab2/time_domain_5s.png" alt="speed">
+                </div>
+
                 
             
             
@@ -537,21 +549,16 @@
 
             <section id="record">
                 <h2>RECORD A STUNT</h2>
-                <p>Spend 5min playing around with the car (in the hallway or outside). Try to get a feel for how slow/fast it can drive forwards/backwards/turn, accelerations, etc. Record a video to show what you have tried, and discuss what you observe. This will help you establish a baseline for what you expect to see if everything works when you are running the car autonomously.</p>
+                <p>Record a video showing the behaviors of the robot, which helps establish a baseline for further lab. It is observed that the car can move swiftly with the remote_controlled panel.</p>
                 <div class="video-container">
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/sa4dhujgP7Q" frameborder="0" allowfullscreen></iframe>
                 </div>
-                
-            
             
             </section>
 
             <section id="discussion">
                 <h2>DISCUSSION</h2>
-                
-                <h3>Include a video (or some videos) of you playing with the car and discuss your observations</h3>
-                <p>Without Artemis</p>
-                <p>With Artemis, and plot data sent over Bluetooth</p>
+                <p>In this lab section, the IMU module is introduced for analyzing the position of the robot. With the implementation of the accelerometer and gyroscope, the parameters of pitch, roll and yaw can be better calculated, ensuring system accuracy, which is beneficial for further in-depth learning.</p>
             
             
             </section>
