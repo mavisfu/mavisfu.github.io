@@ -432,7 +432,7 @@
                 <script src="https://gist.github.com/mavisfu/9b1c253783cea37fc66755b2a608b460.js"></script>
                 <p style="margin-top: 40px;"> Furthermore, the Artemis MAC address is shown in the serial monitor port on Arduino IDE. Therefore, the <span class="code-intext">BLE_UUID_TEST_SERVICE</span> in <span class="code-intext">ble_arduino.ino</span> and <span class="code-intext">ble_service</span> in <span class="code-intext">connections.yaml</span> can be changed according to the specific UUID.</p>
                 <div class="img-container">
-                    <img class="img-intext" src="pics/MAC_addr.png" alt="MAC">
+                    <img class="img-intext" src="pics/lab1/MAC_addr.png" alt="MAC">
                 </div>
 
                 <h3 id="codebase">Codebase</h3>
@@ -447,14 +447,14 @@
                 <script src="https://gist.github.com/mavisfu/00082ecf4dac03a34c056e4d0e37ce1e.js"></script>
                 <p style="margin-top: 40px;">And then, the following code block can be run through Jupyter notebook, showing the reply message <span class="code-intext">'Robot says -> HiHello'</span>.</p>
                 <div class="img-container">
-                    <img class="img-intext" src="pics/echo.png" alt="echo">
+                    <img class="img-intext" src="pics/lab1/echo.png" alt="echo">
                 </div>
                 <h3 id="time">B. GET_TIME_MILLIS Command</h3>
                 <p>To get the time message, the function <span class="code-intext">millis()</span> can be applied to extract the current time. Consequently, the <span class="code-intext">GET_TIME_MILLIS</span> case on the Artemis side is shown below.</p>
                 <script src="https://gist.github.com/mavisfu/22e6a133c8fb04400df971aa61866538.js"></script>
                 <p style="margin-top: 40px;">With the case established properly, the time can be recorded as <span class="code-intext">'T: 8322'</span>
                 <div class="img-container">
-                    <img class="img-intext" src="pics/time.png" alt="time">
+                    <img class="img-intext" src="pics/lab1/time.png" alt="time">
                 </div>
 
                 <h3 id="handler">C. Notification Handler</h3>
@@ -466,7 +466,7 @@
                 <script src="https://gist.github.com/mavisfu/bfa1bcd8475041f9950affd686780e5f.js"></script>
                 <p style="margin-top: 40px;">With the notification handler established, the laptop can record the data in an array by <span class="code-intext">time_stamp.append()</span>.</p>
                 <div class="img-container">
-                    <img class="img-intext" src="pics/time_5s.png" alt="time_5s">
+                    <img class="img-intext" src="pics/lab1/time_5s.png" alt="time_5s">
                 </div>
                 
 
@@ -476,7 +476,7 @@
 
                 <p style="margin-top: 40px;">The results were shown in below, where all the time stamps were printed out in the Jupyter notebook.</p>
                 <div class="img-container">
-                    <img class="img-intext" src="pics/send_time_data.png" alt="time_stamp">
+                    <img class="img-intext" src="pics/lab1/send_time_data.png" alt="time_stamp">
                 </div>
 
                 <h3 id="temp">F. GET_TEMP_READINGS Command</h3>
@@ -485,7 +485,7 @@
 
                 <p style="margin-top: 40px;">The following is the data printed out. It can be concluded that sending data seperately might cause imprecise time stamps, while recording first would maintain the accuracy of the time data.</p>
                 <div class="img-container">
-                    <img class="img-intext" src="pics/temp.png" alt="temp">
+                    <img class="img-intext" src="pics/lab1/temp.png" alt="temp">
                 </div>
 
                 <p style="margin-top: 30px;">It is shown that the shortest interval between two sending time data is almost with a millisecond. Additionally, as calculated, the Artemis can store 98,304 <span class="code-intext">int</span> or <span class="code-intext">float</span> elements, or 393,216 <span class="code-intext">char</span> elements</p>
@@ -499,7 +499,7 @@
 
                 <p style="margin-top: 40px;">To illustrate the tendency more clearly, the<span class="code-intext"> plot()</span> function was implemented to visualize the <span class="code-intext">data_rate</span> array. Therefore, it can be observed that larger replies can help to reduce the overhead generally.</p>
                 <div class="img-container">
-                    <img class="img-intext" style="max-width: 500px;" src="pics/data_rate.png" alt="data_rate">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab1/data_rate.png" alt="data_rate">
                 </div>
 
                 <h3 id="reliability">H. Reliability</h3>
