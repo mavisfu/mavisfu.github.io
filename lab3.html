@@ -123,6 +123,15 @@
             margin-bottom: 30px;
         }
 
+        section li {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+
         section ul li {
             margin-top: 0px;
         }
@@ -414,7 +423,7 @@
             <!-- INTRO -->
             <section id="intro">
                 <h2>INTRODUCTION</h2>
-                <p>This lab section is to setup the IMU, getting the accelerometer and gyroscope data. Furthermore, the low pass filter and complimentary filter can be applied to ensure the accuracy and stability of the system. Finally, the sampling function can be added into the main loop to store the data and then transmitted to the laptop through Bluetooth.</p>
+                <p>This lab section is to setup the two Time of Flight (ToF) sensors. Additionally, it is required to analyze the accuracy and sensitivity of the ToF sensors. </p>
             </section>
 
             <!-- PRELAB -->
@@ -456,28 +465,39 @@
                 <h2>LAB TASKS</h2>
                 <!-- connection -->
                 <h3>i. Connection</h3>
+                <p>Firstly, we cut the original wires on the battery and soldered the QWIIC connector, which can be connected to the Artemis with the JST socket.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab3/battery_solder.JPG" alt="battery connection">
+                </div>
+
+                <p style="margin-top: 40px;">Next, the Artemis can be wired with the ToFs as shown below.</p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 400px;" src="pics/lab3/connection_tof.JPG" alt="tof connection">
                 </div>
 
                 <!-- scanning for i2c device -->
                 <h3>ii. I2C Device Scanning</h3>
+                <p>By only connecting the Artemis with one ToF, the I2C channel address will be scanned and shown in the serial monitor terminal, which is <span class="code-intext">0x29</span>. As I2C uses LSB of the address to indicate read/write, so the real address is <span class="code-intext">0x29</span> shifting 1 to the left, which is equal to <span class="code-intext">0x52</span>.</p>
                 <div class="img-container">
-                    <img class="img-intext" style="max-width: 400px;" src="pics/lab3/scanning.png" alt="scanning">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab3/scanning.jpeg" alt="scanning">
                 </div>
 
 
                 <!-- sensor data for chosen mode -->
-                <h3>iii. Sensor data for chosen mode</h3>
-
+                <h3>iii. Sensor Data for Chosen Mode</h3>
+                <p>需要尺子</p>
 
                 <!-- 2 ToF sensors: Discussion and screenshot of sensors working in parallel -->
                 <h3>iv. 2 ToF Sensor</h3>
+                <p>Tp run the two ToF sensors parallelly, it is required to configure the I2C channel to different address. Hence, we need to shutdown one ToF through <span class="code-intext">XSHUT</span> pin to conduct the setup. </p>
+                <li>This block is to define the pins and the sensors:</li>
                 <script src="https://gist.github.com/mavisfu/a9ba02caddbc2c5379083a1c2d08dc00.js"></script>
+                <li>This block is to configure the I2C address in the setup function in Arduino:</li>
                 <script src="https://gist.github.com/mavisfu/928317ccf9fc96aa2797dd8794dcfefc.js"></script>
-
+                <li>This block is to read and print out the data from the ToF sensors in the main loop:</li>
                 <script src="https://gist.github.com/mavisfu/41b6fe8e6b914e1be5d552da984ce28e.js"></script>
 
+                <p style="margin-top: 40px;"> Furthermore, the following video shows the testing of those two ToF sensors running parallelly.</p>
                 <div class="video-container">
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/zN5bRRJ8WNs" frameborder="0" allowfullscreen></iframe>
                 </div>
@@ -485,7 +505,9 @@
 
                 <!-- Tof sensor speed: Discussion on speed and limiting factor; include code snippet of how you do this -->
                 <h3>v. ToF Sensor Speed</h3>
+                <p>The sensor speed can be analyzed by recording the time stamps before and after reading the data, which can represent the elapsed time of the implementation of ToF.</p>
                 <script src="https://gist.github.com/mavisfu/b9252e17963a4d682e760595a8eb139b.js"></script>
+                <p style="margin-top: 40px;">In the figure, the <span class="code-intext">delay_time</span> is around <b>8 milliseconds</b>, so the processing time is relatively fast. </p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 500px;" src="pics/lab3/tof_speed.png" alt="tof speed">
                 </div>
@@ -494,7 +516,9 @@
 
                 <!-- Time v Distance: Include graph of data sent over bluetooth (2 sensors) -->
                 <h3>vi. Time v Distance</h3>
+                <p>To obtain the time-vs-distance figure, we can firstly add an command <span class="code-intext">GET_TOF_5s</span> to the Artemis. This can record specific length of data during a certain period and send to the laptop through BLE channel.</p> 
                 <script src="https://gist.github.com/mavisfu/cefa8eb5cf64b634c37c72aa4380bcdb.js"></script>
+                <p style="margin-top: 40px;">The figure plot is shown below, with a data of 100 number. 
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 500px;" src="pics/lab3/time_v_distance.png" alt="time v distance">
                 </div>
@@ -502,9 +526,11 @@
 
                 <!-- (5000) Discussion on infrared transmission based sensors -->
                 <h3>vii. Discussion on infrared transmission based sensors</h3>
+                <p>The ToF sensor implemented in this lab uses infrared transmission. That is to say, the distance is acquired by emitting and receiving infrared light, through the equation <span class="code-intext">d=t*c/2</span>, where <span class="code-intext">c</span> is the speed of light. Therefore, the pros are that they are immune to visible light interference and can respond rapidly. Also, IR sensors have low power consumption. However, they have some disadvantages, such as limited range, high cost and interference with other IR sensors.</p>
 
                 <!-- (5000) Sensitivity of sensors to colors and textures -->
                 <h3>viii. Sensitivity of sensors to colors and textures</h3>
+                <p>尺子+书本墙</p>
 
 
 
@@ -514,7 +540,7 @@
             <!-- DISCUSSION -->
             <section id="discussion">
                 <h2>DISCUSSION</h2>
-                <p>In this lab section, the IMU module is introduced for analyzing the position of the robot. With the implementation of the accelerometer and gyroscope, the parameters of pitch, roll and yaw can be better calculated, ensuring system accuracy, which is beneficial for further in-depth learning.</p>
+                <p>In this lab section, the ToF sensors are implemented for the detection of distance. Moreover, the analysis of the accuracy and sensitivity has help us have an in-depth understanding of the ToF.</p>
             
             
             </section>
