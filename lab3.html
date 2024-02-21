@@ -114,6 +114,10 @@
             margin-bottom: 10px;
         }
 
+        section p a:hover{
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
         section ul {
             font-size: 18px;
             color: black;
@@ -450,6 +454,10 @@
 
                 <!-- placement of sensors -->
                 <h3>Placement of Sensors</h3>
+                <p>The two ToF sensors should be placed on the robot as shown below, ensuring the avoidance of obstacles.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab3/place.jpg" alt="placement">
+                </div>
 
                 <!-- wiring -->
                 <h3>Wiring</h3>
@@ -469,6 +477,10 @@
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 400px;" src="pics/lab3/battery_solder.JPG" alt="battery connection">
                 </div>
+                <p style="margin-top: 40px;">After soldering the battery, we can connect the Artemis directly with the it, and it turned out working perfectly with the independent power supply instead of the USB-C cable linked to the laptop.</p>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/59MgsIGwGm8" frameborder="0" allowfullscreen></iframe>
+                </div>
 
                 <p style="margin-top: 40px;">Next, the Artemis can be wired with the ToFs as shown below.</p>
                 <div class="img-container">
@@ -484,8 +496,20 @@
 
 
                 <!-- sensor data for chosen mode -->
-                <h3>iii. Sensor Data for Chosen Mode</h3>
-                <p>需要尺子</p>
+                <h3 id="mode">iii. Sensor Data for Chosen Mode</h3>
+                <p>The two ToF sensors is set to different chosen mode by applying <span class="code-intext">.setDistanceModeShort()</span>. Furthermore, the tape measure is used to obtain the distance. </p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab3/distance.JPG" alt="distance">
+                </div>
+                <p style="margin-top: 40px;">The partial code below is implemented to extract the data from ToF sensors which is sent through the Bluetooth channel, and we can obtain various data concerning different distances by repeating those steps.</p>
+                <script src="https://gist.github.com/mavisfu/182670f908cf558570d3bb41e5a058d1.js"></script>
+                <p style="margin-top: 40px;">Therefore, all the data can be plot in the same diagram by applying this:</p>
+                <script src="https://gist.github.com/mavisfu/39ee806af3235652f5673cf419505378.js"></script>
+                <p style="margin-top: 40px;">The following figure displays the theoretical and actual distance, where the blue dots represent short mode and the yellow dots represent long mode. Hence, it can be concluded that the ToF sensor is relatively accurate, but with a certain range of deviation.</p>
+
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab3/accuracy.png" alt="mode">
+                </div>
 
                 <!-- 2 ToF sensors: Discussion and screenshot of sensors working in parallel -->
                 <h3>iv. 2 ToF Sensor</h3>
@@ -530,7 +554,12 @@
 
                 <!-- (5000) Sensitivity of sensors to colors and textures -->
                 <h3>viii. Sensitivity of sensors to colors and textures</h3>
-                <p>尺子+书本墙</p>
+                <p>To compare difference texture, we set the distance to be measured as 100mm. The code to obtain data from the Artemis is similar as shown above in the <a href="#mode" style="text-decoration: none; color: black;"><b>Chosen Mode</b></a> section. Accordingly, the figure can be plot based on the following code. </p> 
+                <script src="https://gist.github.com/mavisfu/4691e95e612c6206c526458555ce7ad4.js"></script>
+                <p style="margin-top: 40px;">As it is demonstrated on the program, the textures are blue leather bag, black leather bag, white paper box and brown paper from left to right. It can be concluded that the black leather texture is the most inaccurate, because it absorb much of the light, while the white paper box is the most precise, since white color is the most reflective.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab3/texture.png" alt="texture">
+                </div>
 
 
 
