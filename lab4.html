@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wenyi Fu ECE 5160 Fast Robots</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Georgia', serif;
             background-color: #f4f4f4;
             color: #333;
             margin: 0;
@@ -19,82 +21,14 @@
             color: #fff;
             text-align: center;
             padding: 20px;
+            min-width: 910px;
         }
 
-        .name {
-            background-color: #007BFF;
-            color: #fff;
-            text-align: center;
-            font-size: 45px;
-            font-weight: bold;
-        }
-
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column; 
-        }
-
-        section {
-            width: 80%;
-            max-width: 800px;
-            margin: 10px auto;
-            padding: 30px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-
-        h1 {
-            color: #007BFF;
-            font-weight: bold;
-        }
-        
-        h2 {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 25px;
-        }
-
-        h3 {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        h3 a {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 20px;
-            text-decoration: none;
-        }
-
-        h3 a:hover {
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .lab {
-            margin-bottom: 20px;
-        }
-
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #007BFF;
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .column {
-            width: calc(100% - 5px);
-        }
-        
         nav {
             background-color: #333;
             overflow: hidden;
             text-align: center;
+            min-width: 950px;
         }
 
         nav a {
@@ -110,29 +44,218 @@
             color: black;
         }
 
+        nav.fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* Add styles for the extended bar */
+        nav a:hover .extended-menu {
+            display: block;
+        }
+
+        /* Adjust styles for the extended menu */
+        .extended-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            background-color: #333;
+            padding: 10px;
+        }
+
+
+        .name {
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            font-size: 45px;
+            font-weight: bold;
+        }
+
+        .main-section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column; 
+            width: 60%;
+            min-width: 700px;
+            
+        }
+
+        .main-body {
+            display: flex;
+            width: 100%;
+        }
+
+        section {
+            min-width: 720px;
+            max-width: 900px;
+            margin: 10px auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section a {
+            text-decoration:underline;
+            color: #3f99f9;
+        }
+        
+        section p {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 0px;
+            margin-bottom: 10px;
+        }
+
+        section p a:hover{
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        section ul {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 0px;
+            margin-bottom: 30px;
+        }
+
+        section li {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+
+        section ul li {
+            margin-top: 0px;
+        }
+
+        section h3,h4 {
+            margin-top: 30px; /* Adjusted margin-top value */
+            margin-bottom: 10px; /* Adjusted margin-bottom value */
+        }
+
+        h1 {
+            color: #007BFF;
+            font-weight: bold;
+        }
+        
+        h2 {
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 35px;
+        }
+
+        .h2-text {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        h3 {
+            color: black;
+            font-weight: bold;
+            font-size: 25px;
+        }
+
+        h3 a {
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        h3 a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        h4 {
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .h4-text {
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        h5 {
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+            overflow-wrap: break-word;
+            margin-bottom: 10px;
+        }
+
+        .h5-text {
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        .lab {
+            margin-bottom: 20px;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            min-width: 930px;
+        }
+
+        footer p {
+            margin: 10px 40px; /* Add margin to the paragraphs for vertical separation */
+        }
+
+        .column {
+            width: calc(100% - 5px);
+        }
+        
         .sidebar {
             margin: 10px 0;
             height: fit-content;
             width: 20%;
             max-width: 200px;
+            min-width: 150px;
             position: relative;
             margin-right: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 23px;
             text-align: center;
+        }
+
+        .sidebar img {
+            width: 80%;
+            max-width: 150px; /* Set a maximum width if needed */
+            max-height: 150px;
+            border-radius: 80%;
+            object-fit: cover;
+            position:relative;
         }
 
         .sidebar a {
             padding: 8px 16px;
             text-decoration: none;
-            font-size: 18px;
             display: block;
             color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
         }
 
         .sidebar a:hover {
@@ -140,33 +263,121 @@
         }
 
         .sidebar2 {
+            margin: 10px 0;
+            margin-left: 10px;
             height: fit-content;
             width: 20%;
             max-width: 200px;
             min-width: 150px;
             position: relative;
-            margin-top: 30px;
-            margin-left: 10px;
-            margin-right: 60px;
+            margin-right: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            color: black;
+            color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 23px;
+            text-align: center;
+        }
+
+        .sidebar2.fixed {
+            position: fixed;
+            right: 20px; /* Adjust the distance from the right edge */
+            top: 30px; /* Adjust the distance from the top */
         }
 
         .sidebar2 a {
-            padding: 8px 16px;
             text-decoration: none;
-            font-size: 20px;
+            display: block;
+            color: black;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .sidebar2-heading {
+            padding-left: 16px;
+            text-decoration: none;
             display: block;
             color: black;
             font-weight: bold;
             font-size: 20px;
+            line-height: 1;
+        }
+
+        .sidebar2-subheading {
+            position:relative;
+            font-size: 18px; 
+            font-weight: normal; 
+            padding-left: 25px; 
+            padding-top: 0px;
+            line-height: 0.5;
         }
 
         .sidebar2 a:hover {
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar2 div p a{
+            text-decoration: none;
+            display: block;
+            color: black;
+            line-height: 0.5;
+            font-weight: normal;
+        }
+
+        .sidebar2 div p a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-intext {
+            font-family: 'Lucida Console', monospace;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .code-block {
+            font-family:'Courier New', Courier, monospace;
+            font-size: 18px;
+            padding-left: 0px;
+        }
+
+        code {
+            font-family:'Courier New', Courier, monospace;
+            font-size: 18px;
+        }
+
+        section .img-container {
+            width: 100%;
+            margin-top: 5px;
+            display: block;
+            text-align: center;
+        }
+
+        section .img-container .img-intext {
+            width: 100%;
+            height: auto;
+            display: inline-block;
+            text-align: center;
+            max-width: 700px;
+        }
+
+        .gist {
+            width: calc(100% - 60px); /* Set the width to match the sections minus any margins or padding */
+            margin: 0 auto; /* Center the box horizontally */
+            box-sizing: border-box; /* Include padding and border in the width calculation */
+        }
+
+        .gist .blob-wrapper.data.type-text pre {
+            white-space: wrap; /* Wrap text inside pre element */
+        }
+
+        .video-container {
+            text-align: center;
+            padding-left: 0px;
+        }
+
+        .eq {
+            text-align: center;
+            font-style: italic;
         }
 
     </style>
@@ -176,27 +387,28 @@
     <header>
         <div class="name">
             <p>ECE 5160: FAST ROBOTS</p>
+            <p style="font-size: 35px;">Lab 4: Motor Driver and Open Loop Control</p>
         </div>
         <p style="font-size: 20px;">Wenyi Fu • ECE • wf223@cornell.edu</p>
+
     </header>
 
     <nav>
         <a href="index.html">Home</a>
+        <a href="#intro">Introduction</a>
         <a href="#prelab">Prelab</a>
         <a href="#task">Lab Tasks</a>
         <a href="#discussion">Discussion</a>
     </nav>
-    
-    
 
-
-    <div style="display: flex;">
-    
+   
+    <div class="main-body">
         <div class="sidebar">
-            <div class="about-content" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
-                <img src="pics/wf223.jpg" alt="Wenyi Fu" style="width: 150px; height: 150px; border-radius: 80%; object-fit: cover;">
+            <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+                <img src="pics/wf223.jpg" alt="Wenyi Fu">
             </div>
             <p><a href="lab1.html">Lab 1</a></p>
+            <p><a href="lab2.html">Lab 2</a></p>
             <p><a href="lab3.html">Lab 3</a></p>
             <p><a href="lab4.html">Lab 4</a></p>
             <p><a href="lab5.html">Lab 5</a></p>
@@ -208,44 +420,196 @@
             <p><a href="lab11.html">Lab 11</a></p>
             <p><a href="lab12.html">Lab 12</a></p>
         </div>
-    
-        <div class="main-content">
+        
+        
+        <div class="main-section">
 
+            <!-- INTRO -->
+            <section id="intro">
+                <h2>INTRODUCTION</h2>
+                <p>This lab section is to setup the two Time of Flight (ToF) sensors. Additionally, it is required to analyze the accuracy and sensitivity of the ToF sensors. </p>
+            </section>
+
+            <!-- PRELAB -->
             <section id="prelab">
                 <h2>PRELAB</h2>
+
+                <h3>Parts Required</h3>
+                <ul>
+                    <li>1 x SparkFun RedBoard Artemis Nano</li>
+                    <li>1 x USB cable</li>
+                    <li>2 x 4m ToF sensor</li>
+                    <li>1 x QWIIC Breakout board</li>
+                    <li>2 x Qwiic connector</li>
+                    <li>1 x Ruler or graph paper</li>
+                </ul>
+
+                <!-- I2C address -->
+                <h3>I2C Address</h3>
+                <p>It is documented that the Time of Fight (ToF) sensors use I2C channel to communicate with the Artemis board, according to the <a href="https://cdn.sparkfun.com/assets/8/9/9/a/6/VL53L0X_DS.pdf">datasheet</a>. Furthermore, the default address is <span class="code-intext">0x56</span>.</p>
+
+                <!-- ToF -->
+                <h3>ToF Sensors</h3>
+                <p>Two ToF should be implemented om the robot. Since they share the same I2C address, one of the ToF sensor should be reset to another address that is different from before. Therefore, the <span class="code-intext">XSHUT</span> pin can be connected to the Artemis, which shuts down one ToF to make the I2C address configuration. And then, this ToF can be restarted again and functioning parallelly</p>
+
+                <!-- placement of sensors -->
+                <h3>Placement of Sensors</h3>
+                <p>The two ToF sensors should be placed on the robot as shown below, ensuring the avoidance of obstacles.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab3/place.jpg" alt="placement">
+                </div>
+
+                <!-- wiring -->
+                <h3>Wiring</h3>
+                <p>The following figure shows the hardware wiring of the ToF sensors to the Artemis.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 600px;" src="pics/lab3/wiring.jpg" alt="wiring">
+                </div>
+                
             </section>
 
+            <!-- LAB TASKS -->
             <section id="task">
                 <h2>LAB TASKS</h2>
-            
-            
+                <!-- connection -->
+                <h3>i. Connection</h3>
+                <p>Firstly, we cut the original wires on the battery and soldered the QWIIC connector, which can be connected to the Artemis with the JST socket.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab3/battery_solder.JPG" alt="battery connection">
+                </div>
+                <p style="margin-top: 40px;">After soldering the battery, we can connect the Artemis directly with the it, and it turned out working perfectly with the independent power supply instead of the USB-C cable linked to the laptop.</p>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/59MgsIGwGm8" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <p style="margin-top: 40px;">Next, the Artemis can be wired with the ToFs as shown below.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab3/connection_tof.JPG" alt="tof connection">
+                </div>
+
+                <!-- scanning for i2c device -->
+                <h3>ii. I2C Device Scanning</h3>
+                <p>By only connecting the Artemis with one ToF, the I2C channel address will be scanned and shown in the serial monitor terminal, which is <span class="code-intext">0x29</span>. As I2C uses LSB of the address to indicate read/write, so the real address is <span class="code-intext">0x29</span> shifting 1 to the left, which is equal to <span class="code-intext">0x52</span>.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab3/scanning.jpeg" alt="scanning">
+                </div>
+
+
+                <!-- sensor data for chosen mode -->
+                <h3 id="mode">iii. Sensor Data for Chosen Mode</h3>
+                <p>The two ToF sensors is set to different chosen mode by applying <span class="code-intext">.setDistanceModeShort()</span>. Furthermore, the tape measure is used to obtain the distance. </p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab3/distance.JPG" alt="distance">
+                </div>
+                <p style="margin-top: 40px;">The partial code below is implemented to extract the data from ToF sensors which is sent through the Bluetooth channel, and we can obtain various data concerning different distances by repeating those steps.</p>
+                <script src="https://gist.github.com/mavisfu/182670f908cf558570d3bb41e5a058d1.js"></script>
+                <p style="margin-top: 40px;">Therefore, all the data can be plot in the same diagram by applying this:</p>
+                <script src="https://gist.github.com/mavisfu/39ee806af3235652f5673cf419505378.js"></script>
+                <p style="margin-top: 40px;">The following figure displays the theoretical and actual distance, where the blue dots represent short mode and the yellow dots represent long mode. Hence, it can be concluded that the ToF sensor is relatively accurate, but with a certain range of deviation.</p>
+
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab3/accuracy.png" alt="mode">
+                </div>
+
+                <!-- 2 ToF sensors: Discussion and screenshot of sensors working in parallel -->
+                <h3>iv. 2 ToF Sensor</h3>
+                <p>Tp run the two ToF sensors parallelly, it is required to configure the I2C channel to different address. Hence, we need to shutdown one ToF through <span class="code-intext">XSHUT</span> pin to conduct the setup. </p>
+                <li>This block is to define the pins and the sensors:</li>
+                <script src="https://gist.github.com/mavisfu/a9ba02caddbc2c5379083a1c2d08dc00.js"></script>
+                <li>This block is to configure the I2C address in the setup function in Arduino:</li>
+                <script src="https://gist.github.com/mavisfu/928317ccf9fc96aa2797dd8794dcfefc.js"></script>
+                <li>This block is to read and print out the data from the ToF sensors in the main loop:</li>
+                <script src="https://gist.github.com/mavisfu/41b6fe8e6b914e1be5d552da984ce28e.js"></script>
+
+                <p style="margin-top: 40px;"> Furthermore, the following video shows the testing of those two ToF sensors running parallelly.</p>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/zN5bRRJ8WNs" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+
+                <!-- Tof sensor speed: Discussion on speed and limiting factor; include code snippet of how you do this -->
+                <h3>v. ToF Sensor Speed</h3>
+                <p>The sensor speed can be analyzed by recording the time stamps before and after reading the data, which can represent the elapsed time of the implementation of ToF.</p>
+                <script src="https://gist.github.com/mavisfu/b9252e17963a4d682e760595a8eb139b.js"></script>
+                <p style="margin-top: 40px;">In the figure, the <span class="code-intext">delay_time</span> is around <b>8 milliseconds</b>, so the processing time is relatively fast. </p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab3/tof_speed.png" alt="tof speed">
+                </div>
+
+
+
+                <!-- Time v Distance: Include graph of data sent over bluetooth (2 sensors) -->
+                <h3>vi. Time v Distance</h3>
+                <p>To obtain the time-vs-distance figure, we can firstly add an command <span class="code-intext">GET_TOF_5s</span> to the Artemis. This can record specific length of data during a certain period and send to the laptop through BLE channel.</p> 
+                <script src="https://gist.github.com/mavisfu/cefa8eb5cf64b634c37c72aa4380bcdb.js"></script>
+                <p style="margin-top: 40px;">The figure plot is shown below, with a data of 100 number. 
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab3/time_v_distance.png" alt="time v distance">
+                </div>
+
+
+                <!-- (5000) Discussion on infrared transmission based sensors -->
+                <h3>vii. Discussion on infrared transmission based sensors</h3>
+                <p>The ToF sensor implemented in this lab uses infrared transmission. That is to say, the distance is acquired by emitting and receiving infrared light, through the equation <span class="code-intext">d=t*c/2</span>, where <span class="code-intext">c</span> is the speed of light. Therefore, the pros are that they are immune to visible light interference and can respond rapidly. Also, IR sensors have low power consumption. However, they have some disadvantages as well, such as limited range, high cost and interference with other IR sensors. Furthermore, they might have imprecise results with different reflective color, since they operate based on the light reflection principle. This will be fully demonstrated in the following task.</p>
+
+                <!-- (5000) Sensitivity of sensors to colors and textures -->
+                <h3>viii. Sensitivity of sensors to colors and textures</h3>
+                <p>To compare difference texture, we set the distance to be measured as 100mm. The code to obtain data from the Artemis is similar as shown above in the <a href="#mode" style="text-decoration: none; color: black;"><b>Chosen Mode</b></a> section. Accordingly, the figure can be plot based on the following code. </p> 
+                <script src="https://gist.github.com/mavisfu/4691e95e612c6206c526458555ce7ad4.js"></script>
+                <p style="margin-top: 40px;">As it is demonstrated on the program, the textures are blue leather bag, black leather bag, white paper box and brown paper from left to right. It can be concluded that the black leather texture is the most inaccurate, because it absorb much of the light, while the white paper box is the most precise, since white color is the most reflective.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab3/texture.png" alt="texture">
+                </div>
+
+
+
+               
             </section>
 
+            <!-- DISCUSSION -->
             <section id="discussion">
                 <h2>DISCUSSION</h2>
+                <p>In this lab section, the ToF sensors are implemented for the detection of distance. Moreover, the analysis of the accuracy and sensitivity has help us have an in-depth understanding of the ToF.</p>
+            
+            
             </section>
+
         </div>
-
-        
-        <div class="sidebar2">
-
-            <p><a href="#prelab">Prelab</a></p>
-            <p><a href="#task">Lab Tasks</a></p>
-            <p><a href="#discussion">Discussion</a></p>
-        
-        </div>
-
 
     </div>
+
+        
+
+
+   
 
   
 
     <footer>
-        <div style="display: flex; flex-direction: row;">
-            <p>&copy; 2024 Wenyi Fu ECE 5160: Fast Robots</p>
-            <p>E-mail: wf223@cornell.edu</p>
-        </div>
+        <p>&copy; 2024 Wenyi Fu ECE 5160: Fast Robots</p>
+        <p>E-mail: wf223@cornell.edu</p>
+        
     </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var nav = document.querySelector('nav');
+            var rect = nav.getBoundingClientRect();
+
+            if (rect.top <= 0) {
+                nav.classList.add('fixed');
+            } else {
+                nav.classList.remove('fixed');
+            }
+            if (window.scrollY <= 200) {
+            nav.classList.remove('fixed');
+        }
+        });
+        
+    </script>
+
+    
+
 
 </body>
 </html>
