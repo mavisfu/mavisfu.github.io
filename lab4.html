@@ -454,16 +454,14 @@
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 400px;" src="pics/lab4/pinout.png" alt="pinout">
                 </div>
-                <p style="margin-top: 40px;">The diagram for the Motor Driver connection is shown as below, where we should use seperate batteries for the Artemis and the Motor Driver.</p>
+                <p style="margin-top: 40px;">The diagram for the Motor Driver connection is shown as below, where we should use separate batteries for the Artemis and the Motor Driver.</p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 600px;" src="pics/lab4/wiring.png" alt="wiring">
                 </div>
                 
-
-
                 <!-- battery discussion -->
                 <h3>Battery Discussion</h3>
-                
+                <p>Two batteries should be implemented in this lab, as separate power supplies with different ground references for motor drivers and microcontrollers are utilized to ensure operational stability and protect sensitive components. Furthermore, the noise can be greatly reduced, since the motors will generate electrial noises, interfering with the microcontroller operation. With this reason, two 3.7V batteries will be applied.</p>
             </section>
 
             <!-- LAB TASKS -->
@@ -472,7 +470,8 @@
                 <!-- setup -->
                 <h3>i. Motor driver tests</h3>
                 <p>First, we can hook up the Artemis and the motor driver like this, and in this way, we can test one single motor. The power supply of the Motor Driver is simulated by the Power Generator which is set to 3.7V and the Artemis can be powered by the laptop through USB-C cable.</p>
-                <h4>Power supply setting discussion</h4>
+                <li style="margin-top: 20px;margin-bottom: 0px;"><b>Power supply setting discussion</b></li>
+                <p style="padding-left: 25px;margin-top: 0px;">As the power supply of the motor drivers is 3.7V, so the pin <span class="code-intext">VIN</span> and <span class="code-intext">GND</span> should be hooked up to the Power Generator. Moreover, the Artemis can be powered by the USB-C cable through laptop.</p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 400px;" src="pics/lab4/osc_connect.JPG" alt="osci">
                 </div>
@@ -484,52 +483,76 @@
 
                 <!-- wheels spinning -->
                 <h3>ii. Wheels spinning</h3>
-                
-                <p>Video for both wheel spinning both directions</p>
+                <p>The following code is for testing one single motor:</p>
                 <script src="https://gist.github.com/mavisfu/6841b643fef6a3fbb1acbc543e8fc141.js"></script>
+                <p style="margin-top: 40px;">Therefore, one motor spinning is shown in this video below:</p>
                 <div class="video-container">
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/oQO42rQGbUQ" frameborder="0" allowfullscreen></iframe>
                 </div>
+                <p style="margin-top: 40px;">Then, it is tried to implement two motor drivers, where pins are defined and the processes are created as below:</p>
                 <script src="https://gist.github.com/mavisfu/e23f59cd607c5d36c9f33afa75147272.js"></script>
+                <p style="margin-top: 40px;">Hence, we can get two motors working properly.</p>
                 <div class="video-container">
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/zEHml6ZUzzw" frameborder="0" allowfullscreen></iframe>
                 </div>
 
-
                 <!-- Picture of all the components secured in the car -->
                 <h3>iii. Connection</h3>
+                <p>After the testing for the motor drivers and the power supply, the whole connection diagram is illustrated in the figure. Two TOF sensors are placed in the front and the side separately and the IMU is placed in the gap of the robot chassis. Furthermore, I use the tape to tidy up the cables and wires.</p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 600px;" src="pics/lab4/whole_connection.png" alt="whole connection">
                 </div>
 
                 <h3>iv. Two Motors and Powored by Batteries.</h3>
-                <p>video</p>
+                <p>With all the testing and soldering completed, the robot can be powered by the two batteries, and the operation is displayed in the video.</p>
                 <div class="video-container">
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/W4ryWs1C-60" frameborder="0" allowfullscreen></iframe>
                 </div>
 
                 <!-- Lower limit PWM value discussion -->
                 <h3>v. Lower Limit PWM</h3>
+                <p>In this section, we will explore the lower limit in PWM value for making the robot moving forward on the ground, and it is shown that the lower PWM limit is <span class="code-intext">28</span>. </p>
                 <script src="https://gist.github.com/mavisfu/887458a88e882bbe23da1c0042c81105.js"></script>
+                <p style="margin-top: 40px;">This video demonstrate the motion of the robot with lower PWM value.</p>
                 <div class="video-container">
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/CDLQ--v1AJs" frameborder="0" allowfullscreen></iframe>
                 </div>
 
-
-
                 <!-- Calibration demonstration -->
                 <h3>vi. Calibration for Going Straight Line</h3>
+                <p>Since it is only the open loop control, those two motors will have different speed. Therefore, a calibration factor is implemented to make the robot move in a relatively straight line, where the factor is euqual to <span class="code-intext">1.8</span> in this circumstance.</p>
+                <script src="https://gist.github.com/mavisfu/77021755194b6632a763999a22845b4a.js"></script>
+                <p style="margin-top: 40px;">It can be concluded in the video that the robot can move almost in a straight line with the implementation of the calibration factor. </p>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/JEpCQ3fmjbM" frameborder="0" allowfullscreen></iframe>
+                </div>
 
                 <!-- Open loop code and video -->
                 <h3>vii. Open Loop Control</h3>
-
-
+                <p>Then, a series of open loop control commands are implemented, by using <span class="code-intext">forward(), backward(), stop(), turn_left(), turn_right</span>.</p>
+                <script src="https://gist.github.com/mavisfu/70d54399d8e3518bb15926ea1e7ada62.js"></script>
+                <p style="margin-top: 40px;">Therefore, we get the robot motion which is demonstrated in the following video.</p>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/f119tcLiA8M" frameborder="0" allowfullscreen></iframe>
+                </div>
 
                 <!-- (5000) analogWrite frequency discussion -->
-
-
+                <h3>viii. Frequency</h3>
+                <p>To analyze the frequency that <span class="code-intext">analogWrite()</span> generates, we can write a program as below to display the analog write delay time.</p>
+                <script src="https://gist.github.com/mavisfu/7a46bd5b4a55670e671573ca485046f6.js"></script>
+                <p style="margin-top: 40px;">It is illustrated in the previous lab that TOF delay time is <span class="code-intext">8ms (125Hz)</span>, IMU delay time is <span class="code-intext">33ms (30Hz)</span>, and as it is shown in this figure, the delay time of motor control is <span class="code-intext">5ms (200Hz)</span>. Consequently, the frequency of analog write is sufficient, since the default PWM frequency is 490Hz for most of the board, and it is also adequate for TOF and IMU based control. However, the manual adjustment for the PWM can enhance the efficiency and reduce the noises.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab4/freq.png" alt="analog freq">
+                </div>
 
                 <!-- (5000) Lowest PWM value speed (once in motion) discussion -->
+                <h3>ix. Lowest PWM value speed</h3>
+                <p>To figure out the PWM value for making the robot keep moving in its slowest speed, we can implement the following program, where the blinking LED indicates every deduction of the speed so that the specific value can be obtained.</p> 
+                <script src="https://gist.github.com/mavisfu/ee855c5c3d35fd5dce8310456893b32a.js"></script>
+                <p style="margin-top: 40px;">It is shown in the video that there are totally two blinks before the robot is stopped. Therefore, the value is <span class="code-intext">24</span>.</p>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/6aSZHdBLBE4" frameborder="0" allowfullscreen></iframe>
+                </div>
 
 
                
@@ -538,9 +561,7 @@
             <!-- DISCUSSION -->
             <section id="discussion">
                 <h2>DISCUSSION</h2>
-                
-            
-            
+                <p>In this lab section, we learnt how to solder and assemble all the components in the robots. Furthermore, with the tests for the motor drivers and batteries, the open loop control of the motors is implemented to realize the car motion. </p>     
             </section>
 
         </div>
