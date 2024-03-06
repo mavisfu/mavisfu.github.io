@@ -540,7 +540,7 @@
                 <h3>viii. Frequency</h3>
                 <p>To analyze the frequency that <span class="code-intext">analogWrite()</span> generates, we can write a program as below to display the analog write delay time.</p>
                 <script src="https://gist.github.com/mavisfu/7a46bd5b4a55670e671573ca485046f6.js"></script>
-                <p style="margin-top: 40px;">It is illustrated in the previous lab that TOF delay time is <span class="code-intext">8ms (125Hz)</span>, IMU delay time is <span class="code-intext">33ms (30Hz)</span>, and as it is shown in this figure, the delay time of motor control is <span class="code-intext">5ms (200Hz)</span>. Consequently, the frequency of analog write is sufficient, since the default PWM frequency is 490Hz for most of the board, and it is also adequate for TOF and IMU based control. However, the manual adjustment for the PWM can enhance the efficiency and reduce the noises.</p>
+                <p style="margin-top: 40px;">It is illustrated in the previous lab that TOF delay time is <span class="code-intext">8ms (125Hz)</span>, IMU delay time is <span class="code-intext">33ms (30Hz)</span>, and as it is shown in this figure, the delay time of motor control is <span class="code-intext">5ms (200Hz)</span>. Consequently, the frequency of analog write is sufficient, since the default PWM frequency is <span class="code-intext">490Hz</span> for most of the board, and it is also adequate for TOF and IMU based control. However, the manual adjustment for the PWM can enhance the efficiency and reduce the noises.</p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 500px;" src="pics/lab4/freq.png" alt="analog freq">
                 </div>
