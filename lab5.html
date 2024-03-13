@@ -427,13 +427,13 @@
             <!-- INTRO -->
             <section id="intro">
                 <h2>INTRODUCTION</h2>
-                   
+                <p>This lab section is to implement the PID control to the motors according to the distance from the wall. The BLE is used to store the data and debug the system.</p>
             </section>
 
             <!-- PRELAB -->
             <section id="prelab">
                 <h2>PRELAB</h2>
-
+                
                 <h3>Parts Required</h3>
                 <ul>
                     <li>1 x R/C stunt car</li>
@@ -449,47 +449,80 @@
                 <!-- wiring -->
                 <h3>BLE</h3>
                 <p>First, I created these arrays to store the data that needed to be transferred to the laptop for analysis through the Bluetooth.</p>
-
                 <script src="https://gist.github.com/mavisfu/e47aec864e9da63481fc69d3a4c258a0.js"></script>
-                
-                
-                
-                
+                <p style="margin-top: 40px;">Also, I use these command to start the PID motion control on the robot through BLE:</p>
+                <script src="https://gist.github.com/mavisfu/62362c0625e1ac6e303f7edcad92447b.js"></script>
+                <p style="margin-top: 40px;">Hence, with the data sent through the channel, it can be received by the laptop and plot in the figure by the following code. The first block is for PID motor input and TOF distance vs time, and the second block is for plotting each PID component, which helps debugging.</p>
+                <script src="https://gist.github.com/mavisfu/e36fa2a1cb0da389500f2e7007bda7ea.js"></script>
+                <script src="https://gist.github.com/mavisfu/5ae5b836197f5bbbf60014cc682f045a.js"></script>
             </section>
 
             <!-- LAB TASKS -->
             <section id="task">
                 <h2>LAB TASKS</h2>
                 <h3>P/I/D discussion</h3>
+                <p>As it is stated in the lab section, the PID controller is comprised of three part, propotional, integral and derivative. Therefore, the equation can be represented as: </p>
+                <p style="text-align: center;"> \( \text{correction} = K_p \cdot \text{error} + K_i \cdot \text{integral error} + K_d \cdot \text{derivative error} \)</p>
+                <p>The proportional gain, <span class="code-intext">Kp</span>, adjusts the current error (the gap between the desired and actual values) in proportion to its magnitude. A higher <span class="code-intext">Kp</span> intensifies the corrective action, yet it may lead to instability or overshooting.</p>
+                <p>The integral gain, <span class="code-intext">Ki</span>, addresses accumulated past errors. It amplifies the corrective action when the error persists over time, but excessive <span class="code-intext">Ki</span> values can result in overshooting or weaving due to the gradual reduction of accumulated errors.</p>
+                <p>The derivative gain, <span class="code-intext">Kd</span>, anticipates future errors by assessing the rate of error change. It serves as a damping mechanism to minimize overshooting and moderate the speed of corrective actions, although it may also amplify noise.</p>
 
                 <h3>Range/Sampling time discussion</h3>
-                
+                <p>To make sure that there will be valid data for each loop of the TOF distance reading, the following line is put inside the function <span class="code-intext">pid_position_tof()</span>, but it will delay a lot of the sampling time and make the system unstable. Consequently, I delete those lines. However, if it is deleted, the data might not be valid due to the low frequency of the TOF sensor reading, so there is a problem that will be fully illustrated in next section.</p>
+                <script src="https://gist.github.com/mavisfu/45163b53d9bf3b524004d71c52911abe.js"></script>
+
                 <h3>Implementation</h3>
-                <p>The program for recording the PID control data is created in the main loop as listed below:</p>
-                <script src="https://gist.github.com/mavisfu/87d91ef915957f1f56657a9d06c78847.js"></script>
-                <p style="margin-top: 40px;">And the case <span class="code-intext">PID_POSITION_CONTROL</span> is implemented to start that recording function above. When the PID sample data <span class="code-intext">pid_sample</span> reaches <span class="code-intext">500</span>, it will begin to send data through BLE.</p>
+                <p>To implement this, the case <span class="code-intext">PID_POSITION_CONTROL</span> is created to start that recording function. After recording certain amount of the PID sample data, which is <b>500</b> in this situation, it will begin to send data through BLE.</p>
                 <script src="https://gist.github.com/mavisfu/550e6e62c3af92d8247797ef444036d3.js"></script>
                 <p style="margin-top: 40px;">Where the funtion <span class="code-intext">pid_position_tof()</span> for calculation the motor control signals is shown below:</p>
                 <script src="https://gist.github.com/mavisfu/cebfb9c4ca1abdd9169cc189684713ed.js"></script>
                 <p style="margin-top: 40px;">Therefore, with the notification handler, the data can be stored in the array in Python through the command <span class="code-intext">ble.send_command(CMD.PID_POSITION_CONTROL, "0.1|0.1|0.5|304")</span>, where the PID parameter and the target distance can be modified by changing the numbers in<span class="code-intext">"0.1|0.1|0.5|304"</span>.</p>
                 <script src="https://gist.github.com/mavisfu/05b654ae982e7b82cd3c924fda0f8062.js"></script>
 
-                
+                <h3>Graph data results</h3>
+                <p>The movement of the robot with PID controller is shown in the video, where the car distance from the wall is set to <b>304mm (1ft)</b>.</p>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/nX5IogGH7Ho?rel=0" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p style="margin-top: 40px;">And when the parameter <span class="code-intext">Kp</span> is increased, the result is shown below:</p>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/3AdeJyfn2Sw?rel=0" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p style="margin-top: 40px;">Additionally, the data plot in the diagrams indicates the process of the PID control, which will be demonstrated as follows</p>
+                <p>When Kp = 0.05, Ki = 0.02, Kd = 1, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram1.png" alt="pinout">
+                </div>
 
-                <h3>Graph data should include Tof vs time and Motor input vs time (and whatever helps with debugging)</h3>
+                <p style="margin-top: 40px;">When Kp = 0.1, Ki = 0.01, Kd = 0.8, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram2.png" alt="pinout">
+                </div>
+
+                <p style="margin-top: 40px;">When Kp = 0.1, Ki = 0.005, Kd = 1, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram3.png" alt="pinout">
+                </div>
+
+                <p style="margin-top: 40px;">When Kp = 0.08, Ki = 0.005, Kd = 1, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram4.png" alt="pinout">
+                </div>
+                <p style="margin-top: 40px;">Furthermore, each PID component is also sent to the laptop for analyzing, which is beneficial for debugging.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram5.png" alt="pinout">
+                </div>
+                <p style="margin-top: 40px;">From all the figures above, it can be concluded that only with propotional term the oscillating waveform of motor input will be obstained, so the integral and derivative terms should be added as well. Moreover, the D-term controller values shown in figure are discrete, indicating that some of the TOF values are not valid, since the sampling frequency of the sensor is not high enough. Thus, the extrapolation method should be implemented, which will be illustrated in the following section.</p>
 
                 <h3>Extrapolation</h3>
-
-
-                
-                <div class="video-container">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/oQO42rQGbUQ" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <div class="img-container">
-                    <img class="img-intext" style="max-width: 400px;" src="pics/lab4/pinout.png" alt="pinout">
-                </div>
+                <p>Since the PID loop run time is around 15ms, while the TOF reading is nearly 8ms, the extrapolation should be implemented to ensure the validity of each data in the <span class="code-intext">pid_tof</span> array. Therefore,  the function <span class="code-intext">checkForDataReady()</span> can be used for extrapolating data when it is invalid. Also, according to the interpolation equation reprensented:</p>
+                <p style="text-align: center;">\( y = y_1 + \frac{{\Large{(x - x_1)} \cdot \Large{(y_2 - y_1)}}}{{\Large{x_2 - x_1}}} \)</p>
+                <p>We can create the program as below:</p>
+                <script src="https://gist.github.com/mavisfu/835ec62d8de64ae5514799a14333a2a4.js"></script>
 
                 <h3>Wind-up protection</h3>
+                <p>Wind-up protection is an essential feature of PID controller, particularly in systems susceptible to integrator wind-up. Integrator wind-up arises when the integral component accumulates excessively due to prolonged error conditions, resulting in issues like overshooting, instability, or other undesirable system behaviors. Therefore, the following code can be implemented to eliminate the wind-up problem. With this applied, the integral term will not be too large to calculate.</p>
+                <script src="https://gist.github.com/mavisfu/c8a0daed5c1bac51459c0ad9b65921cd.js"></script>
                 
 
                
@@ -498,6 +531,7 @@
             <!-- DISCUSSION -->
             <section id="discussion">
                 <h2>DISCUSSION</h2>
+                <p>In this lab, we learnt how to implement the PID controller to the motor according to the TOF distance set up. Furthermore, the extrapolation and wind-up protection are demonstrated as well. </p>
                    
             </section>
 
