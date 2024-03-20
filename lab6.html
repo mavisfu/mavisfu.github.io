@@ -427,7 +427,7 @@
             <!-- INTRO -->
             <section id="intro">
                 <h2>INTRODUCTION</h2>
-                <p>This lab section is to implement the PID control to the motors according to the distance from the wall. The BLE is used to store the data and debug the system.</p>
+                <p>This lab section is to implement the PID control to the motors according to the yaw angle calculated by reading from the IMU sensor. Also, we learnt how to examine and substract the bias with the gyroscope.</p>
             </section>
 
             <!-- PRELAB -->
@@ -475,37 +475,44 @@
                 
 
                 <h3>Implementation</h3>
-                <p>This section shows the implementation of the orientation PID control of the robot, which is based on the setup angle and the current angle read by the IMU sensor. The following code demonstrate the PID controlling routine in the main loop.</p>
+                <p>Since the gyroscope has a bias in its measurement, we should calculate the bias parameter at the setup of the Artemis. That is to say, we do not want the IMU reading to losing its accuracy as time goes by.</p>
+                <script src="https://gist.github.com/mavisfu/3e2676b537753bdacb06fd627be1cb5a.js"></script>
+
+                <p style="margin-top: 40px;">This section shows the implementation of the orientation PID control of the robot, which is based on the setup angle and the current angle read by the IMU sensor. The following code demonstrate the PID controlling routine in the main loop.</p>
                 <script src="https://gist.github.com/mavisfu/de1d5b8ed0787428d394d6f394656686.js"></script>
 
                 <p style="margin-top: 40px;">Where the <span class="code-intext">pid_orientation</span> function is shown below, which the wind-up protection implemented:</p>
                 <script src="https://gist.github.com/mavisfu/4031648c7d5696db5376861a69571e81.js"></script>
 
-                <p style="margin-top: 40px;">Furthermore, if the record is started, indicated by the flag <span class="code-intext">start_record</span>, we will record all the data into defined arrays by increasing <span class="code-intext">pid_orien_num</span> which cannot be exceeding <span class="code-intext">orien_num</span>, 1000</p>
-                <script src="https://gist.github.com/mavisfu/7604f5c130277e6f8d8752de6c4bb6c6.js"></script>
-
-                <p style="margin-top: 40px;">In the orientation PID controlling starting handler, the value of <span class="code-intext">Kp, Ki, Kd, target_angle</span> will be stored fir further processing.</p>
-                <script src="https://gist.github.com/mavisfu/b4486193d142d69dc73127f1a66ac451.js"></script>
-
+                <p style="margin-top: 40px;">And where the <span class="code-intext">start_record</span> flag is set to <span class="code-intext">true</span>, when the command is given.</p>
                 <script src="https://gist.github.com/mavisfu/7743e0c1131ddf1b062d0d642adc3c01.js"></script>
 
+                <p style="margin-top: 40px;">Furthermore, if the record is started, indicated by the flag <span class="code-intext">start_record</span>, we will record all the data into defined arrays by increasing <span class="code-intext">pid_orien_num</span> which cannot be exceeding <span class="code-intext">orien_num</span>, 1000.</p>
+                <script src="https://gist.github.com/mavisfu/7604f5c130277e6f8d8752de6c4bb6c6.js"></script>
+
+                <p style="margin-top: 40px;">In the orientation PID controlling starting handler, the value of <span class="code-intext">Kp, Ki, Kd, target_angle</span> will be stored for further processing.</p>
+                <script src="https://gist.github.com/mavisfu/b4486193d142d69dc73127f1a66ac451.js"></script>
+                
+                <p style="margin-top: 40px;">After all the recording is completed, the data will be sent over the BLE channel by implementing the command <span class="code-intext">ble.send_command(CMD.SEND_ORIENTATION_DATA, "")</span>, where the handler is shown as below:</p>
                 <script src="https://gist.github.com/mavisfu/933c30f7d3e4856b4f690c5c963b40d6.js"></script>
 
 
-
                 <h3>Graph data results</h3>
+                <p>With the command sent through the BLE channel, we can observe that the robot return to the setting angle, when external force push it to other angles.</p>
                 <div class="video-container">
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/SKJpFhaDBlU?autoplay=0" frameborder="0" allowfullscreen></iframe>
                 </div>
 
-                <p style="margin-top: 40px;">And when the parameter <span class="code-intext">Kp</span> is increased, the result is shown below:</p>
+                <p style="margin-top: 40px;">Additionally, we can set the target angles to several different values within a certain interval. </p>
+                <script src="https://gist.github.com/mavisfu/3a1fe8b653ac17182ce2cdbdd925fc55.js"></script>
+                <p style="margin-top: 40px;">Thus, the result is demonstrated in the video below:</p>
                 <div class="video-container">
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/-5-OR43v59o?autoplay=0" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <p>When the wind-up protection value is like below:</p>
+                <p style="margin-top: 40px;">When the wind-up protection value is like below:</p>
                 <script src="https://gist.github.com/mavisfu/b5438c3379a71c71d784958d8d89874b.js"></script>
 
-
+                <p style="margin-top: 40px;">We can record the data arrays and obtain the plotting figure for debugging and tuning the PID parameters, where blue line represent for set point, red line for PWM motor input signal and yellow for actual angle detected.</p>
                 <p style="margin-top: 40px;">When Kp = 2, Ki = 0, Kd = 0, the diagram is shown below:</p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 400px;" src="pics/lab6/pid1.png" alt="pid1">
@@ -541,14 +548,17 @@
                     <img class="img-intext" style="max-width: 400px;" src="pics/lab6/pid7.png" alt="pid7">
                 </div>
 
-
-                <p style="margin-top: 40px;">When Kp = 4, Ki = 0.3, Kd = 100, the diagram is shown below:</p>
+                <p style="margin-top: 40px;">Accordingly, it can be concluded that with only P control term, the actual angle deviation from the theoretical value is too large, while with all the PID terms implemented, the control system is more accurate, since we can see from the figure above that the yellow line almost overlap with the blue line, but there is still some delay in the response.</p>
+                <p>With this issue raised, I create the program to send all the PID data separately to determine the best value for <span class="code-intext">Kp, Ki, Kd</span>. Consequently, the figure below shows that the I term is always capped, which might cause some problems to the controller.</p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 300px;" src="pics/lab6/pid8.png" alt="pid8">
                     <img class="img-intext" style="max-width: 300px;" src="pics/lab6/pid9.png" alt="pid9">
                 </div>
 
-                <p style="margin-top: 40px;">When Kp = 4, Ki = 0.005, Kd = 100, the diagram is shown below:</p>
+                <p style="margin-top: 40px;">Therefore, the max wind-up value is adjusted from <span class="code-intext">80</span> to <span class="code-intext">10,000</span>, as 10,000 x 0.005 = 50, which will be the proper range of the I term.</p>
+                <script src="https://gist.github.com/mavisfu/7d7de45f41a0e2e6488be5fc62990651.js"></script>
+
+                <p style="margin-top: 40px;">With the modification, we get the figure as shown below, in which we can see that the I term react more reasonable.</p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 300px;" src="pics/lab6/pid10.png" alt="pid10">
                     <img class="img-intext" style="max-width: 300px;" src="pics/lab6/pid11.png" alt="pid11">
@@ -561,46 +571,23 @@
                 
 
 
-                <p style="margin-top: 40px;">Additionally, the data plot in the diagrams indicates the process of the PID control, which will be demonstrated as follows</p>
-                <p>When Kp = 0.05, Ki = 0.02, Kd = 1, the diagram is shown below:</p>
-                <div class="img-container">
-                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram1.png" alt="pinout">
-                </div>
 
-                <p style="margin-top: 40px;">When Kp = 0.1, Ki = 0.01, Kd = 0.8, the diagram is shown below:</p>
-                <div class="img-container">
-                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram2.png" alt="pinout">
-                </div>
-
-                <p style="margin-top: 40px;">When Kp = 0.1, Ki = 0.005, Kd = 1, the diagram is shown below:</p>
-                <div class="img-container">
-                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram3.png" alt="pinout">
-                </div>
-
-                <p style="margin-top: 40px;">When Kp = 0.08, Ki = 0.005, Kd = 1, the diagram is shown below:</p>
-                <div class="img-container">
-                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram4.png" alt="pinout">
-                </div>
-                <p style="margin-top: 40px;">Furthermore, each PID component is also sent to the laptop for analyzing, which is beneficial for debugging.</p>
-                <div class="img-container">
-                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram5.png" alt="pinout">
-                </div>
-                <p style="margin-top: 40px;">From all the figures above, it can be concluded that only with propotional term the oscillating waveform of motor input will be obstained, so the integral and derivative terms should be added as well. Moreover, the D-term controller values shown in figure are discrete, indicating that some of the TOF values are not valid, since the sampling frequency of the sensor is not high enough. Thus, the extrapolation method should be implemented, which will be illustrated in the following section.</p>
+                
+                
 
                 
 
                 <h3>Wind-up protection</h3>
-                <p>Wind-up protection is an essential feature of PID controller, particularly in systems susceptible to integrator wind-up. Integrator wind-up arises when the integral component accumulates excessively due to prolonged error conditions, resulting in issues like overshooting, instability, or other undesirable system behaviors. Therefore, the following code can be implemented to eliminate the wind-up problem. With this applied, the integral term will not be too large to calculate.</p>
-                <script src="https://gist.github.com/mavisfu/c8a0daed5c1bac51459c0ad9b65921cd.js"></script>
-                
+                <p>Wind-up protection is an essential feature of PID controller, particularly in systems susceptible to integrator wind-up. Integrator wind-up arises when the integral component accumulates excessively due to prolonged error conditions, resulting in issues like overshooting, instability, or other undesirable system behaviors. </p>
+                <p>In this lab, the wind-up value scale is not chosen properly, which make the I term always be capped. Therefore, I have leart that I should calculate the range of the I term first, according to the euqation:</p>
+                <p style="text-align: center;"> \( \text{I term} =  K_i \cdot \text{integral error}   \)</p>
 
-               
             </section>
 
             <!-- DISCUSSION -->
             <section id="discussion">
                 <h2>DISCUSSION</h2>
-                <p>In this lab, we learnt how to implement the PID controller to the motor according to the TOF distance set up. Furthermore, the extrapolation and wind-up protection are demonstrated as well. </p>
+                <p>In this lab, we learnt how to implement the PID controller to the motor according to the IMU sensor, and we realize the function that the robot can main the custimized angle. Furthermore, the rangle of the integral component of the PID comtrol should be carefully considered. </p>
                    
             </section>
 
