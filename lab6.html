@@ -448,7 +448,8 @@
 
                 <!-- wiring -->
                 <h3>BLE</h3>
-                <p>Basically, the structure is similar to the last lab. However, I have made several changes, since it is unstable to just put the PID control algorithm in the <span class="code-intext">CASE</span> program inside the handler. Hence, I have created a structure in the main loop, which is controlled by the flag called, <span class="code-intext">pid_orientation_on</span>.</p>
+                <p>Basically, the structure is similar to the previous lab. However, I have made several changes, since it is unstable to just put the PID control algorithm in the <span class="code-intext">CASE</span> program inside the handler. Hence, I have created a structure in the main loop, which is controlled by the flag called, <span class="code-intext">pid_orientation_on</span>.</p>
+                <p>Firstly, I define the following array to store the data, which will be sent to the laptop later.</p>
                 <script src="https://gist.github.com/mavisfu/4d7cd24d88f4d24e4e1842bad52ccf18.js"></script>
 
                 <p style="margin-top: 40px;">Also, I use these command to start the PID orientation control on the robot through BLE:</p>
@@ -472,28 +473,31 @@
 
                 <h3>Modification</h3>
                 <p>To make the system more stable, I put all the PID control code in the main loop, instead of putting them into the <span class="code-intext">CASE</span> handler.</p>
+
+                <h3>Range/Sampling time discussion</h3>
+                <p>The reading frequency of the IMU is relatively slow, compared to the TOF, so it will be fine if no extrapolation implemented.</p>
                 
 
                 <h3>Implementation</h3>
-                <p>Since the gyroscope has a bias in its measurement, we should calculate the bias parameter at the setup of the Artemis. That is to say, we do not want the IMU reading to losing its accuracy as time goes by.</p>
+                <p>Since the gyroscope has a bias in its measurement, we should calculate the bias parameter at the setup of the Artemis, ensuring that the IMU reading will not lose its accuracy as time goes by.</p>
                 <script src="https://gist.github.com/mavisfu/3e2676b537753bdacb06fd627be1cb5a.js"></script>
 
                 <p style="margin-top: 40px;">This section shows the implementation of the orientation PID control of the robot, which is based on the setup angle and the current angle read by the IMU sensor. The following code demonstrate the PID controlling routine in the main loop.</p>
                 <script src="https://gist.github.com/mavisfu/de1d5b8ed0787428d394d6f394656686.js"></script>
 
-                <p style="margin-top: 40px;">Where the <span class="code-intext">pid_orientation</span> function is shown below, which the wind-up protection implemented:</p>
+                <p style="margin-top: 40px;">Where the <span class="code-intext">pid_orientation()</span> function is shown below, with the wind-up protection implemented:</p>
                 <script src="https://gist.github.com/mavisfu/4031648c7d5696db5376861a69571e81.js"></script>
 
                 <p style="margin-top: 40px;">And where the <span class="code-intext">start_record</span> flag is set to <span class="code-intext">true</span>, when the command is given.</p>
                 <script src="https://gist.github.com/mavisfu/7743e0c1131ddf1b062d0d642adc3c01.js"></script>
 
-                <p style="margin-top: 40px;">Furthermore, if the record is started, indicated by the flag <span class="code-intext">start_record</span>, we will record all the data into defined arrays by increasing <span class="code-intext">pid_orien_num</span> which cannot be exceeding <span class="code-intext">orien_num</span>, 1000.</p>
+                <p style="margin-top: 40px;">Furthermore, if the record is started, indicated by the flag <span class="code-intext">start_record</span>, we will record all the data into defined arrays by increasing <span class="code-intext">pid_orien_num</span> which cannot be exceeding <span class="code-intext">orien_num</span>, with the value of 1000.</p>
                 <script src="https://gist.github.com/mavisfu/7604f5c130277e6f8d8752de6c4bb6c6.js"></script>
 
                 <p style="margin-top: 40px;">In the orientation PID controlling starting handler, the value of <span class="code-intext">Kp, Ki, Kd, target_angle</span> will be stored for further processing.</p>
                 <script src="https://gist.github.com/mavisfu/b4486193d142d69dc73127f1a66ac451.js"></script>
                 
-                <p style="margin-top: 40px;">After all the recording is completed, the data will be sent over the BLE channel by implementing the command <span class="code-intext">ble.send_command(CMD.SEND_ORIENTATION_DATA, "")</span>, where the handler is shown as below:</p>
+                <p style="margin-top: 40px;">After all the recording is completed, the data will be sent over the BLE channel by implementing the command <span class="code-intext">ble.send_command(CMD.SEND_ORIENTATION_DATA, "")</span>, where the handler on the Artemis side is shown as below:</p>
                 <script src="https://gist.github.com/mavisfu/933c30f7d3e4856b4f690c5c963b40d6.js"></script>
 
 
