@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wenyi Fu ECE 5160 Fast Robots</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Georgia', serif;
             background-color: #f4f4f4;
             color: #333;
             margin: 0;
@@ -19,82 +21,14 @@
             color: #fff;
             text-align: center;
             padding: 20px;
+            min-width: 910px;
         }
 
-        .name {
-            background-color: #007BFF;
-            color: #fff;
-            text-align: center;
-            font-size: 45px;
-            font-weight: bold;
-        }
-
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column; 
-        }
-
-        section {
-            width: 80%;
-            max-width: 800px;
-            margin: 10px auto;
-            padding: 30px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-
-        h1 {
-            color: #007BFF;
-            font-weight: bold;
-        }
-        
-        h2 {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 25px;
-        }
-
-        h3 {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        h3 a {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 20px;
-            text-decoration: none;
-        }
-
-        h3 a:hover {
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .lab {
-            margin-bottom: 20px;
-        }
-
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #007BFF;
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .column {
-            width: calc(100% - 5px);
-        }
-        
         nav {
             background-color: #333;
             overflow: hidden;
             text-align: center;
+            min-width: 950px;
         }
 
         nav a {
@@ -110,29 +44,218 @@
             color: black;
         }
 
+        nav.fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* Add styles for the extended bar */
+        nav a:hover .extended-menu {
+            display: block;
+        }
+
+        /* Adjust styles for the extended menu */
+        .extended-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            background-color: #333;
+            padding: 10px;
+        }
+
+
+        .name {
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            font-size: 45px;
+            font-weight: bold;
+        }
+
+        .main-section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column; 
+            width: 60%;
+            min-width: 700px;
+            
+        }
+
+        .main-body {
+            display: flex;
+            width: 100%;
+        }
+
+        section {
+            min-width: 720px;
+            max-width: 900px;
+            margin: 10px auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section a {
+            text-decoration:underline;
+            color: #3f99f9;
+        }
+        
+        section p {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 0px;
+            margin-bottom: 10px;
+        }
+
+        section p a:hover{
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        section ul {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 0px;
+            margin-bottom: 30px;
+        }
+
+        section li {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+
+        section ul li {
+            margin-top: 0px;
+        }
+
+        section h3,h4 {
+            margin-top: 30px; /* Adjusted margin-top value */
+            margin-bottom: 10px; /* Adjusted margin-bottom value */
+        }
+
+        h1 {
+            color: #007BFF;
+            font-weight: bold;
+        }
+        
+        h2 {
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 35px;
+        }
+
+        .h2-text {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        h3 {
+            color: black;
+            font-weight: bold;
+            font-size: 25px;
+        }
+
+        h3 a {
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        h3 a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        h4 {
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .h4-text {
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        h5 {
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+            overflow-wrap: break-word;
+            margin-bottom: 10px;
+        }
+
+        .h5-text {
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        .lab {
+            margin-bottom: 20px;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            min-width: 930px;
+        }
+
+        footer p {
+            margin: 10px 40px; /* Add margin to the paragraphs for vertical separation */
+        }
+
+        .column {
+            width: calc(100% - 5px);
+        }
+        
         .sidebar {
             margin: 10px 0;
             height: fit-content;
             width: 20%;
             max-width: 200px;
+            min-width: 150px;
             position: relative;
             margin-right: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 23px;
             text-align: center;
+        }
+
+        .sidebar img {
+            width: 80%;
+            max-width: 150px; /* Set a maximum width if needed */
+            max-height: 150px;
+            border-radius: 80%;
+            object-fit: cover;
+            position:relative;
         }
 
         .sidebar a {
             padding: 8px 16px;
             text-decoration: none;
-            font-size: 18px;
             display: block;
             color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
         }
 
         .sidebar a:hover {
@@ -140,33 +263,121 @@
         }
 
         .sidebar2 {
+            margin: 10px 0;
+            margin-left: 10px;
             height: fit-content;
             width: 20%;
             max-width: 200px;
             min-width: 150px;
             position: relative;
-            margin-top: 30px;
-            margin-left: 10px;
-            margin-right: 60px;
+            margin-right: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            color: black;
+            color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 23px;
+            text-align: center;
+        }
+
+        .sidebar2.fixed {
+            position: fixed;
+            right: 20px; /* Adjust the distance from the right edge */
+            top: 30px; /* Adjust the distance from the top */
         }
 
         .sidebar2 a {
-            padding: 8px 16px;
             text-decoration: none;
-            font-size: 20px;
+            display: block;
+            color: black;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .sidebar2-heading {
+            padding-left: 16px;
+            text-decoration: none;
             display: block;
             color: black;
             font-weight: bold;
             font-size: 20px;
+            line-height: 1;
+        }
+
+        .sidebar2-subheading {
+            position:relative;
+            font-size: 18px; 
+            font-weight: normal; 
+            padding-left: 25px; 
+            padding-top: 0px;
+            line-height: 0.5;
         }
 
         .sidebar2 a:hover {
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar2 div p a{
+            text-decoration: none;
+            display: block;
+            color: black;
+            line-height: 0.5;
+            font-weight: normal;
+        }
+
+        .sidebar2 div p a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-intext {
+            font-family: 'Lucida Console', monospace;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .code-block {
+            font-family:'Courier New', Courier, monospace;
+            font-size: 18px;
+            padding-left: 0px;
+        }
+
+        code {
+            font-family:'Courier New', Courier, monospace;
+            font-size: 18px;
+        }
+
+        section .img-container {
+            width: 100%;
+            margin-top: 5px;
+            display: block;
+            text-align: center;
+        }
+
+        section .img-container .img-intext {
+            width: 100%;
+            height: auto;
+            display: inline-block;
+            text-align: center;
+            max-width: 700px;
+        }
+
+        .gist {
+            width: calc(100% - 60px); /* Set the width to match the sections minus any margins or padding */
+            margin: 0 auto; /* Center the box horizontally */
+            box-sizing: border-box; /* Include padding and border in the width calculation */
+        }
+
+        .gist .blob-wrapper.data.type-text pre {
+            white-space: wrap; /* Wrap text inside pre element */
+        }
+
+        .video-container {
+            text-align: center;
+            padding-left: 0px;
+        }
+
+        .eq {
+            text-align: center;
+            font-style: italic;
         }
 
     </style>
@@ -176,27 +387,28 @@
     <header>
         <div class="name">
             <p>ECE 5160: FAST ROBOTS</p>
+            <p style="font-size: 35px;">Lab 6: Orientation Control</p>
         </div>
         <p style="font-size: 20px;">Wenyi Fu • ECE • wf223@cornell.edu</p>
+
     </header>
 
     <nav>
         <a href="index.html">Home</a>
+        <a href="#intro">Introduction</a>
         <a href="#prelab">Prelab</a>
         <a href="#task">Lab Tasks</a>
         <a href="#discussion">Discussion</a>
     </nav>
-    
-    
 
-
-    <div style="display: flex;">
-    
+   
+    <div class="main-body">
         <div class="sidebar">
-            <div class="about-content" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
-                <img src="pics/wf223.jpg" alt="Wenyi Fu" style="width: 150px; height: 150px; border-radius: 80%; object-fit: cover;">
+            <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+                <img src="pics/wf223.jpg" alt="Wenyi Fu">
             </div>
             <p><a href="lab1.html">Lab 1</a></p>
+            <p><a href="lab2.html">Lab 2</a></p>
             <p><a href="lab3.html">Lab 3</a></p>
             <p><a href="lab4.html">Lab 4</a></p>
             <p><a href="lab5.html">Lab 5</a></p>
@@ -208,44 +420,226 @@
             <p><a href="lab11.html">Lab 11</a></p>
             <p><a href="lab12.html">Lab 12</a></p>
         </div>
-    
-        <div class="main-content">
+        
+        
+        <div class="main-section">
 
+            <!-- INTRO -->
+            <section id="intro">
+                <h2>INTRODUCTION</h2>
+                <p>This lab section is to implement the PID control to the motors according to the distance from the wall. The BLE is used to store the data and debug the system.</p>
+            </section>
+
+            <!-- PRELAB -->
             <section id="prelab">
                 <h2>PRELAB</h2>
+                
+                <h3>Parts Required</h3>
+                <ul>
+                    <li>1 x R/C stunt car</li>
+                    <li>1 x SparkFun RedBoard Artemis Nano</li>
+                    <li>1 x USB cable</li>
+                    <li>2 x Li-Po 3.7V 650mAh (or more) battery</li>
+                    <li>2 x Dual motor driver</li>
+                    <li>2 x 4m ToF sensor</li>
+                    <li>1 x 9DOF IMU sensor</li>
+                    <li>1 x Qwiic connector</li>
+                </ul>
+
+                <!-- wiring -->
+                <h3>BLE</h3>
+                <p>Basically, the structure is similar to the last lab. However, I have made several changes, since it is unstable to just put the PID control algorithm in the <span class="code-intext">CASE</span> program inside the handler. Hence, I have created a structure in the main loop, which is controlled by the flag called, <span class="code-intext">pid_orientation_on</span>.</p>
+                <script src="https://gist.github.com/mavisfu/4d7cd24d88f4d24e4e1842bad52ccf18.js"></script>
+
+                <p style="margin-top: 40px;">Also, I use these command to start the PID orientation control on the robot through BLE:</p>
+                <script src="https://gist.github.com/mavisfu/0578be5051e5eca789e27b0476b8539d.js"></script>
+
+                <p style="margin-top: 40px;">Hence, with the data sent through the channel, it can be received by the laptop and plot in the figure by the following code. The first block is for receiving the data sent from the Artemis, and the second block is for plotting the data into the diagram to debug and show the results.</p>
+                <script src="https://gist.github.com/mavisfu/775279edd3d6c11b1e4008114bd906bc.js"></script>
+                <script src="https://gist.github.com/mavisfu/b6880b681d8b7fd11c883ed25349e217.js"></script>
+
             </section>
 
+            <!-- LAB TASKS -->
             <section id="task">
                 <h2>LAB TASKS</h2>
-            
-            
+                <h3>P/I/D discussion</h3>
+                <p>As it is stated in the lab section, the PID controller is comprised of three part, propotional, integral and derivative. Therefore, the equation can be represented as: </p>
+                <p style="text-align: center;"> \( \text{correction} = K_p \cdot \text{error} + K_i \cdot \text{integral error} + K_d \cdot \text{derivative error} \)</p>
+                <p>The proportional gain, <span class="code-intext">Kp</span>, adjusts the current error (the gap between the desired and actual values) in proportion to its magnitude. A higher <span class="code-intext">Kp</span> intensifies the corrective action, yet it may lead to instability or overshooting.</p>
+                <p>The integral gain, <span class="code-intext">Ki</span>, addresses accumulated past errors. It amplifies the corrective action when the error persists over time, but excessive <span class="code-intext">Ki</span> values can result in overshooting or weaving due to the gradual reduction of accumulated errors.</p>
+                <p>The derivative gain, <span class="code-intext">Kd</span>, anticipates future errors by assessing the rate of error change. It serves as a damping mechanism to minimize overshooting and moderate the speed of corrective actions, although it may also amplify noise.</p>
+
+                <h3>Modification</h3>
+                <p>To make the system more stable, I put all the PID control code in the main loop, instead of putting them into the <span class="code-intext">CASE</span> handler.</p>
+                
+
+                <h3>Implementation</h3>
+                <p>This section shows the implementation of the orientation PID control of the robot, which is based on the setup angle and the current angle read by the IMU sensor. The following code demonstrate the PID controlling routine in the main loop.</p>
+                <script src="https://gist.github.com/mavisfu/de1d5b8ed0787428d394d6f394656686.js"></script>
+
+                <p style="margin-top: 40px;">Where the <span class="code-intext">pid_orientation</span> function is shown below, which the wind-up protection implemented:</p>
+                <script src="https://gist.github.com/mavisfu/4031648c7d5696db5376861a69571e81.js"></script>
+
+                <p style="margin-top: 40px;">Furthermore, if the record is started, indicated by the flag <span class="code-intext">start_record</span>, we will record all the data into defined arrays by increasing <span class="code-intext">pid_orien_num</span> which cannot be exceeding <span class="code-intext">orien_num</span>, 1000</p>
+                <script src="https://gist.github.com/mavisfu/7604f5c130277e6f8d8752de6c4bb6c6.js"></script>
+
+                <p style="margin-top: 40px;">In the orientation PID controlling starting handler, the value of <span class="code-intext">Kp, Ki, Kd, target_angle</span> will be stored fir further processing.</p>
+                <script src="https://gist.github.com/mavisfu/b4486193d142d69dc73127f1a66ac451.js"></script>
+
+                <script src="https://gist.github.com/mavisfu/7743e0c1131ddf1b062d0d642adc3c01.js"></script>
+
+                <script src="https://gist.github.com/mavisfu/933c30f7d3e4856b4f690c5c963b40d6.js"></script>
+
+
+
+                <h3>Graph data results</h3>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/SKJpFhaDBlU?autoplay=0" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <p style="margin-top: 40px;">And when the parameter <span class="code-intext">Kp</span> is increased, the result is shown below:</p>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/-5-OR43v59o?autoplay=0" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p>When the wind-up protection value is like below:</p>
+                <script src="https://gist.github.com/mavisfu/b5438c3379a71c71d784958d8d89874b.js"></script>
+
+
+                <p style="margin-top: 40px;">When Kp = 2, Ki = 0, Kd = 0, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab6/pid1.png" alt="pid1">
+                </div>
+
+                <p style="margin-top: 40px;">When Kp = 4, Ki = 0, Kd = 0, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab6/pid2.png" alt="pid2">
+                </div>
+
+                <p style="margin-top: 40px;">When Kp = 4, Ki = 0.1, Kd = 0, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab6/pid3.png" alt="pid3">
+                </div>
+
+                <p style="margin-top: 40px;">When Kp = 4, Ki = 0.5, Kd = 0, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab6/pid4.png" alt="pid4">
+                </div>
+
+                <p style="margin-top: 40px;">When Kp = 4, Ki = 0.5, Kd = 10, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab6/pid5.png" alt="pid5">
+                </div>
+
+                <p style="margin-top: 40px;">When Kp = 4, Ki = 0.5, Kd = 100, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab6/pid6.png" alt="pid6">
+                </div>
+
+                <p style="margin-top: 40px;">When Kp = 4, Ki = 0.3, Kd = 100, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab6/pid7.png" alt="pid7">
+                </div>
+
+
+                <p style="margin-top: 40px;">When Kp = 4, Ki = 0.3, Kd = 100, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 300px;" src="pics/lab6/pid8.png" alt="pid8">
+                    <img class="img-intext" style="max-width: 300px;" src="pics/lab6/pid9.png" alt="pid9">
+                </div>
+
+                <p style="margin-top: 40px;">When Kp = 4, Ki = 0.005, Kd = 100, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 300px;" src="pics/lab6/pid10.png" alt="pid10">
+                    <img class="img-intext" style="max-width: 300px;" src="pics/lab6/pid11.png" alt="pid11">
+                </div>
+
+
+
+                
+                
+                
+
+
+                <p style="margin-top: 40px;">Additionally, the data plot in the diagrams indicates the process of the PID control, which will be demonstrated as follows</p>
+                <p>When Kp = 0.05, Ki = 0.02, Kd = 1, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram1.png" alt="pinout">
+                </div>
+
+                <p style="margin-top: 40px;">When Kp = 0.1, Ki = 0.01, Kd = 0.8, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram2.png" alt="pinout">
+                </div>
+
+                <p style="margin-top: 40px;">When Kp = 0.1, Ki = 0.005, Kd = 1, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram3.png" alt="pinout">
+                </div>
+
+                <p style="margin-top: 40px;">When Kp = 0.08, Ki = 0.005, Kd = 1, the diagram is shown below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram4.png" alt="pinout">
+                </div>
+                <p style="margin-top: 40px;">Furthermore, each PID component is also sent to the laptop for analyzing, which is beneficial for debugging.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 400px;" src="pics/lab5/diagram5.png" alt="pinout">
+                </div>
+                <p style="margin-top: 40px;">From all the figures above, it can be concluded that only with propotional term the oscillating waveform of motor input will be obstained, so the integral and derivative terms should be added as well. Moreover, the D-term controller values shown in figure are discrete, indicating that some of the TOF values are not valid, since the sampling frequency of the sensor is not high enough. Thus, the extrapolation method should be implemented, which will be illustrated in the following section.</p>
+
+                
+
+                <h3>Wind-up protection</h3>
+                <p>Wind-up protection is an essential feature of PID controller, particularly in systems susceptible to integrator wind-up. Integrator wind-up arises when the integral component accumulates excessively due to prolonged error conditions, resulting in issues like overshooting, instability, or other undesirable system behaviors. Therefore, the following code can be implemented to eliminate the wind-up problem. With this applied, the integral term will not be too large to calculate.</p>
+                <script src="https://gist.github.com/mavisfu/c8a0daed5c1bac51459c0ad9b65921cd.js"></script>
+                
+
+               
             </section>
 
+            <!-- DISCUSSION -->
             <section id="discussion">
                 <h2>DISCUSSION</h2>
+                <p>In this lab, we learnt how to implement the PID controller to the motor according to the TOF distance set up. Furthermore, the extrapolation and wind-up protection are demonstrated as well. </p>
+                   
             </section>
+
         </div>
-
-        
-        <div class="sidebar2">
-
-            <p><a href="#prelab">Prelab</a></p>
-            <p><a href="#task">Lab Tasks</a></p>
-            <p><a href="#discussion">Discussion</a></p>
-        
-        </div>
-
 
     </div>
+
+        
+
+
+   
 
   
 
     <footer>
-        <div style="display: flex; flex-direction: row;">
-            <p>&copy; 2024 Wenyi Fu ECE 5160: Fast Robots</p>
-            <p>E-mail: wf223@cornell.edu</p>
-        </div>
+        <p>&copy; 2024 Wenyi Fu ECE 5160: Fast Robots</p>
+        <p>E-mail: wf223@cornell.edu</p>
+        
     </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var nav = document.querySelector('nav');
+            var rect = nav.getBoundingClientRect();
+
+            if (rect.top <= 0) {
+                nav.classList.add('fixed');
+            } else {
+                nav.classList.remove('fixed');
+            }
+            if (window.scrollY <= 200) {
+            nav.classList.remove('fixed');
+        }
+        });
+        
+    </script>
+
+    
+
 
 </body>
 </html>
