@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wenyi Fu ECE 5160 Fast Robots</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Georgia', serif;
             background-color: #f4f4f4;
             color: #333;
             margin: 0;
@@ -19,82 +21,14 @@
             color: #fff;
             text-align: center;
             padding: 20px;
+            min-width: 910px;
         }
 
-        .name {
-            background-color: #007BFF;
-            color: #fff;
-            text-align: center;
-            font-size: 45px;
-            font-weight: bold;
-        }
-
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column; 
-        }
-
-        section {
-            width: 80%;
-            max-width: 800px;
-            margin: 10px auto;
-            padding: 30px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-
-        h1 {
-            color: #007BFF;
-            font-weight: bold;
-        }
-        
-        h2 {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 25px;
-        }
-
-        h3 {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        h3 a {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 20px;
-            text-decoration: none;
-        }
-
-        h3 a:hover {
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .lab {
-            margin-bottom: 20px;
-        }
-
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #007BFF;
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .column {
-            width: calc(100% - 5px);
-        }
-        
         nav {
             background-color: #333;
             overflow: hidden;
             text-align: center;
+            min-width: 950px;
         }
 
         nav a {
@@ -110,29 +44,218 @@
             color: black;
         }
 
+        nav.fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* Add styles for the extended bar */
+        nav a:hover .extended-menu {
+            display: block;
+        }
+
+        /* Adjust styles for the extended menu */
+        .extended-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            background-color: #333;
+            padding: 10px;
+        }
+
+
+        .name {
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            font-size: 45px;
+            font-weight: bold;
+        }
+
+        .main-section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column; 
+            width: 60%;
+            min-width: 700px;
+            
+        }
+
+        .main-body {
+            display: flex;
+            width: 100%;
+        }
+
+        section {
+            min-width: 720px;
+            max-width: 900px;
+            margin: 10px auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section a {
+            text-decoration:underline;
+            color: #3f99f9;
+        }
+        
+        section p {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 0px;
+            margin-bottom: 10px;
+        }
+
+        section p a:hover{
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        section ul {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 0px;
+            margin-bottom: 30px;
+        }
+
+        section li {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+
+        section ul li {
+            margin-top: 0px;
+        }
+
+        section h3,h4 {
+            margin-top: 30px; /* Adjusted margin-top value */
+            margin-bottom: 10px; /* Adjusted margin-bottom value */
+        }
+
+        h1 {
+            color: #007BFF;
+            font-weight: bold;
+        }
+        
+        h2 {
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 35px;
+        }
+
+        .h2-text {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        h3 {
+            color: black;
+            font-weight: bold;
+            font-size: 25px;
+        }
+
+        h3 a {
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        h3 a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        h4 {
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .h4-text {
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        h5 {
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+            overflow-wrap: break-word;
+            margin-bottom: 10px;
+        }
+
+        .h5-text {
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        .lab {
+            margin-bottom: 20px;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            min-width: 930px;
+        }
+
+        footer p {
+            margin: 10px 40px; /* Add margin to the paragraphs for vertical separation */
+        }
+
+        .column {
+            width: calc(100% - 5px);
+        }
+        
         .sidebar {
             margin: 10px 0;
             height: fit-content;
             width: 20%;
             max-width: 200px;
+            min-width: 150px;
             position: relative;
             margin-right: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 23px;
             text-align: center;
+        }
+
+        .sidebar img {
+            width: 80%;
+            max-width: 150px; /* Set a maximum width if needed */
+            max-height: 150px;
+            border-radius: 80%;
+            object-fit: cover;
+            position:relative;
         }
 
         .sidebar a {
             padding: 8px 16px;
             text-decoration: none;
-            font-size: 18px;
             display: block;
             color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
         }
 
         .sidebar a:hover {
@@ -140,33 +263,121 @@
         }
 
         .sidebar2 {
+            margin: 10px 0;
+            margin-left: 10px;
             height: fit-content;
             width: 20%;
             max-width: 200px;
             min-width: 150px;
             position: relative;
-            margin-top: 30px;
-            margin-left: 10px;
-            margin-right: 60px;
+            margin-right: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            color: black;
+            color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 23px;
+            text-align: center;
+        }
+
+        .sidebar2.fixed {
+            position: fixed;
+            right: 20px; /* Adjust the distance from the right edge */
+            top: 30px; /* Adjust the distance from the top */
         }
 
         .sidebar2 a {
-            padding: 8px 16px;
             text-decoration: none;
-            font-size: 20px;
+            display: block;
+            color: black;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .sidebar2-heading {
+            padding-left: 16px;
+            text-decoration: none;
             display: block;
             color: black;
             font-weight: bold;
             font-size: 20px;
+            line-height: 1;
+        }
+
+        .sidebar2-subheading {
+            position:relative;
+            font-size: 18px; 
+            font-weight: normal; 
+            padding-left: 25px; 
+            padding-top: 0px;
+            line-height: 0.5;
         }
 
         .sidebar2 a:hover {
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar2 div p a{
+            text-decoration: none;
+            display: block;
+            color: black;
+            line-height: 0.5;
+            font-weight: normal;
+        }
+
+        .sidebar2 div p a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-intext {
+            font-family: 'Lucida Console', monospace;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .code-block {
+            font-family:'Courier New', Courier, monospace;
+            font-size: 18px;
+            padding-left: 0px;
+        }
+
+        code {
+            font-family:'Courier New', Courier, monospace;
+            font-size: 18px;
+        }
+
+        section .img-container {
+            width: 100%;
+            margin-top: 5px;
+            display: block;
+            text-align: center;
+        }
+
+        section .img-container .img-intext {
+            width: 100%;
+            height: auto;
+            display: inline-block;
+            text-align: center;
+            max-width: 700px;
+        }
+
+        .gist {
+            width: calc(100% - 60px); /* Set the width to match the sections minus any margins or padding */
+            margin: 0 auto; /* Center the box horizontally */
+            box-sizing: border-box; /* Include padding and border in the width calculation */
+        }
+
+        .gist .blob-wrapper.data.type-text pre {
+            white-space: wrap; /* Wrap text inside pre element */
+        }
+
+        .video-container {
+            text-align: center;
+            padding-left: 0px;
+        }
+
+        .eq {
+            text-align: center;
+            font-style: italic;
         }
 
     </style>
@@ -176,27 +387,28 @@
     <header>
         <div class="name">
             <p>ECE 5160: FAST ROBOTS</p>
+            <p style="font-size: 35px;">Lab 7: Kalman Filter</p>
         </div>
         <p style="font-size: 20px;">Wenyi Fu • ECE • wf223@cornell.edu</p>
+
     </header>
 
     <nav>
         <a href="index.html">Home</a>
+        <a href="#intro">Introduction</a>
         <a href="#prelab">Prelab</a>
         <a href="#task">Lab Tasks</a>
         <a href="#discussion">Discussion</a>
     </nav>
-    
-    
 
-
-    <div style="display: flex;">
-    
+   
+    <div class="main-body">
         <div class="sidebar">
-            <div class="about-content" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
-                <img src="pics/wf223.jpg" alt="Wenyi Fu" style="width: 150px; height: 150px; border-radius: 80%; object-fit: cover;">
+            <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+                <img src="pics/wf223.jpg" alt="Wenyi Fu">
             </div>
             <p><a href="lab1.html">Lab 1</a></p>
+            <p><a href="lab2.html">Lab 2</a></p>
             <p><a href="lab3.html">Lab 3</a></p>
             <p><a href="lab4.html">Lab 4</a></p>
             <p><a href="lab5.html">Lab 5</a></p>
@@ -208,44 +420,193 @@
             <p><a href="lab11.html">Lab 11</a></p>
             <p><a href="lab12.html">Lab 12</a></p>
         </div>
-    
-        <div class="main-content">
+        
+        
+        <div class="main-section">
 
+            <!-- INTRO -->
+            <section id="intro">
+                <h2>INTRODUCTION</h2>
+                <p>This lab is to analyze the implementation of the Kalman Filter through Python in Jupyter lab and then apply it on the robot. According to the instruction, the KF should be firstly initialized and then tuned with certain values to achieve best performance.</p>
+            </section>
+
+            <!-- PRELAB -->
             <section id="prelab">
                 <h2>PRELAB</h2>
+                <h3>Parts Required</h3>
+                <ul>
+                    <li>1 x R/C stunt car</li>
+                    <li>1 x SparkFun RedBoard Artemis Nano</li>
+                    <li>1 x USB cable</li>
+                    <li>2 x Li-Po 3.7V 650mAh (or more) battery</li>
+                    <li>2 x Dual motor driver</li>
+                    <li>2 x 4m ToF sensor</li>
+                    <li>1 x 9DOF IMU sensor</li>
+                    <li>1 x Qwiic connector</li>
+                </ul>
+
+                
+
             </section>
 
+            <!-- LAB TASKS -->
             <section id="task">
                 <h2>LAB TASKS</h2>
-            
-            
+                <h3>Estimate drag and momentum</h3>
+                <p>After receiving the data sent from the Artemis through BLE channel, the values of <span class="code-intext">time, distance, pwm</span> can be obtained and a certain fraction of the data array is tunked to be analyzed, by using the following code.</p>
+                <script src="https://gist.github.com/mavisfu/f37da89e577e5422b96859c949deba50.js"></script>
+
+                <p style="margin-top: 40px;">Therefore, the three figures can be obtained, indicating the motor input, distance and velocity along with the time.</p>
+
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab7/pwm.png" alt="pwm vs time">
+                </div>
+
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab7/distance.png" alt="distance vs time">
+                </div>
+
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab7/velocity.png" alt="velocity vs time">
+                </div>
+
+                <p style="margin-top: 40px;">From the velocity digram, we can get time of reaching the steady state, which is around <span class="code-intext">1500ms</span>, and the steady state speed is around <span class="code-intext">2258 mm/s</span>. Thus, the following parameters can be initialized as below.</p>
+
+                <script src="https://gist.github.com/mavisfu/f6d69f3d6bd75ed5ba06c7d4d3a83ff1.js"></script>
+                <p style="margin-top: 40px;">Where we get the value of <span class="code-intext">d</span> and <span class="code-intext">m</span>:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 300px;" src="pics/lab7/dm.png" alt="d m">
+                </div>
+
+
+                <h3>Initialize KF (Python)</h3>
+                <p>With the data collected and parameters initialized, the KF filter can be set up according to the following instructions.</p>
+                <p>The image presented in the lecture slides illustrates the equations of the Kalman Filter. Various parameters need to be identified in the workflow: matrices <span class="code-intext">A, B, C</span> for creating the state space equation, along with noise matrices <span class="code-intext">sigma_u</span> and <span class="code-intext">sigma_z</span>.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab7/kf_eq.png" alt="kf eq">
+                </div>
+
+                <p style="margin-top: 40px;">The first step is to compute the A and B matrix. Given the condition that the sampling frequency of TOF sensor is around <span class="code-intext">100ms</span>, so the parameter <span class="code-intext">detla_T</span> is set to <span class="code-intext">0.1</span>.
+
+                <script src="https://gist.github.com/mavisfu/38447831fb0c70f07f210b760644c4df.js"></script>
+
+                <p style="margin-top: 40px;">Hence, the A and B matrix can be obtain, which are shown in below:</p>
+
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 200px;" src="pics/lab7/AB.png" alt="AB">
+                </div>
+
+                <p style="margin-top: 40px;">Next, the C matrix can be determined and it is a <span class="code-intext">m x n</span> matrix, where <span class="code-intext">n</span> are the dimensions in your state space, and <span class="code-intext">m</span> are the number of states you actually measure. Therefore, the C matrix is <span class="code-intext">[-1,0]</span>, since the distance is represented from negative to <span class="code-intext">0</span> as the robot approaching the wall. Furthermore, the state vector, <span class="code-intext">X</span> should also be initialized by the following code.</p>
+                <script src="https://gist.github.com/mavisfu/284be24db038a87689b9a84cdcd1bd8f.js"></script>
+
+                <p style="margin-top: 40px;">Furthermore, the noise covariance matrices are determined. The parameter <span class="code-intext">sigma_u</span> depends on the sampling rate. The two standard deviations, <span class="code-intext">sigma1</span> and <span class="code-intext">sigma2</span>, represent the confidence in the modeled position and speed, respectively. We utilize a diagonal matrix because we assume that these variables are uncorrelated. Also, <span class="code-intext">sigma3</span> is defined as <span class="code-intext">20</span>.</p>
+
+                <script src="https://gist.github.com/mavisfu/5c244122d8f68de0844d3f3cc4c0ccf0.js"></script>
+
+                <p style="margin-top: 40px;">Currently, ballpark numbers for the variance only have rough values, and later it will be tested and tuned to best value.</p>
+
+
+                <h3>Implement and test Kalman Filter in Jupyter (Python)</h3>
+                <p>Firstly, the Kalman Filter function is defined as following, and the data through KF filter is stored in the array, <span class="code-intext">kf_data</span>. Moreover, the filtered data is extracted out.</p>
+                <script src="https://gist.github.com/mavisfu/2a5d0ae7c7a3a22a50e66303731875b8.js"></script>
+
+                <p style="margin-top: 40px;">Therefore, the original and the filtered data are both plot in the figure, with the parameters of <span class="code-intext">sig=[[5**2,0],[0,5**2]],sig_u=[[1000,0],[0,1000]],sig_z=[400]</span>.</p>
+                <script src="https://gist.github.com/mavisfu/9345006779d592effbb1da04a4a68477.js"></script>
+
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab7/kf1.png" alt="kf1">
+                </div>
+
+                <p style="margin-top: 40px;">And them the paramter of <span class="code-intext">sig</span> is modified as below and we get a new figure, where the filtered data is smoother.</p>
+
+                <script src="https://gist.github.com/mavisfu/81c30033a0b47a260ac17ec55c8590c8.js"></script>
+
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab7/kf2.png" alt="kf2">
+                </div>
+
+                <p style="margin-top: 40px;">Next, the value of <span class="code-intext">sigma1, sigma2</span> are changed as below, and it is indicated in the figure that those two array values are getting closer to each other.</p>
+                
+                <script src="https://gist.github.com/mavisfu/e7aa2685c5c9758b5e0ba88c101426d8.js"></script>
+
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab7/kf3.png" alt="kf3">
+                </div>
+
+                <p style="margin-top: 40px;">Finally, <span class="code-intext">sigma3</span> is adjusted accordingly, and we obtain the data with KF, which is approximately overlap with the original record.</p>
+
+                <script src="https://gist.github.com/mavisfu/e1082f24823df984913eb34723861ae2.js"></script>
+
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab7/kf4.png" alt="kf4">
+                </div>
+                
+                <h3>Kalman filter at a faster frequency</h3>
+                <p>I have also modify the sampling rate to make the KF run at a faster frequency. Consequently, when <span class="code-intext">delta_T = 0.1/5, 20ms</span>.  In between readings, the prediction step is used to estimate the state of the car, which is similar to the linear extrapolation step from lab 6, but the prediction step is used of the Kalman filter instead.</p>
+                <script src="https://gist.github.com/mavisfu/a4ee465e627dabf76a6eb71780b14480.js"></script>
+                <p style="margin-top: 40px;">Therefore, we obtain the figure as below, which illustrates the diagram with decreasing <span class="code-intext">delta_T</span>.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 350px;" src="pics/lab7/predict1.png" alt="pre1">
+                    <img class="img-intext" style="max-width: 360px;" src="pics/lab7/predict2.png" alt="pre2">
+                </div>
+                
+
+                <h3>Implement on robot</h3>
+                <p>Finally, the KF is implemented on the robot, where the parameters are initialized with the following setup.</p>
+                <script src="https://gist.github.com/mavisfu/7955260c01ff1fdac0ffcfc3bc007e3a.js"></script>
+
+                <p style="margin-top: 40px;">Where we apply the function <span class="code-intext">KF()</span> in the PID control function.</p>
+                <script src="https://gist.github.com/mavisfu/c98872e9debfe581fd9e43d9314ba5b9.js"></script>
+                <p style="margin-top: 40px;">And we obtain the TOF data with and without Kalman Filter.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab7/additional.png" alt="5000+">
+                </div>
+                
+
             </section>
 
+            <!-- DISCUSSION -->
             <section id="discussion">
                 <h2>DISCUSSION</h2>
+                <p>This lab is to learnt the performance of the Kalman Filter and access the effectiveness, which is beneficialthe navigation and prediction of the recorded data.</p>
             </section>
+
         </div>
-
-        
-        <div class="sidebar2">
-
-            <p><a href="#prelab">Prelab</a></p>
-            <p><a href="#task">Lab Tasks</a></p>
-            <p><a href="#discussion">Discussion</a></p>
-        
-        </div>
-
 
     </div>
+
+        
+
+
+   
 
   
 
     <footer>
-        <div style="display: flex; flex-direction: row;">
-            <p>&copy; 2024 Wenyi Fu ECE 5160: Fast Robots</p>
-            <p>E-mail: wf223@cornell.edu</p>
-        </div>
+        <p>&copy; 2024 Wenyi Fu ECE 5160: Fast Robots</p>
+        <p>E-mail: wf223@cornell.edu</p>
+        
     </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var nav = document.querySelector('nav');
+            var rect = nav.getBoundingClientRect();
+
+            if (rect.top <= 0) {
+                nav.classList.add('fixed');
+            } else {
+                nav.classList.remove('fixed');
+            }
+            if (window.scrollY <= 200) {
+            nav.classList.remove('fixed');
+        }
+        });
+        
+    </script>
+
+    
+
 
 </body>
 </html>
