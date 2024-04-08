@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wenyi Fu ECE 5160 Fast Robots</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Georgia', serif;
             background-color: #f4f4f4;
             color: #333;
             margin: 0;
@@ -19,82 +21,14 @@
             color: #fff;
             text-align: center;
             padding: 20px;
+            min-width: 910px;
         }
 
-        .name {
-            background-color: #007BFF;
-            color: #fff;
-            text-align: center;
-            font-size: 45px;
-            font-weight: bold;
-        }
-
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column; 
-        }
-
-        section {
-            width: 80%;
-            max-width: 800px;
-            margin: 10px auto;
-            padding: 30px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-
-        h1 {
-            color: #007BFF;
-            font-weight: bold;
-        }
-        
-        h2 {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 25px;
-        }
-
-        h3 {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        h3 a {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 20px;
-            text-decoration: none;
-        }
-
-        h3 a:hover {
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .lab {
-            margin-bottom: 20px;
-        }
-
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #007BFF;
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .column {
-            width: calc(100% - 5px);
-        }
-        
         nav {
             background-color: #333;
             overflow: hidden;
             text-align: center;
+            min-width: 950px;
         }
 
         nav a {
@@ -110,29 +44,218 @@
             color: black;
         }
 
+        nav.fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* Add styles for the extended bar */
+        nav a:hover .extended-menu {
+            display: block;
+        }
+
+        /* Adjust styles for the extended menu */
+        .extended-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            background-color: #333;
+            padding: 10px;
+        }
+
+
+        .name {
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            font-size: 45px;
+            font-weight: bold;
+        }
+
+        .main-section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column; 
+            width: 60%;
+            min-width: 700px;
+            
+        }
+
+        .main-body {
+            display: flex;
+            width: 100%;
+        }
+
+        section {
+            min-width: 720px;
+            max-width: 900px;
+            margin: 10px auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section a {
+            text-decoration:underline;
+            color: #3f99f9;
+        }
+        
+        section p {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 0px;
+            margin-bottom: 10px;
+        }
+
+        section p a:hover{
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        section ul {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 0px;
+            margin-bottom: 30px;
+        }
+
+        section li {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+
+        section ul li {
+            margin-top: 0px;
+        }
+
+        section h3,h4 {
+            margin-top: 30px; /* Adjusted margin-top value */
+            margin-bottom: 10px; /* Adjusted margin-bottom value */
+        }
+
+        h1 {
+            color: #007BFF;
+            font-weight: bold;
+        }
+        
+        h2 {
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 35px;
+        }
+
+        .h2-text {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        h3 {
+            color: black;
+            font-weight: bold;
+            font-size: 25px;
+        }
+
+        h3 a {
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        h3 a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        h4 {
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .h4-text {
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        h5 {
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+            overflow-wrap: break-word;
+            margin-bottom: 10px;
+        }
+
+        .h5-text {
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        .lab {
+            margin-bottom: 20px;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            min-width: 930px;
+        }
+
+        footer p {
+            margin: 10px 40px; /* Add margin to the paragraphs for vertical separation */
+        }
+
+        .column {
+            width: calc(100% - 5px);
+        }
+        
         .sidebar {
             margin: 10px 0;
             height: fit-content;
             width: 20%;
             max-width: 200px;
+            min-width: 150px;
             position: relative;
             margin-right: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 23px;
             text-align: center;
+        }
+
+        .sidebar img {
+            width: 80%;
+            max-width: 150px; /* Set a maximum width if needed */
+            max-height: 150px;
+            border-radius: 80%;
+            object-fit: cover;
+            position:relative;
         }
 
         .sidebar a {
             padding: 8px 16px;
             text-decoration: none;
-            font-size: 18px;
             display: block;
             color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
         }
 
         .sidebar a:hover {
@@ -140,33 +263,121 @@
         }
 
         .sidebar2 {
+            margin: 10px 0;
+            margin-left: 10px;
             height: fit-content;
             width: 20%;
             max-width: 200px;
             min-width: 150px;
             position: relative;
-            margin-top: 30px;
-            margin-left: 10px;
-            margin-right: 60px;
+            margin-right: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            color: black;
+            color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 23px;
+            text-align: center;
+        }
+
+        .sidebar2.fixed {
+            position: fixed;
+            right: 20px; /* Adjust the distance from the right edge */
+            top: 30px; /* Adjust the distance from the top */
         }
 
         .sidebar2 a {
-            padding: 8px 16px;
             text-decoration: none;
-            font-size: 20px;
+            display: block;
+            color: black;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .sidebar2-heading {
+            padding-left: 16px;
+            text-decoration: none;
             display: block;
             color: black;
             font-weight: bold;
             font-size: 20px;
+            line-height: 1;
+        }
+
+        .sidebar2-subheading {
+            position:relative;
+            font-size: 18px; 
+            font-weight: normal; 
+            padding-left: 25px; 
+            padding-top: 0px;
+            line-height: 0.5;
         }
 
         .sidebar2 a:hover {
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar2 div p a{
+            text-decoration: none;
+            display: block;
+            color: black;
+            line-height: 0.5;
+            font-weight: normal;
+        }
+
+        .sidebar2 div p a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-intext {
+            font-family: 'Lucida Console', monospace;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .code-block {
+            font-family:'Courier New', Courier, monospace;
+            font-size: 18px;
+            padding-left: 0px;
+        }
+
+        code {
+            font-family:'Courier New', Courier, monospace;
+            font-size: 18px;
+        }
+
+        section .img-container {
+            width: 100%;
+            margin-top: 5px;
+            display: block;
+            text-align: center;
+        }
+
+        section .img-container .img-intext {
+            width: 100%;
+            height: auto;
+            display: inline-block;
+            text-align: center;
+            max-width: 700px;
+        }
+
+        .gist {
+            width: calc(100% - 60px); /* Set the width to match the sections minus any margins or padding */
+            margin: 0 auto; /* Center the box horizontally */
+            box-sizing: border-box; /* Include padding and border in the width calculation */
+        }
+
+        .gist .blob-wrapper.data.type-text pre {
+            white-space: wrap; /* Wrap text inside pre element */
+        }
+
+        .video-container {
+            text-align: center;
+            padding-left: 0px;
+        }
+
+        .eq {
+            text-align: center;
+            font-style: italic;
         }
 
     </style>
@@ -176,27 +387,27 @@
     <header>
         <div class="name">
             <p>ECE 5160: FAST ROBOTS</p>
+            <p style="font-size: 35px;">Lab 8: Stunts!</p>
         </div>
         <p style="font-size: 20px;">Wenyi Fu • ECE • wf223@cornell.edu</p>
+
     </header>
 
     <nav>
         <a href="index.html">Home</a>
-        <a href="#prelab">Prelab</a>
+        <a href="#intro">Introduction</a>
         <a href="#task">Lab Tasks</a>
         <a href="#discussion">Discussion</a>
     </nav>
-    
-    
 
-
-    <div style="display: flex;">
-    
+   
+    <div class="main-body">
         <div class="sidebar">
-            <div class="about-content" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
-                <img src="pics/wf223.jpg" alt="Wenyi Fu" style="width: 150px; height: 150px; border-radius: 80%; object-fit: cover;">
+            <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+                <img src="pics/wf223.jpg" alt="Wenyi Fu">
             </div>
             <p><a href="lab1.html">Lab 1</a></p>
+            <p><a href="lab2.html">Lab 2</a></p>
             <p><a href="lab3.html">Lab 3</a></p>
             <p><a href="lab4.html">Lab 4</a></p>
             <p><a href="lab5.html">Lab 5</a></p>
@@ -208,44 +419,115 @@
             <p><a href="lab11.html">Lab 11</a></p>
             <p><a href="lab12.html">Lab 12</a></p>
         </div>
-    
-        <div class="main-content">
+        
+        
+        <div class="main-section">
 
-            <section id="prelab">
-                <h2>PRELAB</h2>
+            <!-- INTRO -->
+            <section id="intro">
+                <h2>INTRODUCTION</h2>
+                <p>In this lab section, one of the task will be chosen for the stunt recording, in which case I have chosen <b><i>Task A: Position Control</i></b> to conduct the robot flip motion.</p>
             </section>
 
+    
+
+            <!-- LAB TASKS -->
             <section id="task">
                 <h2>LAB TASKS</h2>
-            
-            
+                <h3>Flip</h3>
+                <p>In this lab section, <i><b>Task A: Position Control</b></i> is selected, where a robot flip will be implemented.</p>
+
+                <h3>Flip Implementation</h3>
+                <p>Firstly, the command case <span class="code-intext">FLIP</span> in the Arduino code is created to realize the flip action, where the variable <span class="code-intext">flip_on</span> is used to control the flip motion in the main loop.</p>
+                <script src="https://gist.github.com/mavisfu/0d782f5b75828132a8cc7d60e52805ed.js"></script>
+
+                <p style="margin-top: 40px;">And in the main loop of the Arduino code, the function <span class="code-intext">flip()</span> is implemented to start this action, and <span class="code-intext">getFlipRecord(flip_sample_num)</span> can record the distance and PWM data, where the <span class="code-intext">flip_sample_num</span> will not exceed the value of <span class="code-intext">max_flip_num</span>, which is <span class="code-intext">2000</span>.</p>
+                <script src="https://gist.github.com/mavisfu/701d3a531965662341ab515287ccc534.js"></script>
+
+                <p style="margin-top: 40px;">In the <span class="code-intext">flip()</span> function, the state machine is implemented to control the flip stunt.</p>
+                <p>When <span class="code-intext">flip_state</span> is equal to <span class="code-intext">0</span>, the robot will enter full speed state to approach the wall. Because sometime the robor might not detect the distance correctly, it will keep moving. Therefore, I have added the timeout condition to make it stop after being in this state for 5 seconds. State 1 is to record the start time of the flip. Furthermore, State 2, 3, 4 is going backwards, stopping and going backwards again. And finally, it will stop completely.</p>
+                <script src="https://gist.github.com/mavisfu/910422f67fc7417e6e9be1e307eeb64e.js"></script>
+
+                <p style="margin-top: 40px;">And the following code is used to record the data:</p>
+                <script src="https://gist.github.com/mavisfu/2c36b4d5239ad7925e7198b680f90a59.js"></script>
+
+                <p style="margin-top: 40px;">In the Jupyter Lab, the command <span class="code-intext">ble.send_command(CMD.FLIP, "1000")</span> and <span class="code-intext">ble.send_command(CMD.START_RECORD, "")</span> are implemented to start this action, where the <span class="code-intext">set_distance</span> is <span class="code-intext">1000</span> to avoid crashing into the wall.</p>
+                <script src="https://gist.github.com/mavisfu/2a1c7499c791ea20ee080740c367eeab.js"></script>
+
+
+                <h3>Stunt recording</h3>
+                <p>Below is three successful stunts of the robot flip:</p>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/9xu1sR74IK0" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/h0UssIefg1o" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/jwM3pKb_I54" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <p style="margin-top: 40px;">To obtain the flip data, the case <span class="code-intext">SENDING_FLIP_DATA</span> is created to send the records through the BLE channel to the laptop. It can be observed that the motors are set to start the flip when the distance to the wall is less than 1000ms, where the motors are stopped for a short duration within the backward period to realize this flip stunt.</p>
+                <p>The following program is created to transfer the record flip data to the laptop through the BLE channel.</p>
+                <script src="https://gist.github.com/mavisfu/d7b39ec6b61bbb7f32db43e324f9636c.js"></script>
+
+                <p style="margin-top: 40px;">Furthermore, with the figure plot program, the time vs PWM and time vs distance diagrams can be drawn according to those three successful stunts.</p>
+                <script src="https://gist.github.com/mavisfu/7c624a272f4d8a9d68933caee0e927ae.js"></script>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 200px;" src="pics/lab8/stunt1.png" alt="d m">
+                    <img class="img-intext" style="max-width: 200px;" src="pics/lab8/stunt2.png" alt="d m">
+                    <img class="img-intext" style="max-width: 200px;" src="pics/lab8/stunt3.png" alt="d m">
+                </div>
+
+
+                
+
             </section>
 
+            <!-- DISCUSSION -->
             <section id="discussion">
                 <h2>DISCUSSION</h2>
+                <p>In conclusion, this lab section is to select one task from the lab instruction and record three successful stunts. Moreover, the flip code has been improved with state machine and the timeout function is added to prevent the robot from keeping moving.</p>
             </section>
+
         </div>
-
-        
-        <div class="sidebar2">
-
-            <p><a href="#prelab">Prelab</a></p>
-            <p><a href="#task">Lab Tasks</a></p>
-            <p><a href="#discussion">Discussion</a></p>
-        
-        </div>
-
 
     </div>
+
+        
+
+
+   
 
   
 
     <footer>
-        <div style="display: flex; flex-direction: row;">
-            <p>&copy; 2024 Wenyi Fu ECE 5160: Fast Robots</p>
-            <p>E-mail: wf223@cornell.edu</p>
-        </div>
+        <p>&copy; 2024 Wenyi Fu ECE 5160: Fast Robots</p>
+        <p>E-mail: wf223@cornell.edu</p>
+        
     </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var nav = document.querySelector('nav');
+            var rect = nav.getBoundingClientRect();
+
+            if (rect.top <= 0) {
+                nav.classList.add('fixed');
+            } else {
+                nav.classList.remove('fixed');
+            }
+            if (window.scrollY <= 200) {
+            nav.classList.remove('fixed');
+        }
+        });
+        
+    </script>
+
+    
+
 
 </body>
 </html>
