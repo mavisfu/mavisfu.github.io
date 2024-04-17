@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wenyi Fu ECE 5160 Fast Robots</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Georgia', serif;
             background-color: #f4f4f4;
             color: #333;
             margin: 0;
@@ -19,82 +21,14 @@
             color: #fff;
             text-align: center;
             padding: 20px;
+            min-width: 910px;
         }
 
-        .name {
-            background-color: #007BFF;
-            color: #fff;
-            text-align: center;
-            font-size: 45px;
-            font-weight: bold;
-        }
-
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column; 
-        }
-
-        section {
-            width: 80%;
-            max-width: 800px;
-            margin: 10px auto;
-            padding: 30px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-
-        h1 {
-            color: #007BFF;
-            font-weight: bold;
-        }
-        
-        h2 {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 25px;
-        }
-
-        h3 {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        h3 a {
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 20px;
-            text-decoration: none;
-        }
-
-        h3 a:hover {
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .lab {
-            margin-bottom: 20px;
-        }
-
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #007BFF;
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .column {
-            width: calc(100% - 5px);
-        }
-        
         nav {
             background-color: #333;
             overflow: hidden;
             text-align: center;
+            min-width: 950px;
         }
 
         nav a {
@@ -110,29 +44,218 @@
             color: black;
         }
 
+        nav.fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* Add styles for the extended bar */
+        nav a:hover .extended-menu {
+            display: block;
+        }
+
+        /* Adjust styles for the extended menu */
+        .extended-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            background-color: #333;
+            padding: 10px;
+        }
+
+
+        .name {
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            font-size: 45px;
+            font-weight: bold;
+        }
+
+        .main-section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column; 
+            width: 60%;
+            min-width: 700px;
+            
+        }
+
+        .main-body {
+            display: flex;
+            width: 100%;
+        }
+
+        section {
+            min-width: 720px;
+            max-width: 900px;
+            margin: 10px auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section a {
+            text-decoration:underline;
+            color: #3f99f9;
+        }
+        
+        section p {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 0px;
+            margin-bottom: 10px;
+        }
+
+        section p a:hover{
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        section ul {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 0px;
+            margin-bottom: 30px;
+        }
+
+        section li {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+
+        section ul li {
+            margin-top: 0px;
+        }
+
+        section h3,h4 {
+            margin-top: 30px; /* Adjusted margin-top value */
+            margin-bottom: 10px; /* Adjusted margin-bottom value */
+        }
+
+        h1 {
+            color: #007BFF;
+            font-weight: bold;
+        }
+        
+        h2 {
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 35px;
+        }
+
+        .h2-text {
+            font-size: 18px;
+            color: black;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        h3 {
+            color: black;
+            font-weight: bold;
+            font-size: 25px;
+        }
+
+        h3 a {
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        h3 a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        h4 {
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .h4-text {
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        h5 {
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+            overflow-wrap: break-word;
+            margin-bottom: 10px;
+        }
+
+        .h5-text {
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        .lab {
+            margin-bottom: 20px;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            min-width: 930px;
+        }
+
+        footer p {
+            margin: 10px 40px; /* Add margin to the paragraphs for vertical separation */
+        }
+
+        .column {
+            width: calc(100% - 5px);
+        }
+        
         .sidebar {
             margin: 10px 0;
             height: fit-content;
             width: 20%;
             max-width: 200px;
+            min-width: 150px;
             position: relative;
             margin-right: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 23px;
             text-align: center;
+        }
+
+        .sidebar img {
+            width: 80%;
+            max-width: 150px; /* Set a maximum width if needed */
+            max-height: 150px;
+            border-radius: 80%;
+            object-fit: cover;
+            position:relative;
         }
 
         .sidebar a {
             padding: 8px 16px;
             text-decoration: none;
-            font-size: 18px;
             display: block;
             color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
         }
 
         .sidebar a:hover {
@@ -140,33 +263,121 @@
         }
 
         .sidebar2 {
+            margin: 10px 0;
+            margin-left: 10px;
             height: fit-content;
             width: 20%;
             max-width: 200px;
             min-width: 150px;
             position: relative;
-            margin-top: 30px;
-            margin-left: 10px;
-            margin-right: 60px;
+            margin-right: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            color: black;
+            color: #007BFF;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 23px;
+            text-align: center;
+        }
+
+        .sidebar2.fixed {
+            position: fixed;
+            right: 20px; /* Adjust the distance from the right edge */
+            top: 30px; /* Adjust the distance from the top */
         }
 
         .sidebar2 a {
-            padding: 8px 16px;
             text-decoration: none;
-            font-size: 20px;
+            display: block;
+            color: black;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .sidebar2-heading {
+            padding-left: 16px;
+            text-decoration: none;
             display: block;
             color: black;
             font-weight: bold;
             font-size: 20px;
+            line-height: 1;
+        }
+
+        .sidebar2-subheading {
+            position:relative;
+            font-size: 18px; 
+            font-weight: normal; 
+            padding-left: 25px; 
+            padding-top: 0px;
+            line-height: 0.5;
         }
 
         .sidebar2 a:hover {
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar2 div p a{
+            text-decoration: none;
+            display: block;
+            color: black;
+            line-height: 0.5;
+            font-weight: normal;
+        }
+
+        .sidebar2 div p a:hover {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-intext {
+            font-family: 'Lucida Console', monospace;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .code-block {
+            font-family:'Courier New', Courier, monospace;
+            font-size: 18px;
+            padding-left: 0px;
+        }
+
+        code {
+            font-family:'Courier New', Courier, monospace;
+            font-size: 18px;
+        }
+
+        section .img-container {
+            width: 100%;
+            margin-top: 5px;
+            display: block;
+            text-align: center;
+        }
+
+        section .img-container .img-intext {
+            width: 100%;
+            height: auto;
+            display: inline-block;
+            text-align: center;
+            max-width: 700px;
+        }
+
+        .gist {
+            width: calc(100% - 60px); /* Set the width to match the sections minus any margins or padding */
+            margin: 0 auto; /* Center the box horizontally */
+            box-sizing: border-box; /* Include padding and border in the width calculation */
+        }
+
+        .gist .blob-wrapper.data.type-text pre {
+            white-space: wrap; /* Wrap text inside pre element */
+        }
+
+        .video-container {
+            text-align: center;
+            padding-left: 0px;
+        }
+
+        .eq {
+            text-align: center;
+            font-style: italic;
         }
 
     </style>
@@ -176,27 +387,28 @@
     <header>
         <div class="name">
             <p>ECE 5160: FAST ROBOTS</p>
+            <p style="font-size: 35px;">Lab 9: Mapping</p>
         </div>
         <p style="font-size: 20px;">Wenyi Fu • ECE • wf223@cornell.edu</p>
+
     </header>
 
     <nav>
         <a href="index.html">Home</a>
-        <a href="#prelab">Prelab</a>
+        <a href="#intro">Introduction</a>
+        <a href="#task">Prelab</a>
         <a href="#task">Lab Tasks</a>
         <a href="#discussion">Discussion</a>
     </nav>
-    
-    
 
-
-    <div style="display: flex;">
-    
+   
+    <div class="main-body">
         <div class="sidebar">
-            <div class="about-content" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
-                <img src="pics/wf223.jpg" alt="Wenyi Fu" style="width: 150px; height: 150px; border-radius: 80%; object-fit: cover;">
+            <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+                <img src="pics/wf223.jpg" alt="Wenyi Fu">
             </div>
             <p><a href="lab1.html">Lab 1</a></p>
+            <p><a href="lab2.html">Lab 2</a></p>
             <p><a href="lab3.html">Lab 3</a></p>
             <p><a href="lab4.html">Lab 4</a></p>
             <p><a href="lab5.html">Lab 5</a></p>
@@ -208,44 +420,152 @@
             <p><a href="lab11.html">Lab 11</a></p>
             <p><a href="lab12.html">Lab 12</a></p>
         </div>
-    
-        <div class="main-content">
+        
+        
+        <div class="main-section">
+
+            <!-- INTRO -->
+            <section id="intro">
+                <h2>INTRODUCTION</h2>
+                <p>This lab maps a room by rotating a robot, collecting ToF readings. Quality depends on reading quantity and consistency. Solve it using open loop control, PID on orientation, or PID on angular speed. Merge readings with transformation matrices, plot, and draw the map.</p>
+            </section>
 
             <section id="prelab">
-                <h2>PRELAB</h2>
+                <h2>Prelab</h2>
+                <h3>Parts Required</h3>
+                <ul>
+                    <li>1 x Fully assembled robot, with Artemis, TOF sensors, and an IMU.</li>
+                </ul>
+                <p style="color: white;">------------------------------------------------------------------------------------------------------------------------</p>
             </section>
 
+            <!-- LAB TASKS -->
             <section id="task">
                 <h2>LAB TASKS</h2>
-            
-            
+                <h3>Orientation Control</h3>
+                <p>At first, I decided to implement the orientation control for realizing the on-axis rotation as slow as possible, but I encountered the problem that it could not reach the target angle which changed every second.</p>
+                <script src="https://gist.github.com/mavisfu/d2d2b2e0c2a20e1d8a2b3afab7f16fae.js"></script>
+
+                <h3>Open Loop Control</h3>
+                <p>Hence, I used the open loop control for the mapping. The code in the main loop is shown below, where the <span class="code-intext">mapping_on</span> and <span class="code-intext">counter_max</span> determine the process of this rotation. Additionally, the motor will move for 50 ms every 150 ms, in which case the TOF sensor reading can catch up with the control loop.</p>
+                <script src="https://gist.github.com/mavisfu/1ed942c357398d60192abbc0da1d7af0.js"></script>
+
+                <p style="margin-top: 40px;">The following function is to record the current time stamp and the distance, which will be sent to the laptop through BLE.</p>
+                <script src="https://gist.github.com/mavisfu/e5a50fa88986e9ab83808ea0881d576a.js"></script>
+
+                <p style="margin-top: 40px;">In case <span class="code-intext">MAPPING</span>, we can obtain the maximum record number through the Python command, and we turn the <span class="code-intext">mapping_on</span> flag on to implement the mapping.</p>
+                <script src="https://gist.github.com/mavisfu/e0f505878a16b69f3a5721a05d7d2ff2.js"></script>
+
+                <p style="margin-top: 40px;">Furthermore, the <span class="code-intext">SENDING_MAPPING_DATA</span> case is established as below: </p>
+                <script src="https://gist.github.com/mavisfu/1995d75f7478d8c4e54c302ae549fde3.js"></script>
+
+                <p style="margin-top: 40px;">With all the program organized in the Arduino C code, we can implement the BLE Python function to control the robot rotation of 360 degrees.</p>
+                <script src="https://gist.github.com/mavisfu/028a9fea91ee9cc3a0857217bdb2198e.js"></script>
+
+                <p style="margin-top: 40px;">This video shows the 360 degrees' rotation of the robot:</p>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/q6VcEvLhUBc" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <h3>Data Analysis</h3>
+                <p>Therefore, we can get the data through the following code:</p>
+                <script src="https://gist.github.com/mavisfu/58a31ceb9917b1a176f56a1e59085769.js"></script>
+                
+                <p style="margin-top: 40px;">According to the arena, there are totally five points to measure. With the data obtained, we can plot the diagrams based on time vs tof distance.</p> 
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_1_1.png" alt="">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_2_1.png" alt="">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_3_1.png" alt="">
+                </div>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_4_1.png" alt="">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_5_1.png" alt="">
+                </div>
+
+                <p style="margin-top: 40px;">Hence, the polar diagram can be retrieved as below, by using the <span class="code-intext">linespace</span> generation in Numpy library. The euqation for <span class="code-intext">theta</span> is:</p>
+                <p style="text-align: center;"><b><span class="code-intext" style="font-family: 'Courier New', Courier, monospace;">theta1 = np.linspace(0, 2*np.pi, (len(mapping_distance1)))</span></b></p>
+                <p style="margin-top: 40px;">Therefore, we can get the polar diagrams as below:</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_1_2.png" alt="">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_2_2.png" alt="">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_3_2.png" alt="">
+                </div>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_4_2.png" alt="">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_5_2.png" alt="">
+                </div>
+
+                <p style="margin-top: 40px;">Moreover, with the code below, we are able to obtain the global coordinates of the point plotted in the polar diagrams, where the <span class="code-intext">x_origin</span> and <span class="code-intext">y_origin</span> represent for the coordinate of the rotation point. They are <span class="code-intext">(-3,-2), (5,-3), (0,3), (5,3), (0,0)</span>.</p>
+                <script src="https://gist.github.com/mavisfu/21aec4cbac0a2a611ae09b34017256d9.js"></script>
+
+                <p style="margin-top: 40px;">Consequently, the edges of the boxes and the walls can be drawn in the global frame, according to the TOF distance data.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_1_3.png" alt="">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_2_3.png" alt="">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_3_3.png" alt="">
+                </div>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_4_3.png" alt="">
+                    <img class="img-intext" style="max-width: 250px;" src="pics/lab9/point_5_3.png" alt="">
+                </div>
+
+                <p style="margin-top: 40px;">And all those points can be plotted into the same diagram, and compared to the actual edges, which is drawn by the grey lines in the figure.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab9/global_frame.png" alt="">
+                </div>
+
+                <p style="margin-top: 40px;">As we can observe from the figure that the mapping point is not exactly aligned with the actual edges, so a little calibration can be implemented to the data we have obtained. In this way, the above diagram can be modified and shown below.</p>
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab9/full_mapping.png" alt="">
+                </div>
+
+
+                
+
             </section>
 
+            <!-- DISCUSSION -->
             <section id="discussion">
                 <h2>DISCUSSION</h2>
+                <p>This lab effectively mapped a room using a robot equipped with ToF sensors and an IMU. Open-loop control proved successful in rotating the robot for data collection. The collected data were processed, plotted, and transformed into a polar diagram, revealing the room's edges and walls. In the discussion, the accuracy of the mapping results and potential improvements could be addressed.</p>
             </section>
+
         </div>
-
-        
-        <div class="sidebar2">
-
-            <p><a href="#prelab">Prelab</a></p>
-            <p><a href="#task">Lab Tasks</a></p>
-            <p><a href="#discussion">Discussion</a></p>
-        
-        </div>
-
 
     </div>
+
+        
+
+
+   
 
   
 
     <footer>
-        <div style="display: flex; flex-direction: row;">
-            <p>&copy; 2024 Wenyi Fu ECE 5160: Fast Robots</p>
-            <p>E-mail: wf223@cornell.edu</p>
-        </div>
+        <p>&copy; 2024 Wenyi Fu ECE 5160: Fast Robots</p>
+        <p>E-mail: wf223@cornell.edu</p>
+        
     </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var nav = document.querySelector('nav');
+            var rect = nav.getBoundingClientRect();
+
+            if (rect.top <= 0) {
+                nav.classList.add('fixed');
+            } else {
+                nav.classList.remove('fixed');
+            }
+            if (window.scrollY <= 200) {
+            nav.classList.remove('fixed');
+        }
+        });
+        
+    </script>
+
+    
+
 
 </body>
 </html>
