@@ -433,48 +433,58 @@
             <section id="task">
                 <h2>LAB TASKS</h2>
                 <h3>Bayes Filter (Sim)</h3>
+                <p>Firstly, we run the given code to display the simulation results, where there are plots for odom, ground truth and belief.</p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 500px;" src="pics/lab11/sim.png" alt="">
                 </div>
 
                 <h3>Bayes Filter (Real)</h3>
+                <p>After the simulation, we are requited to run the real robot. Therefore, the <span class="code-intext">LOCALIZATION</span> case is created on the Artemis side as shown on the following. Previously, there was an index error appeared when I run the Python code, and later it was found out that 18 sets of data should be obtained in that function, which indicated that the 0 degree's data was not recorded. Hence, I added the record of that data in the <span class="code-intext">LOCALIZATION</span> case, ensuring I got the first data.</p>
                 <script src="https://gist.github.com/mavisfu/6d4de9d29084be8f25334590bd6882f3.js"></script>
 
+                <p style="margin-top: 40px;">In the main loop of the program, the flag <span class="code-intext">local_on</span> will be checked and the data will be recorded after the increment of the certain angle that is set by the command <span class="code-intext">ble.send_command(CMD.LOCALIZATION, "165|20")</span>.</p>
                 <script src="https://gist.github.com/mavisfu/5542d003a50387f681244e71d056f58a.js"></script>
 
+                <p style="margin-top: 40px;">Moreover, in the <span class="code-intext">perform_observation_loop</span>, the code is organized as below, where we send the command and wait for the data transmitted, and then, after 30 secs, we will process the data, since the operation require time to do the rotation.</p>
                 <script src="https://gist.github.com/mavisfu/a832cb21e8cb6b88f5489ff32ac887d7.js"></script>
 
+                <p style="margin-top: 40px;">To receive the record, every 20 degree, the notification handler is implemented, called <span class="code-intext">local_data(uuid, bytearr)</span>. With this method, the two parameter can be seperated and stored in different arrays.</p>
                 <script src="https://gist.github.com/mavisfu/5762fc46f3c923d109824e0bed2089bc.js"></script>
 
-                <p>index error -  cause no data for 0 degree</p>
-
-            
-                <p>Plot the theoretical dot</p>
+                <p style="margin-top: 40px;">Furthermore, we should plot the theoretical dot together with the real position to analyze the performance of the Bayes Filter, where the dots are represented in meters.</p>
                 <script src="https://gist.github.com/mavisfu/3e44fcba206c3f7b88feb9d0400eeca9.js"></script>
 
+                <p style="margin-top: 40px;">After all the testing, we can obtain the following results, where the green dots stand for theoretical result and the blue dots indicate actual position coordinates.</p>
+                <p><b><i>Position (-3, -2):</i></b></p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 500px;" src="pics/lab11/-3_-2/figure1.png" alt="">
                 </div>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 500px;" src="pics/lab11/-3_-2/data1.png" alt="">
                 </div>
+
+                <p style="margin-top: 40px;"><b><i>Position (0, 3):</i></b></p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 500px;" src="pics/lab11/0_3/figure2.png" alt="">
                 </div>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 500px;" src="pics/lab11/0_3/data2.png" alt="">
                 </div>
+
+                <p style="margin-top: 40px;"><b><i>Position (5, -3):</i></b></p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 500px;" src="pics/lab11/5_-3/figure3.png" alt="">
                 </div>
                 <div class="img-container">
-                    <img class="img-intext" style="max-width: 500px;" src="pics/lab11/5_-3/data3.JPG" alt="">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab11/5_-3/data3.jpg" alt="">
                 </div>
+
+                <p style="margin-top: 40px;"><b><i>Position (5, 3):</i></b></p>
                 <div class="img-container">
                     <img class="img-intext" style="max-width: 500px;" src="pics/lab11/5_3/figure4.png" alt="">
                 </div>
                 <div class="img-container">
-                    <img class="img-intext" style="max-width: 500px;" src="pics/lab11/5_3/data4.jpg" alt="">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab11/5_3/data4.png" alt="">
                 </div>
             </section>
 
