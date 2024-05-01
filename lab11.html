@@ -445,7 +445,7 @@
                 <p style="margin-top: 40px;">In the main loop of the program, the flag <span class="code-intext">local_on</span> will be checked and the data will be recorded after the increment of the certain angle that is set by the command <span class="code-intext">ble.send_command(CMD.LOCALIZATION, "165|20")</span>.</p>
                 <script src="https://gist.github.com/mavisfu/5542d003a50387f681244e71d056f58a.js"></script>
 
-                <p style="margin-top: 40px;">Moreover, in the <span class="code-intext">perform_observation_loop</span>, the code is organized as below, where we send the command and wait for the data transmitted, and then, after 30 secs, we will process the data, since the operation require time to do the rotation.</p>
+                <p style="margin-top: 40px;">Moreover, in the <span class="code-intext">perform_observation_loop</span>, the code is organized as below, where we send the command and wait for the data transmitted, and then, after 30 secs, we will process the data, since the operation require time to do the rotation. The reason why I implemented <span class="code-intext">asyncio.run(asyncio.sleep(30))</span> instead of <span class="code-intext">time.sleep(30)</span> is that it can run the localization code on the background, where there is no interference of <span class="code-intext">time.sleep()</span> function.</p>
                 <script src="https://gist.github.com/mavisfu/a832cb21e8cb6b88f5489ff32ac887d7.js"></script>
 
                 <p style="margin-top: 40px;">To receive the record, every 20 degree, the notification handler is implemented, called <span class="code-intext">local_data(uuid, bytearr)</span>. With this method, the two parameter can be seperated and stored in different arrays.</p>
