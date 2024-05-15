@@ -426,23 +426,33 @@
             <!-- INTRO -->
             <section id="intro">
                 <h2>INTRODUCTION</h2>
+                <p>In this last lab, we're integrating our robot's abilities to navigate waypoints efficiently. We'll use path planning, obstacle avoidance, feedback control, and localization techniques. The offboard processing is chosen in this lab. The report will summarize the system's capabilities, code snippets, a flowchart, and a demo video. Collaboration will be acknowledged.</p>
 
             </section>
 
             <!-- LAB TASKS -->
             <section id="task">
                 <h2>LAB TASKS</h2>
+                <h3>Design</h3>
+                <p>First, I designed the easiest path to following which could realize the function in the instruction. The robot starts from the point <span class="code-intext">(-4,-3)</span> facing left and then rotates counter clockwise for 45 degrees by a certain distance. Additionally, the following operation is displayed in the figure, where the similar instrution will be executed.</p> 
+                <div class="img-container">
+                    <img class="img-intext" style="max-width: 500px;" src="pics/lab12/path_planning.jpg" alt="">
+                </div>
 
-
+                <h3>Implementation</h3>
+               <p>As for the implementation on the Artemis, the case functions were first redefined. Since I wanted to make the robot rotate extra angle but not to a certain, I modify the code to assign the input to the <span class="code-intext">increment</span> variable, instead of the <span class="code-intext">target_angle</span>. Furthermore, I also added <span class="code-intext">STOP_MOTOR</span> case to cease the motors when needed.</p>
                 <script src="https://gist.github.com/mavisfu/ae99a8123f9ad96b246ea5f0cb039b52.js"></script>
 
+                <p style="margin-top: 40px;">In the main loop, different function will be turned on according to the flags, <span class="code-intext">pid_orientation_path_on</span> and <span class="code-intext">pid_position_path_on</span>.</p>
                 <script src="https://gist.github.com/mavisfu/966c89913a1e2b7c60a4a03dc29b08ae.js"></script>
 
+                <p style="margin-top: 40px;">The PID algorithm for orientation and position were similar as the previous lab, but I modified the code to use different max and min speed for those two control, because I found out that the starting PWM values were different for my robot.</p>
                 <script src="https://gist.github.com/mavisfu/062ddf8915d219b687ec8748b69644d0.js"></script>
                 
+                <p style="margin-top: 40px;">On the Jupyter lab side, the following program was implemented to realize the path planning. <span class="code-intext">asyncio.run(asyncio.sleep())</span> was applied to provide the respond time.</p>
                 <script src="https://gist.github.com/mavisfu/9e32e9f7183ad59db0bd17d726a2903d.js"></script>
 
-                <p style="margin-top: 40px;">This video display the process of the licalization:</p>
+                <p style="margin-top: 40px;">After the code construction, the following video displays the operation of the robot. However, the path planning was not accurate, so sometimes I needed to put the robot in the right position for further processing. This might be because I had not got enough time to combine the localization process. Therefore, later research on the application of integrating path planning and localization should be conducted.</p>
                 <div class="video-container">
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/0HawR5OR8Yw" frameborder="0" allowfullscreen></iframe>
                 </div>
